@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>FastAPI로 간단한 API 개발을 시도해 본다 - (1) 프로젝트 시작하기 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="FastAPI를 사용해 간단한 API 개발을 해 본다.한참 Python의 간결함(?) 에 매료되어 있을 때, Python을 이용해 Web API 개발을 시도해본 적이 있다.  당시 사용했던 프레임워크로는 Flask 와 Django REST Framework 였던 것으로 기억한다. 둘 다 훌륭한 프레임워크였지만 지금은 기억나지도 않는 석연찮은 이유 아마도 취">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastAPI로 간단한 API 개발을 시도해 본다 - (1) 프로젝트 시작하기">
+<meta property="og:url" content="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="FastAPI를 사용해 간단한 API 개발을 해 본다.한참 Python의 간결함(?) 에 매료되어 있을 때, Python을 이용해 Web API 개발을 시도해본 적이 있다.  당시 사용했던 프레임워크로는 Flask 와 Django REST Framework 였던 것으로 기억한다. 둘 다 훌륭한 프레임워크였지만 지금은 기억나지도 않는 석연찮은 이유 아마도 취">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-21T00:54:47.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FastAPI로 간단한 API 개발을 시도해 본다 - (1) 프로젝트 시작하기">
+<meta name="twitter:description" content="FastAPI를 사용해 간단한 API 개발을 해 본다.한참 Python의 간결함(?) 에 매료되어 있을 때, Python을 이용해 Web API 개발을 시도해본 적이 있다.  당시 사용했던 프레임워크로는 Flask 와 Django REST Framework 였던 것으로 기억한다. 둘 다 훌륭한 프레임워크였지만 지금은 기억나지도 않는 석연찮은 이유 아마도 취">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-python-fastapi-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>►<a class="article-category-link" href="/categories/python/fastapi/">fastapi</a>►<a class="article-category-link" href="/categories/python/fastapi/backend-development/">backend_development</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      FastAPI로 간단한 API 개발을 시도해 본다 - (1) 프로젝트 시작하기
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="FastAPI를-사용해-간단한-API-개발을-해-본다"><a href="#FastAPI를-사용해-간단한-API-개발을-해-본다" class="headerlink" title="FastAPI를 사용해 간단한 API 개발을 해 본다."></a>FastAPI를 사용해 간단한 API 개발을 해 본다.</h3><p>한참 Python의 간결함(?) 에 매료되어 있을 때, Python을 이용해 Web API 개발을 시도해본 적이 있다. </p>
+<p>당시 사용했던 프레임워크로는 <a href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank" rel="noopener">Flask</a> 와 <a href="https://www.django-rest-framework.org/" target="_blank" rel="noopener">Django REST Framework</a> 였던 것으로 기억한다. 둘 다 훌륭한 프레임워크였지만 지금은 기억나지도 않는 석연찮은 이유 <del><em>아마도 취업의 압박</em></del> 으로 인해 Python 자체를 멀리하게 되면서 이들 프레임워크를 사용하는 일도 자연스레 줄어들게 되었다. </p>
+<p>당시 Django를 이용해 프로젝트를 진행했던 흔적은 <a href="https://github.com/wheejuni/hey-django" target="_blank" rel="noopener">여기</a> 에 남아있다. </p>
+<p>몇주 전부터 미디엄(medium.com)의 뉴스레터가 계속 Python 기반의 웹 API 프로젝트 진행 사례에 대해 글을 모아 보내주는 걸 보면서, 다시 한 번 Python에 대한 호기심이 생기기 시작했다. 최근 서비스들이 개인화/추천 피쳐 없이 출시되는 경우가 드문데, 대다수의 데이터 과학자들/머신러닝 엔지니어들에게 사랑받는 언어, 그리고 ML 분야로 엔지니어 포지션을 갖고자 할때 <a href="*https://www.springboard.com/blog/best-programming-language-for-ai/">배워야 할 언어</a> 로 꼽히는 언어가 Python임을 생각해본다면, 아무래도 데이터 인그레스 - 데이터 가공 - 모델링 - API를 통한 서브까지 모든 생명주기를 하나의 언어로 구현할 수 있는 방법을 찾다보니 Python 기반의 웹 API 개발이 다시 한 번 각광받는 듯하다. 관련한 자료는 아래의 링크들에서 참고해볼 수 있다. </p>
+<p><a href="https://testdriven.io/blog/fastapi-machine-learning/" target="_blank" rel="noopener">https://testdriven.io/blog/fastapi-machine-learning/</a></p>
+<p><a href="https://medium.com/@8B_EC/tutorial-serving-machine-learning-models-with-fastapi-in-python-c1a27319c459" target="_blank" rel="noopener">https://medium.com/@8B_EC/tutorial-serving-machine-learning-models-with-fastapi-in-python-c1a27319c459</a></p>
+<p>기존의 Django, Flask가 쉽게 말로 표현할 수 없는 사용상의 불편함과 컨벤션의 장황함(…) 으로 인해 그렇게 애정이 가지 않았었는데, 이번에 시도해 볼 FastAPI는 그런 어려움을 많이 해소했기를 바라면서 프로젝트를 시작해 보았다.</p>
+<h3 id="준비작업"><a href="#준비작업" class="headerlink" title="준비작업"></a>준비작업</h3><p>보통의 Python 프로젝트가 늘 그렇듯, 가상환경을 통해 의존성을 격리시키는 작업이 먼저 이뤄져야 할 것 같다. </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m venv &#123;VENV_DIR_NAME&#125;</span><br></pre></td></tr></table></figure>
+<p>이후에는 FastAPI 프로젝트의 생성 및 구동에 필요한 필수 의존성들을 추가해 준다. 참고로 FastAPI의 깃허브 저장소는 <a href="https://github.com/tiangolo/fastapi" target="_blank" rel="noopener">이 링크</a> 에서 살펴볼 수 있고, 공식 문서는 <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">여기</a> 에서 확인하면 된다. </p>
+<h4 id="필요한-의존성"><a href="#필요한-의존성" class="headerlink" title="필요한 의존성"></a>필요한 의존성</h4><p>Python 기반 웹 API의 개발이므로 WSGI 구현체가 우선 필요하고, 물론 FastAPI 의존성도 추가되어야 <code>hello world</code> 를 띄울 수 있다. </p>
+<p>Django에선 WSGI 구현체로 <a href="https://uwsgi-docs.readthedocs.io/en/latest/" target="_blank" rel="noopener">uwsgi</a>를 권장했던 것 같지만, FastAPI에서는 <a href="https://www.uvicorn.org/" target="_blank" rel="noopener">uvicorn</a>을 권장한다. 권장하는 이유는 uvicorn이 비동기 애플리케이션을 위한 <a href="https://asgi.readthedocs.io/en/latest/" target="_blank" rel="noopener">ASGI</a> 규격을 지원하기 때문이다. </p>
+<p>따라서, 빠르게 프로젝트를 시작하기 위해서는 아래 명령어를 수행해 두 의존성을 추가해 주는 것으로 출발하면 된다. </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install uvicorn</span><br><span class="line">pip install fastapi</span><br></pre></td></tr></table></figure>
+<h4 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world!"></a>hello world!</h4><p>간단한 <code>hello world</code> 스타터를 위해서는 아래의 코드를 작성해주면 된다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
+<p>애플리케이션을 구동하기 위해서는 ASGI 구현체인 uvicorn의 도움을 받아야 한다. 우선 상기한 코드를 작성한 디렉터리로 이동한 이후, 아래 명령을 수행하면 된다. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uvicorn &#123;APP_FILE_NAME&#125;:&#123;FASTAPI_INSTANCE_VAR_NAME&#125; --reload</span><br></pre></td></tr></table></figure>
+<p>실행한 옵션과 파라메터에 대해 간단히 정리하자면…</p>
+<ul>
+<li><em>APP_FILE_NAME</em> : 실제 코드가 작성된 파일의 이름(위치).</li>
+<li><em>FASTAPI_INSTANCE_VAR_NAME</em> : 코드 상에 FastAPI 인스턴스가 할당된 변수명을 입력한다. 예시 코드에선 <code>app</code> 이다. </li>
+<li><code>--reload</code> : 핫 릴로드를 지원하도록 설정한다. </li>
+</ul>
+<h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><p>간단하게 FastAPI를 이용해 <code>hello world</code> 를 찍어봤다. </p>
+<p>Java/Spring 을 즐겨 <del>(먹고살기 위해)</del> 사용하는 개발자의 눈으로 보면, Python 기반 웹 프레임워크들의 프로젝트 부트스트래핑 속도나, hello world를 띄울 때까지의 코드 작성량은 정말 부럽다. </p>
+<p>다음 포스팅을 통해 Web API 개발에 필수적인 파라미터 바인딩과 데이터소스 접근에 대해서도 정리해 보려고 한다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/" data-id="ckk65887w00000s9o4h4a7rt4" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/10/swift-java-enumeration/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">Swift 맛보기(1) - Java와 Swift의 열거형을 비교해보다.</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2021/01/20/python-fastapi-1/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

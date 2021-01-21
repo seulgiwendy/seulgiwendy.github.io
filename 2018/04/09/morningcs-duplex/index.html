@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>아침 CS - (1) 이중통신 (Duplex) | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Duplex에 대하여.사전적 정의이중통신(duplex) 또는 쌍방향 통신은 두 지점 사이에서 정보를 주고 받는 전자 통신 시스템을 말한다. 이중 통신을 할 때 전송 방향마다 두 개의 통신 선호를 사용하면 단순하지만 전송로를 아끼기 위해 여러 종류의 전송 방식이 쓰인다. 조작적 정의전화기와 무전기의 비유  전화기: 상대가 떠들 때 나도 떠들 수 있음.   F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="아침 CS - (1) 이중통신 (Duplex)">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="Duplex에 대하여.사전적 정의이중통신(duplex) 또는 쌍방향 통신은 두 지점 사이에서 정보를 주고 받는 전자 통신 시스템을 말한다. 이중 통신을 할 때 전송 방향마다 두 개의 통신 선호를 사용하면 단순하지만 전송로를 아끼기 위해 여러 종류의 전송 방식이 쓰인다. 조작적 정의전화기와 무전기의 비유  전화기: 상대가 떠들 때 나도 떠들 수 있음.   F">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="아침 CS - (1) 이중통신 (Duplex)">
+<meta name="twitter:description" content="Duplex에 대하여.사전적 정의이중통신(duplex) 또는 쌍방향 통신은 두 지점 사이에서 정보를 주고 받는 전자 통신 시스템을 말한다. 이중 통신을 할 때 전송 방향마다 두 개의 통신 선호를 사용하면 단순하지만 전송로를 아끼기 위해 여러 종류의 전송 방식이 쓰인다. 조작적 정의전화기와 무전기의 비유  전화기: 상대가 떠들 때 나도 떠들 수 있음.   F">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-morningcs-duplex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/network/">network</a>►<a class="article-category-link" href="/categories/network/morning-cs/">morning_cs</a>►<a class="article-category-link" href="/categories/network/morning-cs/duplex/">duplex</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      아침 CS - (1) 이중통신 (Duplex)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Duplex에-대하여"><a href="#Duplex에-대하여" class="headerlink" title="Duplex에 대하여."></a>Duplex에 대하여.</h3><h4 id="사전적-정의"><a href="#사전적-정의" class="headerlink" title="사전적 정의"></a>사전적 정의</h4><p>이중통신(duplex) 또는 쌍방향 통신은 두 지점 사이에서 정보를 주고 받는 전자 통신 시스템을 말한다.</p>
+<p>이중 통신을 할 때 전송 방향마다 두 개의 통신 선호를 사용하면 단순하지만 전송로를 아끼기 위해 여러 종류의 전송 방식이 쓰인다.</p>
+<h4 id="조작적-정의"><a href="#조작적-정의" class="headerlink" title="조작적 정의"></a>조작적 정의</h4><p><em>전화기와 무전기의 비유</em></p>
+<ul>
+<li><p>전화기: 상대가 떠들 때 나도 떠들 수 있음. </p>
+<ul>
+<li>Full-duplex임. </li>
+<li>애초에 인간의 대화는 한쪽이 떠들 때 듣고만 있으면 성립 안함(군대에선 성립함).</li>
+</ul>
+</li>
+<li><p>무전기 : PTT방식 무전기는 한 사람만 떠들수 있음(두사람이 동시에 Push 하면 혼선 발생). 파워텔 제외임 ㅋㅋㅋㅋ 시바 </p>
+<ul>
+<li>Half-duplex임.</li>
+</ul>
+</li>
+</ul>
+<h4 id="심화"><a href="#심화" class="headerlink" title="심화"></a>심화</h4><p>흔히 컴퓨터 네트워크는 당연히 전이중(full-duplex)라고 생각하기 쉽지만 <strong>과연 그럴까?</strong></p>
+<p>모든 컴퓨터 네트워크가 전이중이라면 stateless니, 3-way handshake니 하는 개념도 창안되지 않았을 것이다. 뭔가 답답한 구석이 있어서 이런 우회적 구현을 한 것이다. </p>
+<p><strong>놀랍게도 우리가 즐겨 사용하는 L2 계층인 이더넷(Ethernet)은 반이중(half-duplex)이다.</strong></p>
+<p><em>(정확히 말하면 아주 제한적인 상황에서만 전이중통신을 지원한다.)</em></p>
+<p>질문 : Ethernet이 반이중이라면, TCP가 전이중일 수 있나요? </p>
+<ul>
+<li><p>먼저 두 개념이 다른 OSI 계층 상에 위치함을 알아야 함</p>
+<ul>
+<li>Ethernet : 데이터링크 계층(L2)</li>
+<li>TCP : 전송 계층 (L4)</li>
+</ul>
+</li>
+<li><p>TCP 프로토콜은 API상으로 full-duplex이며 REQ/RES가 전환될때 통신 재설정이 일어나지 않음</p>
+</li>
+<li><p>단 상위 계층 요소(Ethernet: L2, IP : L3)가 half-duplex인 경우 하위 계층에서 full-duplex를 지원하더라도 이를 사용할 수 없음. </p>
+</li>
+<li><p>이러한 궁금증이 생겼을 때 각 요소가 OSI 피라미드에서 어디에 위치하는지를 살펴보고, 그에 따른 상하관계를 파악하는 것이 중요</p>
+</li>
+</ul>
+<hr>
+<h4 id="참고-문헌"><a href="#참고-문헌" class="headerlink" title="참고 문헌"></a>참고 문헌</h4><ul>
+<li>Stack Overflow: <a href="https://stackoverflow.com/questions/28494850/is-tcp-bidirectional-or-full-duplex" target="_blank" rel="noopener">Is TCP bidirectional or full-duplex?</a></li>
+<li>Stack Exchange: <a href="https://networkengineering.stackexchange.com/questions/7451/how-is-tcp-duplex-if-ethernet-is-half-duplex" target="_blank" rel="noopener">How is TCP duplex if Ethernet is half-duplex?</a></li>
+<li><a href="http://www.m-system.co.jp/korean/mame_k/pdf/20.pdf" target="_blank" rel="noopener">전이중통신과 반이중통신</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/" data-id="ckk5ihprm001cdg9ouiqk39n6" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/09/morningcs-treetraversal/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          아침 CS - (2) 트리 순회
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/08/algorithm-nlcm/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">알고리즘 타임 - (2) N개의 최소공배수</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/04/09/morningcs-duplex/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

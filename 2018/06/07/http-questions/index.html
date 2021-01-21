@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>HTTP와 네트워크에 관한 질문들 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HTTP에 관한 질문들 웹브라우저에 주소를 입력하고 화면이 뜨기까지의 과정을 설명해보세요.   웹브라우저에 주소를 입력하면 우선 도메인 이름을 resolve해야 한다.  도메인 네임은 각 시스템마다 입력되어 있는 DNS 서버에 질의하는 방식으로 이뤄진다. 대부분의 경우 각 ISP가 제공해주는 DNS를 사용하고 있고 저 개인적으론 프라이버시에 관심이 많아 8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP와 네트워크에 관한 질문들">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/06/07/http-questions/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="HTTP에 관한 질문들 웹브라우저에 주소를 입력하고 화면이 뜨기까지의 과정을 설명해보세요.   웹브라우저에 주소를 입력하면 우선 도메인 이름을 resolve해야 한다.  도메인 네임은 각 시스템마다 입력되어 있는 DNS 서버에 질의하는 방식으로 이뤄진다. 대부분의 경우 각 ISP가 제공해주는 DNS를 사용하고 있고 저 개인적으론 프라이버시에 관심이 많아 8">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP와 네트워크에 관한 질문들">
+<meta name="twitter:description" content="HTTP에 관한 질문들 웹브라우저에 주소를 입력하고 화면이 뜨기까지의 과정을 설명해보세요.   웹브라우저에 주소를 입력하면 우선 도메인 이름을 resolve해야 한다.  도메인 네임은 각 시스템마다 입력되어 있는 DNS 서버에 질의하는 방식으로 이뤄진다. 대부분의 경우 각 ISP가 제공해주는 DNS를 사용하고 있고 저 개인적으론 프라이버시에 관심이 많아 8">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-http-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/tech-interview/">tech_interview</a>►<a class="article-category-link" href="/categories/tech-interview/http/">http</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HTTP와 네트워크에 관한 질문들
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="HTTP에-관한-질문들"><a href="#HTTP에-관한-질문들" class="headerlink" title="HTTP에 관한 질문들"></a>HTTP에 관한 질문들</h3><ul>
+<li>웹브라우저에 주소를 입력하고 화면이 뜨기까지의 과정을 설명해보세요. </li>
+</ul>
+<p>웹브라우저에 주소를 입력하면 우선 도메인 이름을 resolve해야 한다. </p>
+<p>도메인 네임은 각 시스템마다 입력되어 있는 DNS 서버에 질의하는 방식으로 이뤄진다. 대부분의 경우 각 ISP가 제공해주는 DNS를 사용하고 있고 저 개인적으론 프라이버시에 관심이 많아 8.8.8.8 이라는 외국 사설 DNS를 사용하고 있다. 국내 DNS 서버들이 DPI 등 패킷 수준 감청에 활용되고 있다는 느낌을 받기 때문이다. </p>
+<p>DNS는 자신이 갖고 있는 레코드와 질의 내용을 비교해본 후 자신이 갖고 있지 않은 정보라면 요청을 TLD 네임서버로 보낸다. TLD란 Top level Domain으로 <em>.ac.kr, </em>.com 과 같은 주소를 관리하는 서버들이다. </p>
+<p>TLD로 질의가 올라간다고 해서 바로 답변을 얻을 수 있는 것은 아니고, 해당 도메인 대역에 대한 정보를 얻을 수 있는 NS로 다시 연결시켜준다. NS에서 마지막으로 도메인 이름을 IP주소로 바꿔주거나, CNAME 레코드인 경우 다시 도메인을 찾을 수 있도록 요청을 바꿔준다. </p>
+<ul>
+<li><em>CNAME이 뭔가? 도메인에도 종류가 있는 건가?</em><ul>
+<li>도메인의 레코드에도 몇 가지 종류가 있다. </li>
+<li>가장 기본적인 것은 A Record로 해당 도메인과 서버의 IP 주소가 바로 매치되는 것이다. </li>
+<li>이외에도 CNAME이 있다. CNAME은 Canonical Name으로 원본 레코드 주소의 별칭 같은 것이다. 이때 원본 레코드는 IP주소이면 안되고 스킴 부분을 제외한 URL, 즉 순수 도메인 네임의 형태여야 한다.</li>
+<li>MX 레코드는 메일 서버의 메일 주소 등록을 위해 사용한다. </li>
+</ul>
+</li>
+</ul>
+<p>일단 도메인 네임을 리졸브하고 나서 얻은 호스트 주소로 TCP 커넥션을 오픈하면(L4) 본격적인 데이터 교환이 시작된다. 브라우저가 보낸 GET 요청은 먼저 호스트측의 웹 서버에 닿을 것이다. </p>
+<p>웹 서버는 GET 요청의 헤더를 차근차근 살펴본다. Host 헤더를 기준으로 요청을 역방향 프록시하는 경우가 많다. </p>
+<ul>
+<li><em>Host 헤더란 어떤 것인가? 역방향 프록시는 또 뭔 소린가?</em> <ul>
+<li>Host 헤더는 HTTP 1.1의 표준으로 채택된 <strong>요청 측 헤더</strong> 의 한 종류다. </li>
+<li>HTTP 1.0 까지는 Host 헤더가 부재했고, 일단 DNS를 통해 호스트의 주소를 밝혀내고 나면 이 요청이 어떤 주소를 향하고 있었는지를 알 방법이 없었다. referer 등의 헤더로 우회 구현할 수는 있었지만 부족한 경우가 많았다. </li>
+<li>이 경우 req header의 URI 부분밖에 알 수가 없다(e.g. /home/user). HTTP 1.0 시대에는 이런 부족함이 문제가 안 됐을 수도 있다. </li>
+<li>그러나 한 서버에서 여러 웹 서비스를 호스팅하는 <strong>가상 호스팅</strong> 이 보편화되면서 이 부족함은 큰 불편함이 됐고 따라서 다음 표준에서 Host 헤더가 도입된 것이다. </li>
+<li>Nginx를 기준으로 말씀드리면 server block을 정의할 때 명시하는 <code>server_name</code> 값이 이 Host 헤더의 내용과 비교되는 것이다. </li>
+<li>역방향 프록시란 이렇게 요청이 웹 서버까지 다 도달한 다음에야 다음 행선지로 요청이 넘어가는 방식을 말하는 것이다. 원래 네트워크에서 프록시란 클라이언트 측이 모든 요청을 특정한 행선지를 한 번 거쳐서 처리하게 설정하는 것을 말한다. 즉 지금 나가는 요청이 어디를 거쳐야하는지 클라이언트측에서 설정해야 하는 것이다. 이를 <strong>정방향 프록시</strong> 혹은 그냥 프록시라고 말한다. 그냥 프록시라고 많이 말하는 것 같다. </li>
+<li>그러나 이런 구현을 클라이언트 측에서는 모르게 하고 호스트의 웹 서버에 도달해서야 호스트 웹 서버가 프록시처럼 작동하는 일을 역방향 프록시라고 칭한다. </li>
+</ul>
+</li>
+</ul>
+<p>요청이 이제 웹 서버의 역방향 프록시를 거쳐 웹 애플리케이션 서버에 도달했다. 만약 요청이 정적 자원이라면 웹 서버가 해당 자원을 리스폰스하고 요청이 종료될 것이다. </p>
+<ul>
+<li><em>정적 자원이란?</em><ul>
+<li>말 그대로 바뀌지 않는 자원, 즉 파일을 말한다. 첨부파일이나 그림 파일, 간단한 텍스트 등등…. </li>
+<li>제 프로젝트에서도 Nginx의 정적 호스팅 기능을 사용하였다. 단순한 첨부파일 조회, 이미지 파일 조회 등의 기능을 WAS로 넘기지 않고 Nginx단에서 처리함으로써 서비스의 부하를 줄이고 응답 속도를 빠르게 하고자 했다. </li>
+<li>정적 자원 외에 동적 페이지, dynamic page가 있을 수 있다. 요청에 따라 응답 내용이 계속 바뀌어야 하는 경우엔 정적 호스팅으로 불충분하며 웹 애플리케이션 서버가 처리해줘야 한다. </li>
+</ul>
+</li>
+</ul>
+<p>만약 요청이 동적 응답을 요구한다면 앞서 말씀드린 역방향 프록시를 통해 웹 애플리케이션으로 요청을 전달해야 한다(L7). 애플리케이션은 요청을 열어보고 필요한 작업을 수행한 뒤 응답한다. 응답은 요청의 역순이다. </p>
+<p>웹 브라우저는 돌려받은 HTML, CSS 등 파일을 한 줄 한 줄 열어보고 Gecko와 같은 레이아웃 엔진을 통해 화면을 그려낸다. </p>
+<ul>
+<li>HTTP method 아는대로 설명해보세요. </li>
+</ul>
+<p>GET, POST, PUT, PATCH, OPTIONS, DELETE….. </p>
+<p>요청 헤더의 첫 줄, 가장 앞 칸에 HTTP 메소드가 명시된다. (GET /user/info)</p>
+<p>중요한 것은 HTTP message의 형태차이는 GET과 POST 계열 두 가지만 있을 뿐이다. GET에서는 HTTP request body를 사용하지 않는다. POST 등 나머지에서는 본문이 존재한다. OPTIONS는 존재하지 않는다. </p>
+<ul>
+<li>상태 코드 아는대로 설명해보시오. </li>
+</ul>
+<p>100번대 : 단순 정보 </p>
+<p>200번대: 요청 성공 코드. 200 OK </p>
+<p>300번대: 변경 코드, 301 Moved Temporarily <em>(Permanently)</em>, 302 Found, 304 Unchanged…. </p>
+<p>400번대: 요청측 오류 코드, 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found</p>
+<p>500번대: 서버측 오류 코드, 500 Internal Server Error, 503 Bad Gateway </p>
+<ul>
+<li>TCP와 UDP의 차이점에 대해 서술하시오. </li>
+</ul>
+<p>TCP는 <strong>느리고</strong> UDP는 <strong>빠르다.</strong></p>
+<p>왜 이런 차이가 나는지 설명하겠다. TCP는 아시는 것처럼 핸드셰이크도 수행하고 패리티 비트도 있다. </p>
+<p>커넥션이 열리기 전 3-way handshake를 수행해야 한다. 연결이 닫힐 때는 4-way다. 이런 식으로 연결 상태를 확인하며 받는 쪽이 받을 준비가 됐는지, 보내는 쪽이 정보를 다 보내고 연결이 끊어진건지를 확인하는 것이다. </p>
+<p>정합성이 중요한 데이터를 주고받을때는 커다란 장점이지만 정합성보다 속도가 요구되는 상황에서는 치명적인 약점이다. 예를 들면 온라인 게임같은 상황이다. 한 두개의 패킷 로스가 발생하더라도 속도를 높게 유지하는 것이 이런 상황에선 더 도움이 된다. 이럴때는 UDP를 써야 한다. </p>
+<p>온라인 게임에서는 UDP를 사용해 RTT를 최대한 낮추려고 노력한다. 그래도 충분하지 않아 소프트웨어적으로 보간 지연(interpolation delay)을 둬서 클라이언트-서버 양측의 시간차이를 보정하기도 한다. </p>
+<ul>
+<li><p>OSI 7계층? </p>
+<ul>
+<li>1계층 : 물리 계층, RJ-45, RS-232 같은 규격들</li>
+<li>2계층 : 데이터 링크 계층 </li>
+<li>3계층 : 네트워크 계층</li>
+<li>4계층 : 전송 계층</li>
+<li>5계층 : 세션 계층</li>
+<li>6계층 : 표현 계층 </li>
+<li>7계층 : 응용 계층 </li>
+</ul>
+</li>
+<li><p>HTTP 2.0의 특징에 대해 간단히 서술해 보시오.</p>
+</li>
+</ul>
+<p>HTTP2.0은 빠르다. 그리고 안전하다. </p>
+<p>우선 안전한 이유부터 설명드리면 2.0부터는 TLS의 적용이 의무화된다. L6 ~ L7을 아우르는 표준이 됐기 때문에 L6에서의 TLS를 의무화시킬 수 있었다. </p>
+<p>그리고 빠르다. 빠른 이유는 두가지가 있는데 스트림과 서버 푸시다. </p>
+<p>하나의 요청이 끝나고 4방향 악수가 끝난 다음에야 통신이 종료되고 다음 통신으로 넘어가는 기존 규격과는 다르게 2.0은 스트림을 열어놓고 필요한 정보를 계속 요청하거나 수신할 수 있다. 이 과정에서 헤더는 압축되어 표현된다. 연결을 새로 수립하고 끊는 오버헤드를 절감할 수 있다. </p>
+<p>그리고 서버 푸시도 중요한 기술이다. 클라이언트가 특정 경로로 요청을 보냈을 때 부가적으로 요청해야 할 것들(웹페이지를 예로 들면 CSS나 .js 파일들)을 서버가 미리 알아차리고 푸시해줄 수 있다. 이 과정에서도 오버헤드가 절감된다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/06/07/http-questions/" data-id="ckk5ihpxa008pdg9oizd4ylbk" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/06/07/http-questions/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/08/algorithm-ds-questions/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          자료구조와 알고리즘에 관한 질문들
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/06/java-questions/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">자바에 관한 질문들</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/06/07/http-questions/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

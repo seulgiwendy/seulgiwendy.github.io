@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>알고리즘 타임 - (2) N개의 최소공배수 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="N개의 최소공배수두 수의 최소공배수(Least Common Multiple)란 입력된 두 수의 배수 중 공통이 되는 가장 작은 숫자를 의미합니다. 예를 들어 2와 7의 최소공배수는 14가 됩니다. 정의를 확장해서, n개의 수의 최소공배수는 n 개의 수들의 배수 중 공통이 되는 가장 작은 숫자가 됩니다. nlcm 함수를 통해 n개의 숫자가 입력되었을 때, 최">
+<meta property="og:type" content="article">
+<meta property="og:title" content="알고리즘 타임 - (2) N개의 최소공배수">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="N개의 최소공배수두 수의 최소공배수(Least Common Multiple)란 입력된 두 수의 배수 중 공통이 되는 가장 작은 숫자를 의미합니다. 예를 들어 2와 7의 최소공배수는 14가 됩니다. 정의를 확장해서, n개의 수의 최소공배수는 n 개의 수들의 배수 중 공통이 되는 가장 작은 숫자가 됩니다. nlcm 함수를 통해 n개의 숫자가 입력되었을 때, 최">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.909Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="알고리즘 타임 - (2) N개의 최소공배수">
+<meta name="twitter:description" content="N개의 최소공배수두 수의 최소공배수(Least Common Multiple)란 입력된 두 수의 배수 중 공통이 되는 가장 작은 숫자를 의미합니다. 예를 들어 2와 7의 최소공배수는 14가 됩니다. 정의를 확장해서, n개의 수의 최소공배수는 n 개의 수들의 배수 중 공통이 되는 가장 작은 숫자가 됩니다. nlcm 함수를 통해 n개의 숫자가 입력되었을 때, 최">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-algorithm-nlcm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>►<a class="article-category-link" href="/categories/algorithm/programmers-exercise/">programmers_exercise</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      알고리즘 타임 - (2) N개의 최소공배수
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="N개의-최소공배수"><a href="#N개의-최소공배수" class="headerlink" title="N개의 최소공배수"></a>N개의 최소공배수</h3><p>두 수의 최소공배수(Least Common Multiple)란 입력된 두 수의 배수 중 공통이 되는 가장 작은 숫자를 의미합니다. 예를 들어 2와 7의 최소공배수는 14가 됩니다. 정의를 확장해서, n개의 수의 최소공배수는 n 개의 수들의 배수 중 공통이 되는 가장 작은 숫자가 됩니다. nlcm 함수를 통해 n개의 숫자가 입력되었을 때, 최소공배수를 반환해 주세요. 예를들어 [2,6,8,14] 가 입력된다면 168을 반환해 주면 됩니다.</p>
+<hr>
+<h4 id="풀이"><a href="#풀이" class="headerlink" title="풀이"></a>풀이</h4><p>두 수의 최소공배수는 두 수의 최대공약수와 각 수를 최대공약수로 나눈 몫의 곱이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LCM = GCD * (Num1 / GCD) * (Num2 / GCD)</span><br></pre></td></tr></table></figure>
+<p>사실 Python에는 두 수의 최대공약수를 구하는 내장 함수가 있지만 <strong>사용하지 않기로 한다</strong></p>
+<p>N개의 원소를 갖는 집합에서 최소공배수는 (N - 1) 까지의 최소공배수와 N 의 최소공배수를 구하면 된다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NLCM = LCM(N, LCM( ~ N -1))</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="코오드"><a href="#코오드" class="headerlink" title="코오드"></a>코오드</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nlcm</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> lcm_recurse(num)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lcm_recurse</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(array) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> array[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(array) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> find_lcm(array[<span class="number">0</span>], array[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> find_lcm(array[<span class="number">-1</span>], lcm_recurse(array[:<span class="number">-1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_lcm</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    gcd = find_gcd(num1, num2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> int(gcd * (num1 / gcd) * (num2 / gcd))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_gcd</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    current_divider = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> num1 &gt; num2:</span><br><span class="line">        current_divider = num2</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        current_divider = num1</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">        <span class="keyword">if</span> num1 % current_divider == <span class="number">0</span> <span class="keyword">and</span> num2 % current_divider == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        current_divider -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> int(current_divider)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="더-나은-풀이"><a href="#더-나은-풀이" class="headerlink" title="더 나은 풀이"></a>더 나은 풀이</h4><p>다른 사람들의 풀이를 보니 <code>gcd()</code> 빌트인 함수를 사용하신 분들이 많았다 </p>
+<p>알고리즘 문제에서 이런 식의 풀이는 의미가 없다고 생각하지만, 입사용 코딩 테스트 등에서 이런 라이브러리의 사용이 불이익이 되지 않는다면 앞으로 적극적으로 사용하는 것을 검토해 볼 만 하겠다. </p>
+<p>눈에 띄는 풀이는 없었지만 <em>정말 우아하게 최대공약수를 구하는 분</em> 이 있어 코오드를 여기에 살짝 옮겨 본다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">return</span> gcd(b, a % b)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h4><ul>
+<li>재귀 호출을 한 번에 내가 생각한대로(…)사용할 수 있었다. 실력이 좀 늘었나?</li>
+<li>메소드(함수) 분리를 너무 많이 하는 것 같다. <ul>
+<li>실무에선 좋은 습관이다. </li>
+<li>알고리즘 풀이에선?</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/" data-id="ckk5ihpqb0003dg9on0pt232j" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/09/morningcs-duplex/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          아침 CS - (1) 이중통신 (Duplex)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/07/algorithm-caesar/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">알고리즘 타임 - (1) 시저 암호</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

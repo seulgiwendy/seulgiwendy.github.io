@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>til-20171026 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2017.10.26(목) 오늘의 TIL HTTP에 대해 심화 학습을 하다.   HTTP 헤더에 대해 알게되다. 다양한 헤더가 있다는 것을 알게되다.  사실 책 한번 읽는 것으로는 완벽한 지식의 습득을 하기 어렵다. 실제로 구현을 시작해봐야 할 것이다.    MVC 프레임워크 구현 과제를 시작하다.   원래 순서대로라면 JSP를 봐야겠지만 JSP는 “이런 게">
+<meta name="keywords" content="Web,Java,TIL,AWS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="til-20171026">
+<meta property="og:url" content="https://tech.wheejuni.com/2017/10/26/til-20171026/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="2017.10.26(목) 오늘의 TIL HTTP에 대해 심화 학습을 하다.   HTTP 헤더에 대해 알게되다. 다양한 헤더가 있다는 것을 알게되다.  사실 책 한번 읽는 것으로는 완벽한 지식의 습득을 하기 어렵다. 실제로 구현을 시작해봐야 할 것이다.    MVC 프레임워크 구현 과제를 시작하다.   원래 순서대로라면 JSP를 봐야겠지만 JSP는 “이런 게">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.936Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="til-20171026">
+<meta name="twitter:description" content="2017.10.26(목) 오늘의 TIL HTTP에 대해 심화 학습을 하다.   HTTP 헤더에 대해 알게되다. 다양한 헤더가 있다는 것을 알게되다.  사실 책 한번 읽는 것으로는 완벽한 지식의 습득을 하기 어렵다. 실제로 구현을 시작해봐야 할 것이다.    MVC 프레임워크 구현 과제를 시작하다.   원래 순서대로라면 JSP를 봐야겠지만 JSP는 “이런 게">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-til-20171026" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      til-20171026
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="2017-10-26-목-오늘의-TIL"><a href="#2017-10-26-목-오늘의-TIL" class="headerlink" title="2017.10.26(목) 오늘의 TIL"></a>2017.10.26(목) 오늘의 TIL</h3><ul>
+<li><p>HTTP에 대해 심화 학습을 하다. </p>
+<ul>
+<li>HTTP 헤더에 대해 알게되다. 다양한 헤더가 있다는 것을 알게되다. </li>
+<li>사실 책 한번 읽는 것으로는 완벽한 지식의 습득을 하기 어렵다. 실제로 구현을 시작해봐야 할 것이다. </li>
+</ul>
+</li>
+<li><p>MVC 프레임워크 구현 과제를 시작하다. </p>
+<ul>
+<li>원래 순서대로라면 JSP를 봐야겠지만 JSP는 “이런 게 있구나” 정도로 넘기고 싶다.</li>
+<li>HTTP 웹 서버 구현 과제와 MVC 프레임워크 구현 과제는 맞닿아 있다.</li>
+<li>View를 어떻게 HttpServlet으로 넘길지가 고민된다. </li>
+<li>이 과제를 마치고 나면 Spring에 대한 더 깊은 이해도 생길 것이다. 특히 습관적으료 사용하는 “redirect:/“ 와 같은 키워드가 어떻게 작동하는지 알게 될 것이다. </li>
+</ul>
+</li>
+<li><p>팀원들과 AWS Lambda에 대해 이야기 나누다.</p>
+<ul>
+<li>신입 팀원인 클로이가 관심있어하고, 옆에서도 슬랙에 붙일 만한 챗봇을 만든다길래 일천한 경험과 지식이지만 팀원들과 나눠봤다.</li>
+<li>마스터들이 한 공간에 있는데 팀원들에게 뭔가 가르치려 한 것 같아 심히 민망하다. </li>
+<li>나도 잘 모르지만 모르는 사람끼리 지식을 탐구하는 것도 의미있다고 본다. </li>
+<li>예제를 통해 간단한 텍스트 리턴해주는 람다 함수를 만들고 API Gateway를 통해 invoke시켜보는 경험을 했다. 클로이가 재밌어해서 보람있었다. </li>
+</ul>
+</li>
+<li><p>Servlet에 대해 Next Step 자료 숙독하다. </p>
+<ul>
+<li>솔직히 읽어도 아직 잘 모르겠다. </li>
+</ul>
+</li>
+</ul>
+<h4 id="MVC-프레임워크-구현-간만에-가슴뛰는-코딩-구현과제를-다시-만난-것-같다-잘해봐야지…"><a href="#MVC-프레임워크-구현-간만에-가슴뛰는-코딩-구현과제를-다시-만난-것-같다-잘해봐야지…" class="headerlink" title="MVC 프레임워크 구현, 간만에 가슴뛰는(?) 코딩 구현과제를 다시 만난 것 같다. 잘해봐야지…."></a>MVC 프레임워크 구현, 간만에 가슴뛰는(?) 코딩 구현과제를 다시 만난 것 같다. 잘해봐야지….</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2017/10/26/til-20171026/" data-id="ckk5ihpsw002rdg9ok9l2haur" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2017/10/26/til-20171026/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/27/til-20171027/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          TIL-20171027
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/25/til-20171025/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">TIL-20171024 ~ 25</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2017/10/26/til-20171026/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

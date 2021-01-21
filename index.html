@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="봄이네집 개발 블로그">
+<meta property="og:url" content="https://tech.wheejuni.com/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:locale" content="ko">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="봄이네집 개발 블로그">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-python-fastapi-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>►<a class="article-category-link" href="/categories/python/fastapi/">fastapi</a>►<a class="article-category-link" href="/categories/python/fastapi/backend-development/">backend_development</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/20/python-fastapi-1/">FastAPI로 간단한 API 개발을 시도해 본다 - (1) 프로젝트 시작하기</a>
+    </h1>
+  
+
+        <a href="/2021/01/20/python-fastapi-1/" class="article-date">
+  <time datetime="2021-01-20T14:22:00.000Z" itemprop="datePublished">2021-01-20</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="FastAPI를-사용해-간단한-API-개발을-해-본다"><a href="#FastAPI를-사용해-간단한-API-개발을-해-본다" class="headerlink" title="FastAPI를 사용해 간단한 API 개발을 해 본다."></a>FastAPI를 사용해 간단한 API 개발을 해 본다.</h3><p>한참 Python의 간결함(?) 에 매료되어 있을 때, Python을 이용해 Web API 개발을 시도해본 적이 있다. </p>
+<p>당시 사용했던 프레임워크로는 <a href="https://flask.palletsprojects.com/en/1.1.x/" target="_blank" rel="noopener">Flask</a> 와 <a href="https://www.django-rest-framework.org/" target="_blank" rel="noopener">Django REST Framework</a> 였던 것으로 기억한다. 둘 다 훌륭한 프레임워크였지만 지금은 기억나지도 않는 석연찮은 이유 <del><em>아마도 취업의 압박</em></del> 으로 인해 Python 자체를 멀리하게 되면서 이들 프레임워크를 사용하는 일도 자연스레 줄어들게 되었다. </p>
+<p>당시 Django를 이용해 프로젝트를 진행했던 흔적은 <a href="https://github.com/wheejuni/hey-django" target="_blank" rel="noopener">여기</a> 에 남아있다. </p>
+<p>몇주 전부터 미디엄(medium.com)의 뉴스레터가 계속 Python 기반의 웹 API 프로젝트 진행 사례에 대해 글을 모아 보내주는 걸 보면서, 다시 한 번 Python에 대한 호기심이 생기기 시작했다. 최근 서비스들이 개인화/추천 피쳐 없이 출시되는 경우가 드문데, 대다수의 데이터 과학자들/머신러닝 엔지니어들에게 사랑받는 언어, 그리고 ML 분야로 엔지니어 포지션을 갖고자 할때 <a href="*https://www.springboard.com/blog/best-programming-language-for-ai/">배워야 할 언어</a> 로 꼽히는 언어가 Python임을 생각해본다면, 아무래도 데이터 인그레스 - 데이터 가공 - 모델링 - API를 통한 서브까지 모든 생명주기를 하나의 언어로 구현할 수 있는 방법을 찾다보니 Python 기반의 웹 API 개발이 다시 한 번 각광받는 듯하다. 관련한 자료는 아래의 링크들에서 참고해볼 수 있다. </p>
+<p><a href="https://testdriven.io/blog/fastapi-machine-learning/" target="_blank" rel="noopener">https://testdriven.io/blog/fastapi-machine-learning/</a></p>
+<p><a href="https://medium.com/@8B_EC/tutorial-serving-machine-learning-models-with-fastapi-in-python-c1a27319c459" target="_blank" rel="noopener">https://medium.com/@8B_EC/tutorial-serving-machine-learning-models-with-fastapi-in-python-c1a27319c459</a></p>
+<p>기존의 Django, Flask가 쉽게 말로 표현할 수 없는 사용상의 불편함과 컨벤션의 장황함(…) 으로 인해 그렇게 애정이 가지 않았었는데, 이번에 시도해 볼 FastAPI는 그런 어려움을 많이 해소했기를 바라면서 프로젝트를 시작해 보았다.</p>
+<h3 id="준비작업"><a href="#준비작업" class="headerlink" title="준비작업"></a>준비작업</h3><p>보통의 Python 프로젝트가 늘 그렇듯, 가상환경을 통해 의존성을 격리시키는 작업이 먼저 이뤄져야 할 것 같다. </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m venv &#123;VENV_DIR_NAME&#125;</span><br></pre></td></tr></table></figure>
+<p>이후에는 FastAPI 프로젝트의 생성 및 구동에 필요한 필수 의존성들을 추가해 준다. 참고로 FastAPI의 깃허브 저장소는 <a href="https://github.com/tiangolo/fastapi" target="_blank" rel="noopener">이 링크</a> 에서 살펴볼 수 있고, 공식 문서는 <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">여기</a> 에서 확인하면 된다. </p>
+<h4 id="필요한-의존성"><a href="#필요한-의존성" class="headerlink" title="필요한 의존성"></a>필요한 의존성</h4><p>Python 기반 웹 API의 개발이므로 WSGI 구현체가 우선 필요하고, 물론 FastAPI 의존성도 추가되어야 <code>hello world</code> 를 띄울 수 있다. </p>
+<p>Django에선 WSGI 구현체로 <a href="https://uwsgi-docs.readthedocs.io/en/latest/" target="_blank" rel="noopener">uwsgi</a>를 권장했던 것 같지만, FastAPI에서는 <a href="https://www.uvicorn.org/" target="_blank" rel="noopener">uvicorn</a>을 권장한다. 권장하는 이유는 uvicorn이 비동기 애플리케이션을 위한 <a href="https://asgi.readthedocs.io/en/latest/" target="_blank" rel="noopener">ASGI</a> 규격을 지원하기 때문이다. </p>
+<p>따라서, 빠르게 프로젝트를 시작하기 위해서는 아래 명령어를 수행해 두 의존성을 추가해 주는 것으로 출발하면 된다. </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install uvicorn</span><br><span class="line">pip install fastapi</span><br></pre></td></tr></table></figure>
+<h4 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world!"></a>hello world!</h4><p>간단한 <code>hello world</code> 스타터를 위해서는 아래의 코드를 작성해주면 된다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
+<p>애플리케이션을 구동하기 위해서는 ASGI 구현체인 uvicorn의 도움을 받아야 한다. 우선 상기한 코드를 작성한 디렉터리로 이동한 이후, 아래 명령을 수행하면 된다. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uvicorn &#123;APP_FILE_NAME&#125;:&#123;FASTAPI_INSTANCE_VAR_NAME&#125; --reload</span><br></pre></td></tr></table></figure>
+<p>실행한 옵션과 파라메터에 대해 간단히 정리하자면…</p>
+<ul>
+<li><em>APP_FILE_NAME</em> : 실제 코드가 작성된 파일의 이름(위치).</li>
+<li><em>FASTAPI_INSTANCE_VAR_NAME</em> : 코드 상에 FastAPI 인스턴스가 할당된 변수명을 입력한다. 예시 코드에선 <code>app</code> 이다. </li>
+<li><code>--reload</code> : 핫 릴로드를 지원하도록 설정한다. </li>
+</ul>
+<h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><p>간단하게 FastAPI를 이용해 <code>hello world</code> 를 찍어봤다. </p>
+<p>Java/Spring 을 즐겨 <del>(먹고살기 위해)</del> 사용하는 개발자의 눈으로 보면, Python 기반 웹 프레임워크들의 프로젝트 부트스트래핑 속도나, hello world를 띄울 때까지의 코드 작성량은 정말 부럽다. </p>
+<p>다음 포스팅을 통해 Web API 개발에 필수적인 파라미터 바인딩과 데이터소스 접근에 대해서도 정리해 보려고 한다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/" data-id="ckk65887w00000s9o4h4a7rt4" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-swift-java-enumeration" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/swift/">swift</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/10/swift-java-enumeration/">Swift 맛보기(1) - Java와 Swift의 열거형을 비교해보다.</a>
+    </h1>
+  
+
+        <a href="/2019/06/10/swift-java-enumeration/" class="article-date">
+  <time datetime="2019-06-09T23:40:00.000Z" itemprop="datePublished">2019-06-10</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h2 id="Swift로-조금씩-뭔가-만들어보고-있다"><a href="#Swift로-조금씩-뭔가-만들어보고-있다" class="headerlink" title="Swift로 조금씩 뭔가 만들어보고 있다."></a>Swift로 조금씩 뭔가 만들어보고 있다.</h2><p>무료하고 때론 우울하기까지 한 개발자 생활에 약간의 변화가 필요한 시점인 것 같아, 완전히 다른 언어를 배우고 있다. </p>
+<p>JVM 바깥 세상으로 길을 나서는 것이 두렵게 느껴지기까지 했지만 새로 학습할 언어로 <a href="https://swift.org/" target="_blank" rel="noopener">Swift</a> 를 선택하였다. </p>
+<p>개발 공부를 시작한 이래로 줄곧 서버측 개발에 즐겨 사용되는 언어와 프레임워크만을 학습하였다. Python으로 처음 개발에 입문했고, 이후 Java, Ruby, Scala, Kotlin(이 언어들을 다 잘한다는 건 아니다)을 학습하며 주로 서버 구축, 서버 사이드 앱 개발에만 집중해왔다. </p>
+<p>나의 경쟁력(?) 을 늘리는 측면도 있지만 앞으로 1인 개발자로서 나만의 비즈니스를 하게될 때, 혹은 정말 재미로 이것저것 만들어보게 될 때 클라이언트 사이드 개발이 꼭 필요하게 될 것 같아 큰 맘 먹고 Swift와 Swift를 이용한 iOS 앱 프로그래밍까지 학습해보려고 한다. <em>서버사이드 개발자들보다 클라이언트 개발자들이 더 재밌게 사는 것 같기도 하다.</em></p>
+<p>학습 방법은 내가 기존에 경험했던 그대로, 두꺼운 책을 보며 시작하지 않고 일단 뭐라도 만들어보며 배우려고 한다. 코드스쿼드 시절 부여받았던 다양한 도전과제들을 Swift로 구현해보는 것이 좋은 출발이 될 것이다. </p>
+<h2 id="그래서-로또게임을-구현해보고-있다"><a href="#그래서-로또게임을-구현해보고-있다" class="headerlink" title="그래서 로또게임을 구현해보고 있다."></a>그래서 로또게임을 구현해보고 있다.</h2><p>내가 생각하기에 간단한 콘솔 기반 로또게임은 새로운 언어를 배우기에 정말 좋은 프로젝트다. 우선, 적당한 수준의 분기처리가 존재하고, 적당한 수준의 stdin-stdout 함수를 활용할 수 있으며, 적당한 수준의 문자열 포맷팅을 경험할 수 있다. </p>
+<p>맘먹기에 따라 날코딩으로 700줄짜리 통짜 클래스로 구현할 수도 있고 객체지향의 묘를 살려 관심사의 분리, 역할의 위임, 느슨한 결합 등을 구현해보는 것도 얼마든지 가능하다(자바로 이 짓을 하다가 결국 포비로부터 머지받지 못하였다). </p>
+<p>오늘 살펴볼 부분은 로또게임의 당첨 등수를 열거형(enum)으로 표현하며 느낀, Java와 Swift 사이의 열거형의 차이점이다. </p>
+<h3 id="enum은-간단한-개념이다"><a href="#enum은-간단한-개념이다" class="headerlink" title="enum은 간단한 개념이다."></a>enum은 간단한 개념이다.</h3><p>말 그대로 열거해주면 된다. “열거” 라는 표현법 그 자체는 두 언어가 크게 다르지 않다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> PortalSites &#123;</span><br><span class="line">    NAVER,</span><br><span class="line">    GODKAO,</span><br><span class="line">    GODGLE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">PortalSites</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> naver, godkao, godgle</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>case라는 키워드가 앞에 붙는다는 점 빼곤 크게 다를 바가 없어 보인다. </p>
+<p><strong>enum의 호출</strong></p>
+<p>변수에 할당하는 방법도 양 언어가 거의 같다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PortalSites naver = PortalSites.NAVER;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> naver = <span class="type">PortalSites</span>.naver</span><br></pre></td></tr></table></figure>
+<p><strong>enum에 행위 추가하기</strong></p>
+<p>차이점은 여기서 발생하는 것 같다. </p>
+<p>열거형에 행위를 추가하려면 Swift의 경우 <code>protocol</code>, Java의 경우 <code>interface</code>를 구현시켜야 하는 점은 비슷하다. </p>
+<p>아까 구현한 <code>PortalSites</code> enum에 홈페이지 주소를 리턴하는 행위를 추가하는 상황을 가정해 보자. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PortalSiteAction</span> </span>&#123;</span><br><span class="line">    <span class="function">String <span class="title">getHomepageUrl</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">PortalSiteHomepage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> homepageUrl: <span class="type">String</span> &#123;<span class="keyword">get</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>여기까진 비슷한 것 같다. 사실 여기까지만 보고 Swift에서의 구현도 Java와 별 다를게 없다고 생각했었다. </p>
+<p>그러나 <a href="https://github.com/code-squad/swift-cardgame/blob/youth27/CardGame/CardGame/CardDeck.swift" target="_blank" rel="noopener">다른 분들의 코드</a>를 참고하다보니 아래와 같이 <code>switch</code> 문으로 행위를 분기처리하는것이 인상적이었다. </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Denomination</span>: <span class="title">Int</span>, <span class="title">CustomStringConvertible</span>, <span class="title">EnumCollection</span>, <span class="title">Comparable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> two = <span class="number">2</span>, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, ace</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .ace: <span class="keyword">return</span> <span class="string">"A"</span></span><br><span class="line">            <span class="keyword">case</span> .eleven: <span class="keyword">return</span> <span class="string">"J"</span></span><br><span class="line">            <span class="keyword">case</span> .twelve: <span class="keyword">return</span> <span class="string">"Q"</span></span><br><span class="line">            <span class="keyword">case</span> .thirteen: <span class="keyword">return</span> <span class="string">"K"</span></span><br><span class="line">            <span class="keyword">default</span>: <span class="keyword">return</span> <span class="type">String</span>(<span class="keyword">self</span>.rawValue)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    (...)</span><br></pre></td></tr></table></figure>
+<p>상기한 사례를 참고해 <code>PortalSites</code> enum을 완성시키면 아래와 같이 될 것이다. </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">PortalSites</span>: <span class="title">PortalSiteHomepage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> naver, godkao, godgle</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> homepageUrl: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .naver: <span class="keyword">return</span> <span class="string">"https://www.naver.com"</span></span><br><span class="line">            <span class="keyword">case</span> .godkao: <span class="keyword">return</span> <span class="string">"https://www.daum.net"</span></span><br><span class="line">            <span class="keyword">case</span> .godgle: <span class="keyword">return</span> <span class="string">"https://www.google.com"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>인상적인 문법이라고 생각됐다. </p>
+<p><strong>인상적으로 느껴진 이유</strong> </p>
+<ul>
+<li><p>Java의 <code>interface</code>에 상응하는 개념인 <code>protocol</code>이 메소드와 리턴 타입에 집중하지 않고, 변수 그 자체를 공통으로 선언할 수 있게 해준 점이 인상적이었다. </p>
+</li>
+<li><p>각각의 enum이 가져야 할 공통 변수를 선언하고, <code>switch</code> 문을 적극적으로 사용하여 코드량을 줄인 것이 인상적이었다. </p>
+</li>
+<li><p>같은 분량의 확장을 할 때에, Java보다 작성해야 할 코드가 훨씬 줄어들 것 같다. </p>
+</li>
+</ul>
+<p><strong>Java에 적용해볼 수는 없을까?</strong></p>
+<p>Java의 enum도 인터페이스를 구현할 때에, 공통 메소드로서 구현하는 것이 가능하기 때문에, 아래와 같은 구현도 가능해진다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> PortalSites implements PortalSiteAction &#123;</span><br><span class="line">    NAVER,</span><br><span class="line">    GODKAO,</span><br><span class="line">    GODGLE</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHomepageUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">case</span> NAVER:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"https://www.naver.com"</span>;</span><br><span class="line">            <span class="keyword">case</span> GODKAO:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"https://www.daum.net"</span>;</span><br><span class="line">            <span class="keyword">case</span> GODGLE:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"https://www.google.com"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>사실 이런 식의 구현은 지금까지 코딩하며 시도해본 적도 없고 이렇게 구현한 사례를 본 기억도 잘 없다. </p>
+<p>그러나 enum을 추가할 때마다 로직이 바뀌어야만 하는 부분이 있다면, 이런 종류의 분기처리를 시도해보는 것도 괜찮을 것 같다. </p>
+<p>특히 functional interface와 결합한다면 클린 코드를 만드는 데에 더 큰 도움이 될 것 같다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2019/06/10/swift-java-enumeration/" data-id="ckk5ihpsb0024dg9o4amvyn33" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2019/06/10/swift-java-enumeration/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tdd-refactoring-2019" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/tdd/">tdd</a>►<a class="article-category-link" href="/categories/java/tdd/refactoring/">refactoring</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/25/tdd-refactoring-2019/">TDD 흉내 내며 즐겁게 리팩토링하기.</a>
+    </h1>
+  
+
+        <a href="/2019/03/25/tdd-refactoring-2019/" class="article-date">
+  <time datetime="2019-03-24T23:40:00.000Z" itemprop="datePublished">2019-03-25</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h2 id="TDD를-하는-척-하며-즐겁게-리팩토링해보자"><a href="#TDD를-하는-척-하며-즐겁게-리팩토링해보자" class="headerlink" title="TDD를 하는 척 하며 즐겁게 리팩토링해보자."></a>TDD를 하는 척 하며 즐겁게 리팩토링해보자.</h2><p>TDD처럼 논란의 한 복판에 서 있는 개발 방법론도 흔치 않을 것이다. </p>
+<blockquote>
+<p>TDD 그거 완전 시간 낭비다. 하지마라. 번거롭다. <em>유닛 테스트도 커버리지에 집착할 필욘 없다.</em></p>
+</blockquote>
+<blockquote>
+<p>TDD 좋기는 한데 실무 개발자들이 적용하기엔 분명한 한계가 있다. <em>그러나 테스트 커버리지는 높여나가자.</em></p>
+</blockquote>
+<blockquote>
+<p>나는 모든 개발자가 모든 실무 개발을 TDD base로 해야 한다고 생각한다. <em>지금 당장은 못하더라도 이상향을 거기로 잡자.</em></p>
+</blockquote>
+<p>모두 다 개발자로 취업한 후 들었던 말들이다. </p>
+<h3 id="TDD가-멀게-느껴지는-이유"><a href="#TDD가-멀게-느껴지는-이유" class="headerlink" title="TDD가 멀게 느껴지는 이유"></a>TDD가 멀게 느껴지는 이유</h3><p>학생때 <a href="https://www.slideshare.net/OKJSP/okky-tdd" target="_blank" rel="noopener">TDD를 너무나 좋아하는 나머지 삶의 방식 또한 TDD 기반으로 리팩토링 하고 계신 사부님</a> 께 Java를 배웠다. 그땐 실무 개발자들이 TDD를 하지 않는 것이 일종의 나태함의 징표는 아닐까 생각하기도 했었다. 정말 오만한 생각이었지만…. </p>
+<p>월급 받고 코드를 짠 지 1년 갓 넘긴 지금 시점, 실무 개발자들이 TDD를 하지 못하는 이유가 내 눈에도 명확히 보이기 시작했다. </p>
+<ul>
+<li><p>비즈니스 로직은 <strong>하루에도 몇 번씩 바뀐다.</strong> </p>
+<ul>
+<li>학생 개발자 시절엔, 내가 (프로젝트를) 설계하고 내가 구현했으니 알 수 없는 어려움이었다.</li>
+<li>대다수의 조직과 기업에서 개발자는 비즈니스 로직에 대한 통제권을 갖지 못한다.</li>
+</ul>
+</li>
+<li><p>애플리케이션 자체가 <strong>방대하다.</strong></p>
+<ul>
+<li>통합 테스트가 사실상 불가능하다. </li>
+<li>테스트 환경을 완전히 독립시킬 수가 없다(데이터의 부재, 데이터소스의 병립 불가)</li>
+</ul>
+</li>
+<li><p><strong>시간이 없다.</strong></p>
+</li>
+<li>팀 전체의 합의를 이루기가 어렵다.</li>
+</ul>
+<h3 id="TDD-흉내를-내보기-위한-몸부림"><a href="#TDD-흉내를-내보기-위한-몸부림" class="headerlink" title="TDD 흉내를 내보기 위한 몸부림"></a>TDD 흉내를 내보기 위한 몸부림</h3><p>업무 중 완전한 형태의 TDD까지 실천하진 못하더라도, 흉내라도 내보고 싶던 차에 그런 시도를 해볼 만한 개발과제가 잘 주어지지 않아 답답함을 느끼고 있었다. </p>
+<p><strong>그러다 기회가 왔다.</strong></p>
+<h4 id="이-개발과제가-TDD-흉내내기에-적합했던-이유"><a href="#이-개발과제가-TDD-흉내내기에-적합했던-이유" class="headerlink" title="이 개발과제가 TDD 흉내내기에 적합했던 이유"></a>이 개발과제가 TDD 흉내내기에 적합했던 이유</h4><p>상세한 내용은 업무상 기밀이라 밝히지 못하지만 과제는 아래와 같은 조건을 충족하고 있었다.</p>
+<ul>
+<li>값 기반의 테스트가 가능하다. <ul>
+<li>로직의 멱등성이 보장된다. </li>
+<li>임의의 값으로 테스트가 용이하다.</li>
+</ul>
+</li>
+<li>외부 종속성을 끊어낸 채로 모델 클래스만의 테스트와 개발이 가능하다. </li>
+<li>레거시 코드의 복잡도가 높지 않다.</li>
+</ul>
+<p><em>그래서 시작했는데….</em></p>
+<h3 id="과제의-요구사항"><a href="#과제의-요구사항" class="headerlink" title="과제의 요구사항"></a>과제의 요구사항</h3><p>과제의 요구사항은 다음과 같다. </p>
+<ul>
+<li>DB에 담겨 있는 특정 문자열을 변환하라.</li>
+<li>로그인한 사용자의 권한에 따라, 때로는 변환 전 문자열을 노출하고, 때로는 변환된 문자열을 노출해야 한다. </li>
+</ul>
+<h3 id="작업-과정"><a href="#작업-과정" class="headerlink" title="작업 과정"></a>작업 과정</h3><p>요구사항과 레거시 코드와 그 로직, 데이터베이스에 담겨있는 데이터의 개략적인 모습(?) 을 확인한 후 <strong>테스트 코드 작성(요구사항 정의)</strong> 을 시작하였다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringModificationTest</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    String originalString;</span><br><span class="line">    BusinessModel model;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setUp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.originalString = <span class="comment">//DB에 원래 담겨있어야 할 문자열</span></span><br><span class="line">        <span class="keyword">this</span>.model = <span class="keyword">new</span> BusinessModel(<span class="keyword">this</span>.originalString);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//비즈니스 로직 노출의 우려가 있어 메소드 이름이 모호한 것은 이해해주시길 바란다.</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test_string_modified_correctly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String expected = <span class="string">"expected_string"</span>;</span><br><span class="line">        <span class="keyword">this</span>.model.processString();</span><br><span class="line"></span><br><span class="line">        assertThat(<span class="keyword">this</span>.model.getString, is(expected));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="문자열-변환-로직의-작성"><a href="#문자열-변환-로직의-작성" class="headerlink" title="문자열 변환 로직의 작성"></a>문자열 변환 로직의 작성</h4><p>문자열 변환 로직을 모델 클래스에 작성한다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BusinessModel</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String newString = <span class="keyword">this</span>.modelString.....</span><br><span class="line">        <span class="comment">//문자열 처리 로직 작성</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.modelString = newString;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="다시-테스트"><a href="#다시-테스트" class="headerlink" title="다시 테스트"></a>다시 테스트</h4><p>테스트를 다시 돌린다.</p>
+<p><img src="https://s3.amazonaws.com/mokacoding/2018-09-18-red-green-refactor.jpg" alt="TDD phase"></p>
+<h4 id="성공"><a href="#성공" class="headerlink" title="성공?"></a>성공?</h4><p>로직 작성 -&gt; 테스트 간에는 일단 <strong>테스트의 성공</strong> 에 집중한다. 테스트의 성공을 위해 수단과 방법을 가리지 않는다. <em>리팩토링/클린코드는 지금 단계에선 관심이 없다.</em></p>
+<p>극단적으로 보면 아래와 같은 구현을 하는 것도 의미가 없진 않다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BusinessModel</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//테스트에서 기대했던 값을 그대로 넣어버리는 것이다. </span></span><br><span class="line">        <span class="keyword">this</span>.modelString = <span class="string">"expected_string"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이게 무슨 의미냐 하겠지만 나는 이 과정에서 몇 가지 의미를 본다. </p>
+<ul>
+<li>test suite가 초록색으로 빛나는 것을 보는 거 자체가 성취감을 준다. <ul>
+<li>개발은 어차피 사람이 하는 것이기때문에 이런 성취감을 얻는 것 자체가 의미가 있다.</li>
+<li><a href="https://www.youtube.com/watch?v=OFN9mQVjPdU" target="_blank" rel="noopener">작은 성공에 대한 영상</a></li>
+</ul>
+</li>
+<li><strong>테스트 케이스에 대한 검증이 이뤄진다.</strong> <ul>
+<li>모델 클래스의 수정으로 테스트가 성공할 수 있다는 보증을 받을 수 있다. </li>
+<li>테스트 대상을 확실히하고 있음을 알 수 있다. </li>
+</ul>
+</li>
+</ul>
+<h4 id="두-번째-성공을-향해"><a href="#두-번째-성공을-향해" class="headerlink" title="두 번째 성공을 향해"></a>두 번째 성공을 향해</h4><p>초록색으로 빛나는 test suite를 확인했다면 <strong>이제는 일반화에 집중한다.</strong> </p>
+<p>아까 첫 green light를 보기 위해 수단과 방법을 가리지 않았다면, 이제는 <strong>최대한 많은 edge case에 대해 테스트가 성공하도록 로직을 정교화한다.</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//당연히 다른 값에 대해서는 테스트가 실패할 것이다. </span></span><br><span class="line">        <span class="keyword">this</span>.modelString = <span class="string">"expected_string"</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>지금 단계에서부터는 <strong>최대한 많은 값에 대한 테스트</strong>를 확보하는 것이 중요하다.</p>
+<p>테스트 코드를 수정한다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test_string_modified_correctly</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String expected = <span class="string">"expected_string"</span>;</span><br><span class="line">        <span class="keyword">this</span>.model.processString();</span><br><span class="line"></span><br><span class="line">        assertThat(<span class="keyword">this</span>.model.getString(), is(expected));</span><br><span class="line"></span><br><span class="line">        String originalString2 = <span class="string">"original_string_2"</span>;</span><br><span class="line">        String expected2 = <span class="string">"expected_string_2"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.model.setString(originalString2);</span><br><span class="line">        <span class="keyword">this</span>.model.processString();</span><br><span class="line"></span><br><span class="line">        assertThat(<span class="keyword">this</span>.model.getString(), is(expected2));</span><br><span class="line">        </span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>사람이 하면 삽질이다. 값 기반 테스트를 도와주는 프레임워크의 적용을 검토해 본다.</p>
+<p>아래 프레임워크가 유명해 보이지만 이번 작업에선 워낙 레거시 데이터베이스 내용들이 다사다난해서 적용해보지 못했다. </p>
+<ul>
+<li><a href="https://jqwik.net/" target="_blank" rel="noopener">jQwik</a></li>
+</ul>
+<h4 id="두-번째-성공-이후"><a href="#두-번째-성공-이후" class="headerlink" title="두 번째 성공 이후"></a>두 번째 성공 이후</h4><p>API의 멱등성이 충분히 확보되었다고 느낀다면 <strong>리팩토링을 통한 클린 코드의 구현에 집중한다.</strong> </p>
+<p>우리는 이미 스펙에 대해 충분한 테스트 케이스를 갖고 있기 때문에 리팩토링의 사이드이펙트를 두려워할 이유가 없다. <strong>테스트 케이스에 빨간 불이 들어온다면 다시 되돌아가거나 문제를 찾아 수정하면 그만이다</strong>. </p>
+<p>비즈니스 로직 노출의 우려로…. 리팩토링 과정을 상세히 담지 못하는 점은 아쉽다. </p>
+<h3 id="작업-회고"><a href="#작업-회고" class="headerlink" title="작업 회고"></a>작업 회고</h3><p>오랜만에 초록불이 짠 뜨는 경험을 하며 사무실에서 즐겁게 코딩을 했다. 굳이 유럽 여행중인 지금 기억을 되살려서 블로그 글을 쓰고싶을 정도로… </p>
+<p>그러나 결국 다음과 같은 문제는 예방하지 못했다. </p>
+<ul>
+<li>이미 데이터베이스에 입력되어 있는 값들의 edge case에 대해 충분히 검증하지 못했다. <ul>
+<li>기대하던 포맷에 어긋나는 데이터가 DB에 입력되어 있었고, 이에 따라 <code>ArrayIndexOutOfBoundsException</code> 이 발생함. </li>
+</ul>
+</li>
+</ul>
+<p>어차피 애플리케이션 단에서 잡아낼 수 없는 문제였으므로 TDD 그 자체가 문제는 아니었다고 본다. </p>
+<p>그리고 소소한 문제로는…</p>
+<ul>
+<li>작업 시간이 오래 걸리는 것은 어쩔 수 없다. <ul>
+<li>그러나 평소에 그만큼 막코딩을 하고 있었다는 반증일 수도 있다.</li>
+<li>평소보다 많이 오래걸리지는 않았다. 평소 작업 시간의 120% 정도가 소요되었다. </li>
+</ul>
+</li>
+<li>개발 진척과정을 다른 팀원들과 활발히 공유하지 못했다. </li>
+</ul>
+<p>이와 같은 아쉬움을 경험했다. </p>
+<h3 id="앞으로는"><a href="#앞으로는" class="headerlink" title="앞으로는?"></a>앞으로는?</h3><p>앞으로도 지금과 같은 시나리오에 적합한 개발과제가 주어진다면, 적극적으로 TDD를 흉내내며 개발해볼 생각이다. </p>
+<p>완전한 형태의 TDD를 행했는지는 잘 모르겠지만 흉내라도 내야 언젠가는 그 정점에 갈 수 있으리라 믿는다. </p>
+<p>또한 조금 더 활발한 커뮤니케이션으로 팀에 이런 개발문화를 전파시켜보려고 노력해보고 싶다. 물론 내 노력만으로는 이뤄지지 않을 일이란 것을 안다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2019/03/25/tdd-refactoring-2019/" data-id="ckk5ihpxf008udg9om8uuyedq" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2019/03/25/tdd-refactoring-2019/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-codereview-retrospect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/codereview/">codereview</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/25/codereview-retrospect/">지금까지 받아본 코드 리뷰를 정리해본다(1).</a>
+    </h1>
+  
+
+        <a href="/2019/03/25/codereview-retrospect/" class="article-date">
+  <time datetime="2019-03-24T23:40:00.000Z" itemprop="datePublished">2019-03-25</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h2 id="지금까지-받아본-코드리뷰를-정리해본다"><a href="#지금까지-받아본-코드리뷰를-정리해본다" class="headerlink" title="지금까지 받아본 코드리뷰를 정리해본다."></a>지금까지 받아본 코드리뷰를 정리해본다.</h2><p>흔히 주니어 개발자가 성장할 수 있는 가장 좋은 방법은 코드리뷰를 충실히 받는 것이라고 이야기한다. </p>
+<p>성장 안하고 가만히 있어도 잘 먹고 잘 살 수 있는 직업을 갖게 되길 소망하지만(혹은 노동하지 않아도 잘 먹고 잘 살 수 있는 사회경제적 자본을 갖고 태어나기를 소망했지만) 당장 상황이 여의치 않으므로 일단 일을 더 잘 할 필요는 있다. </p>
+<p>성장하지 않고 가만히 있어도 되는 직업을 찾을 때까지는 힘 닿는대로 실력을 키울 필요가 있겠다. </p>
+<h3 id="우리-조직의-코드리뷰-방향성"><a href="#우리-조직의-코드리뷰-방향성" class="headerlink" title="우리 조직의 코드리뷰 방향성"></a>우리 조직의 코드리뷰 방향성</h3><p>내가 몸담고 있는 네이버 쇼핑데이터플랫폼은 솔직히 말하면 그간 코드리뷰 문화가 그렇게 활성화되어 있던 조직은 아니다. </p>
+<p>업무에 비해 인력이 부족했고 특히 허리급 개발자가 부족한 것은 지금까지도 해결이 안 되고 있다. </p>
+<p>(우리 조직의 문은 <a href="https://recruit.navercorp.com/naver/job/detail/developer?annoId=20001611&amp;classId=170&amp;jobId=3809&amp;entTypeCd=&amp;searchTxt=%EC%87%BC%ED%95%91&amp;searchSysComCd=" target="_blank" rel="noopener">늘 열려있다.</a>)</p>
+<p>최근 신입사원이 꽤 많이 충원되고 외부에서도 시니어급 개발자 분들이 몇몇 합류하셔서 상황이 조금씩 나아지고 있다. 특히 리더급 개발자들이 코드리뷰에 대한 강한 의지를 갖고있는 것은 꽤 고무적인 일이다(가끔 부담스러울 때도 있다).</p>
+<p>개인적으로 감사함을 느끼는 선배님은 <a href="http://blog.leekyoungil.com" target="_blank" rel="noopener">이경일님</a> 으로 적극적으로 코드리뷰를 해주시는 것은 물론이고, 가끔은 리뷰를 해주시다 답답함을(!) 느끼시는지 직접 내 자리 옆으로 오셔서 즉석에서 페어 프로그래밍을 진행해주시기도 한다. 항상 꼰머로 비치지 않을까 조심하시지만 애초에 나와 년차가 10년 가까이 차이나는 시니어 개발자분이 그렇게 시간을 들여 코드리뷰를 해주시는 것 자체가 감사한 일이고, 또한 꼰머로 비칠까 걱정하며 조심해주시는 것은 감동적인 일이다. </p>
+<p>이경일님의 세심한 코드리뷰를 받고싶은 신입 개발자 준비생 분들은 다음 주제로 2019 네이버 캠퍼스 핵데이에 지원하시면 좋겠다.</p>
+<p>Github issue: <a href="https://github.com/NAVER-CAMPUS-HACKDAY/common/issues/6" target="_blank" rel="noopener">쇼핑 실시간 상품 경매 플랫폼</a></p>
+<p>핵데이 원서접수 페이지 <a href="https://recruit.navercorp.com/naver/job/detail/developer?annoId=20002666&amp;classId=&amp;jobId=&amp;entTypeCd=004&amp;searchTxt=&amp;searchSysComCd=" target="_blank" rel="noopener">바로가기</a></p>
+<h3 id="내가-받은-코드리뷰-유형별-요약"><a href="#내가-받은-코드리뷰-유형별-요약" class="headerlink" title="내가 받은 코드리뷰 유형별 요약"></a>내가 받은 코드리뷰 유형별 요약</h3><p>코드리뷰를 받다보니 주로 <strong>걸리는 쪽에서 계속 걸리는</strong> 모습이 관측되었다. </p>
+<p>사람인 이상 어쩔 수 없는 부분이기도 하고, 앞으로 고쳐나가야 할 부분이기도 하다. </p>
+<p>가장 좋은 것은 안 고쳐도 잘 먹고살 수 있는 직업을 갖는 것이다. 하지만 당장 상황이 여의치 않으므로 일단은 고쳐나가면서 실력을 키울 필요가 있다. </p>
+<p>다음은 코드리뷰를 개략적으로, 유형별로 분류해 본 것이다. </p>
+<hr>
+<h4 id="immutable해야-할-객체를-명확히-구분하자"><a href="#immutable해야-할-객체를-명확히-구분하자" class="headerlink" title="immutable해야 할 객체를 명확히 구분하자"></a>immutable해야 할 객체를 명확히 구분하자</h4><p>Java를 사용할 때 아무 생각없이 객체를 만들고 주고받지만, 내부의 element가 바뀌면 안 될 상황에서 immutability를 고려하지 않는 경우가 많다.</p>
+<p>특히 java.util.Collection의 하위 클래스들을 사용하는 경우 이 점을 충분히 고려하여 불변해야 할 객체를 확정짓는 것이 좋다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">//아래의 shitUrls는 dumbSites 객체로부터 URL을 가져온다.</span></span><br><span class="line"><span class="comment">//언뜻 생각해보면 의도한 URL만 가져왔으므로 올바른 객체라고 생각하겠지만, 중간에 다른 String이 들어와도 아무도 모르게 된다. </span></span><br><span class="line"></span><br><span class="line">List&lt;String&gt; shitUrls = dumbSites.getUrls();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Collections.unmodifiableList(Collections c); 을 사용하여 컬렉션 객체의 불변성을 확보한다. </span></span><br><span class="line"></span><br><span class="line">List&lt;String&gt; shitUrls = Collections.unmodifiableList(dumbSites.getUrls());</span><br></pre></td></tr></table></figure>
+<p>또한 parameter로 받을 객체, 지역 변수들에 대해서도, 최초 할당 이후 재할당이 필요없는 변수라면 final 예약어를 사용하여 최소한 객체 자체가 뒤바뀌는 일은 없도록 확실히 해 주자. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">sayHelloToYou</span><span class="params">(String yourName)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//아래와 같이 지역 변수를 자유롭게 풀어주면 불변성을 확보하기 어렵게 된다. </span></span><br><span class="line">    String concatenatedName = yourName + <span class="string">"hi"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//이와 같이 final을 붙여준다.</span></span><br><span class="line">    <span class="keyword">final</span> String concatenatedName = yourName + <span class="string">"hi"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>당연한 얘기지만 <strong>composed type</strong>인 경우 setter를 통한 값의 변경은 피할 수 없을 것이다. </p>
+<p>그러나 그것은 객체 설계단의 문제이므로 여기서는 패스한다. </p>
+<hr>
+<h4 id="항상-null을-의식하라"><a href="#항상-null을-의식하라" class="headerlink" title="항상 null을 의식하라"></a>항상 null을 의식하라</h4><p>사실 이건 내가 Kotlin을 선호하는 이유이기도 하다. </p>
+<p>Kotlin이 null을 다루는 방식, 그리고 null-safety를 보장해주는 방식은 정말 우아하며 gorgeous 하고 phenomenal하다. </p>
+<p>그러나 당장 Kotlin을 사용하지 못하므로 Java에서 null을 안전하게 다룰 방법을 고민하고 연습하는 수밖에 없다. </p>
+<hr>
+<p><em>Java에서 null의 그지같음(개인적 견해)</em></p>
+<p>null이 그지같은 이유는 NPE를 발생시키기 때문이다. </p>
+<p>사실 NPE만 아니라면, 혹은 NPE의 수퍼클래스가 RuntimeException이 아니라면 Java에서 null을 다루는 것이 그렇게 스트레스받는 일이 아닐 수도 있다. </p>
+<p>어차피 대부분의 상황에서 NPE는 에러로써 애플리케이션이 뻗어버릴 수밖에 없는데 차라리 try - catch로 잡아내는 것이 낫지 않겠는가? 개인적인 생각이다.</p>
+<hr>
+<p>사실 <strong>외부 API를 사용할 때</strong> 랄지 <strong>타인이 짜 놓은 코드에서 객체를 받아올 때</strong> null 발생 가능성에 대한 의심을 별로 안한 채로 코드를 작성하게 되는 경우가 많다. </p>
+<p>그리고 종종 이는 대형 참사로 이어진다. </p>
+<p>코드리뷰에서는 사소한 null의 가능성도 주의깊게 살피라는 지적을 수 차례 받은 바 있다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iBATIS의 row handler 구현체를 작성한 코드다.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRow</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    Shit shit = (Shit)o;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//NPE가 발생할 포텐셜을 갖고 있는 코드다.</span></span><br><span class="line">    shit.getToiletName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>상기한 사례의 경우, iBATIS는 Result Row가 존재하지 않으면 아예 Row Handler 객체를 호출하지 않으므로 null의 가능성은 없다(zero).</p>
+<p>그러나 외부 API를 호출할 때, 결과물에 대한 확신이 없는 경우에는 늘 null에 대한 대비를 하는 것이 좋겠다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SewageConnector connector;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processShit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Shit shit = connector.getFirstShit();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//shit이 null 인 경우 진입하여 객체를 필요로 하는 로직을 건너뛰고 메소드를 끝내버린다.</span></span><br><span class="line">    <span class="keyword">if</span>(shit == <span class="keyword">null</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"no shit available! clean!"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>어찌보면 참 사소한 것인데 실무에선 까먹기 십상이다.</p>
+<hr>
+<h4 id="try-with-resources-를-적극-활용하라"><a href="#try-with-resources-를-적극-활용하라" class="headerlink" title="try-with-resources 를 적극 활용하라"></a>try-with-resources 를 적극 활용하라</h4><p>Closeable한 자원을 사용하는 경우 제때 닫아주지 않으면 성능에 악영향을 미친다. </p>
+<p>그동안 우리는 try - catch - finally 패턴을 많이 사용해왔다. 그러나 Java 1.7 이상만 되어도 훨씬 간결한 syntax의 try - with - resources를 활용할 수 있으므로 이를 적극 활용하자. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="keyword">new</span> File(<span class="string">"~/Documents/resume"</span>)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    String line = in.readLine();</span><br><span class="line">    System.out.println(line);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">    e.printStackTrace()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">//예외 발생 여부에 상관없이 리더를 닫아야 하기 때문에 finally 절이 발생한다.</span></span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>finally를 없애고 가독성 높은 코드를 만들기 위해 아래와 같이 리팩토링한다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(BufferedReader in = <span class="keyword">new</span> BufferedReader(...)) &#123;</span><br><span class="line">    <span class="comment">//여기에 로직이 담긴다.</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="굳이-Spring-Bean일-필요가-있는지-고려하라"><a href="#굳이-Spring-Bean일-필요가-있는지-고려하라" class="headerlink" title="굳이 Spring Bean일 필요가 있는지 고려하라"></a>굳이 Spring Bean일 필요가 있는지 고려하라</h4><p>Spring Bean은 verbose한 싱글턴 패턴 코드 없이 싱글턴을 보장할 수 있는 좋은 방법이고, </p>
+<p><strong>특히 AOP, IoC, transaction propagation 등</strong> 을 쉽게 구현할 수 있게 해 주는 좋은 도구이다. </p>
+<p>그러나 아래의 고려사항을 충분히 생각해볼 필요가 있다.</p>
+<ul>
+<li>굳이 Singleton 상태일 이유가 있을까?<ul>
+<li>static method 사용하면 안되는가? </li>
+<li>Singleton 상태에서, 부가 기능이 추가될 이유가 있는가? </li>
+</ul>
+</li>
+<li>모든 Spring Bean에서 이 객체를 주입받을 필요가 있는가?<ul>
+<li>scope를 고려하라<ul>
+<li>만약 특정 환경(특히, Spring Batch에서)에서만 사용할 bean이 전체 scope로 구현될 경우, 불필요한 객체를 생산하는 비용만 초래될 뿐이다.</li>
+<li>Bean의 갯수, 혹은 initializing logic이 Spring의 Application Context의 초기 기동 시간에 직접적인 영향을 끼친다는 점을 고려하라.</li>
+</ul>
+</li>
+<li>실행 환경에 따라 사용되는 Bean이 다르진 않는가?<ul>
+<li>XML config의 경우 설정 파일을 분리하여 환경에 따른 bean instantiation이 가능하도록 설계하라. </li>
+<li>Java config, 특히 Spring Boot의 경우, @ActiveProfiles, @Profile을 적극적으로 활용하라. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>DEV 프로필에서만 사용될 컴포넌트의 예시</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@ActiveProfiles</span>(<span class="string">"dev"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetardService</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>코드리뷰 받은 내용을 옮겨본다.</strong></p>
+<p><em>아래의 코드는 실무에서 사용한 코드가 아니다.</em></p>
+<p><strong>코드 리뷰 커멘트</strong> </p>
+<blockquote>
+<p>(…) spring component 보다는 static class 로 만드는게 어떨까 싶네요~ (spring bean 으로 만들 필요가 없는 class 인거 같다는 소리 ㅎㅎㅎ)</p>
+</blockquote>
+<p><em>리뷰 이전 코오드</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Component로 annotate 함으로써 모든 상황에서 객체화(instantiate)해야만 하는 클래스가 되어버렸다.</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoopService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//타 Spring Bean을 주입받거나, AOP적인 요소가 없으므로 굳이 Spring Bean으로 선언할 필요가 없는 클래스였다. </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pumpPoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"poop!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>개선</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoopService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//기본 생성자를 private으로 막아버림으로써, 객체화를 방지한다. </span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">PoopService</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//static method이므로 객체를 만들지 않고 사용이 가능하다.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pumpPoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"poop!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="랜덤-코드-생성에-UUID를-사용하라"><a href="#랜덤-코드-생성에-UUID를-사용하라" class="headerlink" title="랜덤 코드 생성에 UUID를 사용하라"></a>랜덤 코드 생성에 UUID를 사용하라</h4><p>처음 구현한 코드는 아래와 같았다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomGenerator</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RandomCache cache;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RandomStringGenerator stringGenerator;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateRandomCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String newString = stringGenerator.generate();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//재귀 호출한다. base case는 cache.hasString(newString) == false</span></span><br><span class="line">        <span class="keyword">return</span> !cache.hasString(newString) ? newString : generateRandomCode();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>리뷰어께서 지적하신 문제점은 다음과 같다. </p>
+<ul>
+<li>재귀호출이 몇 번 일어날지 보장할 수 없다. <ul>
+<li>만약 cache에 1억건의 엔트리가 이미 들어있는 상황이라면?</li>
+<li>만약 RandomStringGenerator의 로직에 문제가 있어, 랜덤값이 보장이 안 되고 있는 상황이라면? </li>
+</ul>
+</li>
+<li>문자열을 요청할때마다 내부적으로 일일이 비교연산이 일어날 텐데, 그 비용이 너무 커 보인다. </li>
+<li><strong>UUID</strong>를 활용하여 리팩토링한다.</li>
+</ul>
+<p><em>리팩토링 완료한 코드</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomGenerator</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateRandomCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder accessCode = <span class="keyword">new</span> StringBuilder(UUID.randomUUID().toString());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//후처리 로직을 삽입하고...</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> accessCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="1부-끝"><a href="#1부-끝" class="headerlink" title="1부 끝"></a>1부 끝</h3><p>사실 앞으로도 정리해나갈 내용은 많을 것이다. </p>
+<p>하나의 포스팅으로 정리하기엔 내용이 방대한 것 같으니, 오늘은 여기서 글을 마쳐야겠다. 내가 특별히 지적 능력이 지진하거나 주니어 개발자로서의 소양이 부족한 것이 아니라면, 내가 받은 코드리뷰는 다른 주니어들도 마찬가지로 많이 받고 있거나, 혹은 받아야할 내용을 포함하고 있을 거라 본다. </p>
+<p>가장 좋은 것은 성장하지 않아도 먹고살 수 있는 직업을 갖는 것이겠지만, 일단은 그럴 수 없으므로 매일 매일 조금씩이라도 실력이 늘어야 할 것이다. </p>
+<h4 id="백기선님의-동영상-더-좋은-개발자가-되는-법"><a href="#백기선님의-동영상-더-좋은-개발자가-되는-법" class="headerlink" title="백기선님의 동영상 - 더 좋은 개발자가 되는 법"></a>백기선님의 동영상 - 더 좋은 개발자가 되는 법</h4><p><a href="https://www.youtube.com/watch?v=yEcCQZlFmaM" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/yEcCQZlFmaM/0.jpg" alt="&quot;나는 정말 이걸 좋아 하나?&quot;"></a></p>
+<p>좋아하면 잘하게 된다. 좋아하기는 어려운 일인 것 같긴 하다. </p>
+<p>개발을 좋아해서 이 업을 시작했지만 취미/관심분야로써 즐긴 것과 직업인으로서 이 업을 즐기는 것은 전혀 다른 차원의 문제라는 것을 요즘 새삼 깨닫고 있다. </p>
+<p>나는 어디로 가야하나? 일단 열심히 달리는 수밖에 없을 것이다. </p>
+<h4 id="“지금까지-받아본-코드-리뷰를-정리해본다-”-시리즈는-앞으로-틈나는-대로-계속-정리할-생각이다"><a href="#“지금까지-받아본-코드-리뷰를-정리해본다-”-시리즈는-앞으로-틈나는-대로-계속-정리할-생각이다" class="headerlink" title="“지금까지 받아본 코드 리뷰를 정리해본다.” 시리즈는 앞으로 틈나는 대로 계속 정리할 생각이다."></a>“지금까지 받아본 코드 리뷰를 정리해본다.” 시리즈는 앞으로 틈나는 대로 계속 정리할 생각이다.</h4>-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2019/03/25/codereview-retrospect/" data-id="ckk5ihpx5008kdg9o8b3tcb7a" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2019/03/25/codereview-retrospect/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2019-blog-revival" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/daily/">daily</a>►<a class="article-category-link" href="/categories/daily/thoughts/">thoughts</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/25/2019-blog-revival/">2019 블로그 부활</a>
+    </h1>
+  
+
+        <a href="/2019/01/25/2019-blog-revival/" class="article-date">
+  <time datetime="2019-01-24T23:40:48.000Z" itemprop="datePublished">2019-01-25</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h2 id="블로그를-부활시킨다"><a href="#블로그를-부활시킨다" class="headerlink" title="블로그를 부활시킨다."></a>블로그를 부활시킨다.</h2><p>블로그 부활.</p>
+<p>사실 그동안 블로깅을 쉬었던 것에는 이유가 몇 가지 있다:</p>
+<ul>
+<li>물리적인 시간의 부족. 대부분의 시간을 직장에서 enterprise github로 작업하다보니 개인 깃허브 관리의 여력이 없었다. </li>
+<li>삽질하는 느낌. <em>이걸 정리해봐야 누가 보나….</em></li>
+<li><strong>(결정적)</strong> hexo의 고장. 왜 안됐는지는 모르겠는데 그동안 잘 안됐다. </li>
+</ul>
+<p>오늘 우연한 계기로 방치된 블로그나 관리해볼까 하고 <code>git clone</code> 을 하고 <code>hexo generate</code> 을 돌렸는데 고장나서 안 돌아갔던 이전과는 달리 갑자기 잘 돌아갔다.</p>
+<p>바뀐 건 아무것도 없는데 말이다. </p>
+<p>잘 돌아간 기념으로 블로깅을 다시 시작해볼까 한다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2019/01/25/2019-blog-revival/" data-id="ckk5ihpq00000dg9onl9tmsuf" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2019/01/25/2019-blog-revival/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-naver-3rd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/naver/">naver</a>►<a class="article-category-link" href="/categories/naver/intern/">intern</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/naver-3rd/">네이버에서의 세 번째 일주일</a>
+    </h1>
+  
+
+        <a href="/2018/07/22/naver-3rd/" class="article-date">
+  <time datetime="2018-07-22T09:34:45.000Z" itemprop="datePublished">2018-07-22</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="네이버-3주차-회고-및-반성"><a href="#네이버-3주차-회고-및-반성" class="headerlink" title="네이버 3주차 회고 및 반성"></a>네이버 3주차 회고 및 반성</h3><p>다음주말이면 벌써 입사 한달차라니 시간 참 빠르다(…)</p>
+<p>이제 통근도 익숙해졌고 특히 퇴근시간을 많이 단축했다. 같은 경로로 계속 다녔는데 어떻게 많이 다닐수록 소요시간이 짧아지는지 신기할 따름이다. 음….</p>
+<h4 id="프로젝트-진행-상황"><a href="#프로젝트-진행-상황" class="headerlink" title="프로젝트 진행 상황"></a>프로젝트 진행 상황</h4><p><em>전반적으로 계획대로, 그렇지만 살짝 아쉬운 점이….</em></p>
+<p>생각한 대로 프로젝트가 잘 진행되고 있다. 검색 최적화 / WAS에서의 검색 요청 이제 모두 잘 된다. 특히 형태소 분석기를 arirang으로 확정하고 적용해 잘 돌아가는 것까지 확인했다. </p>
+<p>그러나 JS 수정시 즉각 빌드 파일에 반영되지 않는 문제는 아직도 해결하지 못했다. 3주차까지 해결하지 못하면 선배님들께 도움을 요청하기로 생각했던 문제이므로 4주차 월요일 오전까지 고민해보고 잘 안되면 여쭤봐야겠다. </p>
+<p>발표자료를 제작하기 시작했다. 화려하게 꾸밀 필요는 없을 것 같고 그냥 내가 진행한 것을 잘 정리해서 보여드리기만 하면 될 것 같다. </p>
+<p>추가과제 구현 방향을 정하긴 했는데 공유드리진 못했다. 아마 이 부분은 수요일쯤에 공유드리고 목요일 중간발표 시간에 함께 고민해보는 시간을 가지면 될 것 같다. </p>
+<h4 id="더-잘해보고-싶은-점"><a href="#더-잘해보고-싶은-점" class="headerlink" title="더 잘해보고 싶은 점"></a>더 잘해보고 싶은 점</h4><ul>
+<li>일단 중간발표 기간까지 자체 프론트 제작은 미루기로 했다. 중간발표때까지는 이미 만들어진 JSP를 수정하는 방향으로 진행을 하고, 이후 리액트 등 적용 방향을 고민해보기로. </li>
+<li>화요일까지는 기능 시현이 가능할 정도의 구현을 마치고 계속 실험하는 시간을 가져야할 것 같다.</li>
+<li>JS Deploy 제때 안 되는 문제 해결해야한다.</li>
+</ul>
+<h4 id="4주차-계획"><a href="#4주차-계획" class="headerlink" title="4주차 계획"></a>4주차 계획</h4><ul>
+<li>목요일 오후에 중간발표가 있다. 그동안 진행한 부분을 그냥 보여드리면 될 것이라고 생각한다.<ul>
+<li>무리없이 그동안 해둔것만 보여드려도 나쁘지 않을 것 같다. </li>
+<li><strong>중간</strong> 발표니까 최종발표만큼의 완성도를 어차피 기대하지 않으시는 것 같다. </li>
+<li>코드리뷰 같은 부분의 갈증을 좀 느끼고 있었는데 어차피 커밋은 계속 하고 있었고, 이번 기회로 피드백을 받을 수 있었으면 좋겠다. </li>
+</ul>
+</li>
+<li>이번주말이면 입사 1개월차. 시간 참 빠르다.<ul>
+<li>중간발표를 마치고 나서 진행할 추가과제에 대한 부분, 특히 프론트단에 대한 생각을 해볼 필요가 있겠다.</li>
+</ul>
+</li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/22/naver-3rd/" data-id="ckk5ihprz001sdg9obs19a8lw" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/07/22/naver-3rd/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-naver-2nd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/naver/">naver</a>►<a class="article-category-link" href="/categories/naver/intern/">intern</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/15/naver-2nd/">네이버에서의 두 번째 일주일</a>
+    </h1>
+  
+
+        <a href="/2018/07/15/naver-2nd/" class="article-date">
+  <time datetime="2018-07-15T09:06:24.000Z" itemprop="datePublished">2018-07-15</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="네이버-2주차-회고-및-반성"><a href="#네이버-2주차-회고-및-반성" class="headerlink" title="네이버 2주차 회고 및 반성"></a>네이버 2주차 회고 및 반성</h3><p>설렘과 긴장 속에 오리엔테이션을 받은 것이 벌써 2주전이 됐다. 어느새 2주차 마무리. </p>
+<p>시간이 빨리 간다. 하루하루는 긴 것 같은데 돌아보면 또 시간이 빠른 것 같고 이거 참….. </p>
+<h4 id="프로젝트-진행상황"><a href="#프로젝트-진행상황" class="headerlink" title="프로젝트 진행상황"></a>프로젝트 진행상황</h4><p><em>만족스럽다.</em></p>
+<p>데이터 파이프라인을 구축했고 배치 작업과 서비스 프로젝트 두 곳 모두에서 테스트 코드를 통한 검증도 완료했다. 새로운 글이 들어오면 색인에 추가되고 글이 삭제되면 색인에서 빠진다. 일괄 전체색인 작업도 잘 수행된다. </p>
+<p>이번주에는 드디어 프로젝트를 톰캣에 띄워 프론트단을 들여다봤다. 생소한 JSP 문법과 내가 세상에서 제일 싫어하는 jQuery가 굉장히 널리 사용되고 있다. 일단 기존 쏠라 엔진 기반으로 게시물을 페이징하던 것을 ES 기반으로 교체했고, 잘 작동하는 것을 확인했다. 다만 기존 코드가 JS를 통해 동적으로 URL을 만드는 방식이었는데 이번엔 그렇게 하지 않고 페이지가 처음 로딩되는 시점에 다음 페이징 주소로 연결되는 링크를 제공하게끔 고쳤다. </p>
+<p>회사 코드라 코드를 여기에 옮길 수 없는 점이 아쉽긴 한데…. 여튼 아주 단순한 구현을 했다. </p>
+<h4 id="더-잘해보고-싶은-점"><a href="#더-잘해보고-싶은-점" class="headerlink" title="더 잘해보고 싶은 점"></a>더 잘해보고 싶은 점</h4><ul>
+<li>JSP와 JSTL에 대한 이해가 더 필요할듯. 사실 이건 공부할 때는 요즘 이거 쓰는 집이 있나? 해서 깊게 공부하지 않았던 부분인데 쓰는 집이 있네요.</li>
+<li>ORACLE CLOB을 iBATIS는 어떻게 자동으로 핸들링하고 있는지 살펴봐야겠다.<ul>
+<li>원래 4000byte에서 짤리는 거라고 하셨다. </li>
+</ul>
+</li>
+<li>프론트를 어떻게 예쁘게 잘 꾸밀지 생각을….</li>
+<li>ES 형태소 분석 등 분석기가 잘 돌고있는지 뭔지 가늠이 안 된다. <ul>
+<li>이거는 3주차동안 Postman으로 계속 찍어보면서 확인해야겠다. </li>
+</ul>
+</li>
+</ul>
+<h4 id="3주차-계획"><a href="#3주차-계획" class="headerlink" title="3주차 계획"></a>3주차 계획</h4><ul>
+<li>기본 과제가 끝을 향해 가고 있다. 3주차에 마무리되리라 생각한다. </li>
+<li>옵션 과제 (혹은 자율과제) 중에 어떤 부분에 집중해서 남은 4주정도를 알차게 보낼지 구상해야 한다. <ul>
+<li>이 부분은 3주차 금요일까지 알려달라고 하셨으니 그 전에 충분한 구상을. </li>
+</ul>
+</li>
+<li>검색 결과 최적화에 더욱 힘쓰자. </li>
+<li>트레비를 습관적으로 먹지 말자. 400원 * 20일 하면 벌써 8천원임…… <ul>
+<li>이번달 사원증 결제금액이 벌써 만오천원 가까이 된다. </li>
+</ul>
+</li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/15/naver-2nd/" data-id="ckk5ihprv001ndg9oajcpfbrt" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/07/15/naver-2nd/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-iso8601-shit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/datetimeformatter/">datetimeformatter</a>►<a class="article-category-link" href="/categories/java/datetimeformatter/localdatetime/">localdatetime</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/12/iso8601-shit/">ISO 8601 대 삽질기</a>
+    </h1>
+  
+
+        <a href="/2018/07/12/iso8601-shit/" class="article-date">
+  <time datetime="2018-07-12T07:42:58.000Z" itemprop="datePublished">2018-07-12</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="ISO-8601-대-삽질기"><a href="#ISO-8601-대-삽질기" class="headerlink" title="ISO 8601 대 삽질기"></a>ISO 8601 대 삽질기</h3><p>최근 게시물을 관리하는 간단한 코드를 구현하며 시간 정보를 관리할 일이 있었다. </p>
+<p>데이터 원본 상의 column type은 DATE(ORACLE)이었지만 iBATIS를 사용하다보니 매핑이 여의치 않아 그냥 String type으로 데이터를 갖고 오다보니 재밌고 빡치는 해프닝을 겪어, 관련한 사항을 잊지 않기 위해 여기에 이렇게 기록해본다. </p>
+<h4 id="문제의-발단"><a href="#문제의-발단" class="headerlink" title="문제의 발단"></a>문제의 발단</h4><p>해당 엔티티는 아래와 같은 코드를 통해 객체가 생성된 현재시점의 시간정보를 생성하고 있다. <em>(실제 작성중인 코드와는 상이함을 미리 알려드린다.)</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">currentTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DateTimeFormatter.ofPattern(<span class="string">"yyyy-mm-dd"</span>).format(LocalDateTime.now());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>그러자 아래와 같은 우스꽝스러운 시간이 표시되기 시작했다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018-48-12</span><br><span class="line">2018-51-12</span><br></pre></td></tr></table></figure>
+<h4 id="왜-그럴까"><a href="#왜-그럴까" class="headerlink" title="왜 그럴까?"></a>왜 그럴까?</h4><p>ISO 8601 표기법상의 시간 / 일자 코드를 제대로 숙지하지 못해서 벌어진 일이었다.</p>
+<p><strong>소문자 m과 대문자 M의 차이를 바로 알고 사용해야겠다.</strong></p>
+<p>m(lower case) : minute of hour<br>M(upper case) : month of year</p>
+<p><em>헷갈리지 말자.</em></p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/12/iso8601-shit/" data-id="ckk5ihpr0000ndg9om3xmzs4h" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/07/12/iso8601-shit/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-naver-1stweek" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/naver/">naver</a>►<a class="article-category-link" href="/categories/naver/intern/">intern</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/07/naver-1stweek/">네이버에서의 첫 한주</a>
+    </h1>
+  
+
+        <a href="/2018/07/07/naver-1stweek/" class="article-date">
+  <time datetime="2018-07-06T23:24:47.000Z" itemprop="datePublished">2018-07-07</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="네이버에서의-첫-일주일"><a href="#네이버에서의-첫-일주일" class="headerlink" title="네이버에서의 첫 일주일"></a>네이버에서의 첫 일주일</h3><p><strong>네이버에서 채용전제형 인턴으로 일하게 되었다.</strong> 시작은 Campus Hackday 참가였다. </p>
+<p><a href="https://tech.wheejuni.com/2018/05/19/naver-hackday/">핵데이 후기 보러가기</a></p>
+<p>이후 우수참가자 선정 안내와 뒤이어(거의 한달쯤 후에….) 진행된 기술면접을 거쳐 쇼핑데이터플랫폼 데이터정제개발파트의 막내로 입사하게 되었다. </p>
+<p><strong>전반적인 입사 과정</strong></p>
+<p>자세한 입사과정 및 개발자 취업 준비과정은 인턴십을 모두 마친 후, 타사 지원 / 면접 참여 경험과 같이 쭉 회고해보는 기회를 가지려고 한다. 여기서는 네이버에 한해 입사 과정을 간단히 서술해보고자 한다. </p>
+<p><em>그리고 아직 채용전제형 인턴임에 유의해 주셨으면 한다.</em> </p>
+<ul>
+<li>Campus Hackday 지원, 서류심사</li>
+<li>Campus Hackday 참가(춘천 네이버 커넥트원, 1박 2일)</li>
+<li>우수참가자(기술면접 대상자) 개별통보</li>
+<li>기술면접</li>
+<li>최종합격</li>
+</ul>
+<p>상기한 다섯개 과정을 다 통과하면 네이버의 채용전제형 인턴으로 입사할 수 있게 된다. 인턴십은 시기별로 기간의 차이가 좀 있는 것 같기는 한데 이번에는 8주가 진행된다. </p>
+<p>네이버의 신입개발자 공개채용이 <strong>사실상 중단</strong>된 상황에서 네이버에 신입 개발자로 입사할 수 있는 방법은 Campus Hackday 참가, 혹은 팀별 상시채용 지원 이외에는 없는 것 같다. 팀별 상시채용 지원은 상당수 경력직 채용이고, 신입으로 입사하려면 해당 공고가 요구하는 경력에 상응하는 역량을 보유했음을 증명해야 할 것이다. </p>
+<p>네이버 신입개발자가 되고 싶다면 Campus Hackday에 가자. 매해 여름 / 겨울에 진행되는 것 같다. </p>
+<p><a href="https://tech.wheejuni.com/2018/05/19/naver-hackday/">핵데이 후기 보러가기</a></p>
+<p>기술면접은 개인별로 내용이 워낙 차이가 커서 여기에 자세히 서술하는 것은 무의미해보인다. 한가지 확실한 것은 자기가 진행한 프로젝트에 대한 이해가 있고, 또 입사하고 나면 자신이 다룰 기술에 대한 기초적인 이해가 있어야 할 것이다. 예를 들어 백엔드 개발자로 입사를 지망한다면 Spring Framework의 아주 로우레벯스러운 부분까진 아니더라도 IoC / DI, Transaction 관리 등이 어떻게 이뤄지는지 정도는 답변할 수 있어야 한다. </p>
+<p>자료구조, 알고리즘 등 기타 전산학 기초 지식도 없으면 안된다. </p>
+<p><strong>이번주에 한 일</strong></p>
+<p><em>정신이 없었다.</em> 화요일까지는. 나도 정신이 없었지만 팀의 선배님들도 매우 바빠 보였다. </p>
+<p>우리 팀이 진행하는 프로젝트의 git을 클론해 와 DB 연동구조나 전체적인 아키텍쳐가 어떻게 되는지를 살폈다. 독특한 내용은 없는 것 같고 다만 오라클 문법에 좀 익숙해질 필요가 있다고 생각된다. </p>
+<p>과제를 진행하기 위해 개발 서버를 받았고 서버에 필요한 것들을 설치한 후 필요한 데이터를 적재하는 작업까지 진행했다. 전체적인 과제의 분량은 진행하기에 딱 적당한 수준이고 야근 없이도 7주간(마지막 한 주는 여러모로 프로젝트 진행이 안 될거 같아 일부러 한 주 뺐다) 프로젝트 진행으로 충분히 구현이 가능할 것 같다. </p>
+<p>오히려 약간 좀 빨리 끝날 것 같기도…..</p>
+<p><strong>느낌 및 소감</strong> </p>
+<h2 id="옆-팀-인턴이-집에-안-간다"><a href="#옆-팀-인턴이-집에-안-간다" class="headerlink" title="옆 팀 인턴이 집에 안 간다."></a>옆 팀 인턴이 집에 안 간다.</h2><p>OT날에 분명히 19시 퇴근을 원칙으로 해주셨으면 한다고 전달받으셨을 텐데 옆집 막내가 집을 안 가니까 괜히 자꾸 의식하게 된다. 오늘 분량은 다 마친 것 같은데도 상쾌하게 자리에서 일어나질 못하는….</p>
+<p>다음주부터는 그냥 당당하게 나의 길을 가야겠다. 반바지도 그냥 입기 시작했다. 그렇다고 해이하게 근무하진 않았다. 출근시간보다도 한시간씩 빨리 나왔으며(이거는…. 의도한 게 아니라 그냥 붐비는 시간대 피해서 나 좋자고 이렇게 나오는거다) 집중할 때는 최고의 집중으로 계획한 것 만큼의 진행률을 기록하고 있다. </p>
+<p>다 잘 돌아가고 있는 것 같다. 기분이 좋다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/07/naver-1stweek/" data-id="ckk5ihprx001pdg9otpu7rcc9" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/07/07/naver-1stweek/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jstat-monitoring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/jstat/">jstat</a>►<a class="article-category-link" href="/categories/jstat/jvm/">jvm</a>►<a class="article-category-link" href="/categories/jstat/jvm/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/19/jstat-monitoring/">jstat으로 JVM 메모리 사용을 구경해보자.</a>
+    </h1>
+  
+
+        <a href="/2018/06/19/jstat-monitoring/" class="article-date">
+  <time datetime="2018-06-19T05:25:37.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="jstat으로-JVM-메모리-사용을-구경해보자"><a href="#jstat으로-JVM-메모리-사용을-구경해보자" class="headerlink" title="jstat으로 JVM 메모리 사용을 구경해보자."></a>jstat으로 JVM 메모리 사용을 구경해보자.</h3><p>JVM에 대해 학습하다보면 gc가 정말 이론대로(?) 움직이는지 궁금해질 때가 있다. </p>
+<p>IDE에서의 디버깅으로는 이런 메모리 정보를 직관적으로 알기 어렵다. 그래서 jstat이라는 도구가 있다. 참 좋은 도구다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -옵션 -JVM pid</span><br></pre></td></tr></table></figure>
+<p>옵션에는 다양한 프로파일링 타겟이 존재한다. </p>
+<table>
+<thead>
+<tr>
+<th>옵션명</th>
+<th>특징 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class</td>
+<td>클래스 로더 동작</td>
+</tr>
+<tr>
+<td>gc</td>
+<td>heap 영역 전체에 대한 데이터</td>
+</tr>
+<tr>
+<td>gcnew</td>
+<td>New 세대에 대한 데이터</td>
+</tr>
+</tbody>
+</table>
+<p>등등이 있다. 이중 내가 시도해본 것은 gcnew이다. </p>
+<p><img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/35495645_542053236189591_3224093560965955584_n.jpg?_nc_cat=0&amp;_nc_eui2=AeGfel3hb7tB27dSXNWkPYTKygGbG9RonYNwQChcwFYkCwwkVu0Rd2tKhi4ekYe3IaDTDBwRehHDv2O-QbOd_RBWfjdrPvQQWTbn9PmCpCmkkg&amp;oh=db8ee0c93ee7d69d1f9948b027929526&amp;oe=5BEB815C" alt="작동중인 jstat"></p>
+<p>위 사진에서 맨 오른쪽 열이 gc counter, 즉 new 영역에 대한 minor GC가 발생한 숫자를 기록하고 있는 부분인데 12에서 13으로 한 개 증가하며 한 칸 왼쪽의 열이 보여주고 있는 Eden의 메모리 사용량이 확 줄어든 것을 볼 수 있었다. </p>
+<p>스크린샷에는 잡히지 않았지만 이 때 가득차있던 S0 영역이 완전히 비워지고 S1에 메모리 사용이 잡히기 시작했다. <em>S0, S1 어느 하나는 완전히 비어있어야 한다</em> 는 JVM 이론 시간의 공부가 눈 앞에서 확인되는 순간이었다. </p>
+<p>여러분도 집에서 심심할 때 한 번 돌려보시면 좋겠다. 물론 <strong>공부하는 입장에서야 심심할 때 해볼 수 있는 일이겠지만 상용 서비스를 개발하는 개발자에게는 중요한 정보일 것이다.</strong> </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/19/jstat-monitoring/" data-id="ckk5ihprb0011dg9oem4fdyuw" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/06/19/jstat-monitoring/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">다음 &raquo;</a>
+  </nav>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

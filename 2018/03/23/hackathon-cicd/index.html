@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE) | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE) 들어가기에 앞서 저에게 늘 새로운 인사이트를 주시고 실무적인 테크닉도 넘치게 전달해 주시는 창천향로님의 블로그(http://jojoldu.tistory.com)와 창천향로님께 무한한 감사의 말씀을 드린다.  오늘 소개할 내용도 많은 부분이 창천향로님의 “스프링 부트로 웹서비스 출시하기” 시리즈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="해커톤 나가서 삽질하기(2) - CI &#x2F; CD 환경 구축(FE)">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE) 들어가기에 앞서 저에게 늘 새로운 인사이트를 주시고 실무적인 테크닉도 넘치게 전달해 주시는 창천향로님의 블로그(http://jojoldu.tistory.com)와 창천향로님께 무한한 감사의 말씀을 드린다.  오늘 소개할 내용도 많은 부분이 창천향로님의 “스프링 부트로 웹서비스 출시하기” 시리즈">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="해커톤 나가서 삽질하기(2) - CI &#x2F; CD 환경 구축(FE)">
+<meta name="twitter:description" content="해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE) 들어가기에 앞서 저에게 늘 새로운 인사이트를 주시고 실무적인 테크닉도 넘치게 전달해 주시는 창천향로님의 블로그(http://jojoldu.tistory.com)와 창천향로님께 무한한 감사의 말씀을 드린다.  오늘 소개할 내용도 많은 부분이 창천향로님의 “스프링 부트로 웹서비스 출시하기” 시리즈">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-hackathon-cicd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/devops/">devops</a>►<a class="article-category-link" href="/categories/devops/hackathon/">hackathon</a>►<a class="article-category-link" href="/categories/devops/hackathon/travis/">travis</a>►<a class="article-category-link" href="/categories/devops/hackathon/travis/react/">react</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="해커톤-나가서-삽질하기-2-CI-CD-환경-구축-FE"><a href="#해커톤-나가서-삽질하기-2-CI-CD-환경-구축-FE" class="headerlink" title="해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE)"></a>해커톤 나가서 삽질하기(2) - CI / CD 환경 구축(FE)</h3><blockquote>
+<p>들어가기에 앞서 저에게 늘 새로운 인사이트를 주시고 실무적인 테크닉도 넘치게 전달해 주시는 창천향로님의 블로그(<a href="http://jojoldu.tistory.com" target="_blank" rel="noopener">http://jojoldu.tistory.com</a>)와 창천향로님께 무한한 감사의 말씀을 드린다. </p>
+<p>오늘 소개할 내용도 많은 부분이 창천향로님의 “스프링 부트로 웹서비스 출시하기” 시리즈에서 배운 것을 활용해보고 소개하는 것이다. </p>
+</blockquote>
+<p><strong>결론 - 해커톤 나가서 괜히 CICD 한다고 삽질하지 말자. 전혀 의미없다.</strong></p>
+<p>나는 이번 해커톤에 참가하며 부족한 데브옵스(DevOps) 및 서버 운영 지식을 보충하겠다는 확고한(?) 목적 의식을 갖고 있었다. </p>
+<p>때문에 CI / CD 환경 구축을 위한 초기 환경 세팅(Travis 가입, EC2 인스턴스 기본 세팅, 슬랙 채널 생성)을 마친 상태였다. <strong>이 작업에 만 하루 정도, 순작업시간 4~5시간 정도</strong>가 소요되었다.</p>
+<p>물론 처음 해본 일이고, EC2 과금을 피하기 위한 눈물겨운 사투(…)를 벌였기 때문에 시간이 길어진 감이 있는데 <em>24시간 해커톤에서 4시간을 날리는 것은 엄청난 손해임이 분명하다.</em> MVP를 개발해 보여주는게 목표인 해커톤에서는 localhost:8080 해도 괜찮다. </p>
+<h4 id="create-react-app-로컬-개발환경에서의-빌드와-배포"><a href="#create-react-app-로컬-개발환경에서의-빌드와-배포" class="headerlink" title="create-react-app 로컬 개발환경에서의 빌드와 배포"></a>create-react-app 로컬 개발환경에서의 빌드와 배포</h4><p><strong>간단하다!</strong> 아래 명령어만 입력하면 되는 거 아닌가. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br><span class="line"></span><br><span class="line">(혹은....)</span><br><span class="line"></span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<h4 id="Travis-CI-Amazon-S3-환경에서의-빌드와-배포"><a href="#Travis-CI-Amazon-S3-환경에서의-빌드와-배포" class="headerlink" title="Travis CI - Amazon S3 환경에서의 빌드와 배포"></a>Travis CI - Amazon S3 환경에서의 빌드와 배포</h4><p>S3 Bucket의 정적 사이트 호스팅 기능을 사용하고, Travis CI를 통해 빌드 후 배포한다고 가정해 보겠다. 각 서비스의 <strong>기본 세팅이나 버킷 생성 등 준비절차</strong> 는 설명하지 않는다. </p>
+<p>Flow는 다음과 같다.</p>
+<blockquote>
+<p>Master에 push/merge -&gt; Travis VM Build -&gt; S3 Upload</p>
+</blockquote>
+<ul>
+<li>.travis.yml 작성</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">node_js</span></span><br><span class="line"><span class="attr">node_js:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">"stable"</span></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line">  <span class="attr">directories:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">node_modules</span></span><br><span class="line"><span class="attr">script:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">test</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">yarn</span> <span class="string">build</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">provider:</span> <span class="string">s3</span></span><br><span class="line">  <span class="attr">access_key_id:</span> <span class="string">$AWS_ACCESS_KEY</span></span><br><span class="line">  <span class="attr">secret_access_key:</span> <span class="string">$AWS_SECRET_KEY</span></span><br><span class="line">  <span class="attr">bucket:</span> <span class="string">YOUR-BUCKET</span></span><br><span class="line">  <span class="attr">region:</span> <span class="string">ap-northeast-2</span> <span class="comment">#서울의 리전명. </span></span><br><span class="line">  <span class="attr">local_dir:</span> <span class="string">build</span> <span class="comment">#build 후 ./build 디렉토리만 올라가게 한다.</span></span><br><span class="line">  <span class="attr">skip_cleanup:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="attr">notifications:</span></span><br><span class="line">  <span class="attr">slack:</span> <span class="string">YOUR-SLACK-KEY</span></span><br></pre></td></tr></table></figure>
+<p>React 기반의 FE CI / CD는 이걸로 끝이다. <strong>참 쉽죠?</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/" data-id="ckk5ihpqs000fdg9ocjnwog88" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/30/spring-kotlin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          Spring 기반 프로젝트에 코틀린 많이 쓰(려고 노력하)는 이야기
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/21/new-theme/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">블로그 새단장!!!</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/03/23/hackathon-cicd/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

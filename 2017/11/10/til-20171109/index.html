@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>til-20171109 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2017.11.09 (목) 오늘의 T.I.L. DI, Container 기반 로또 완성.  잘 한 건지 못 한 건지….. 게임 구현에 필요한 모든 객체를 LottoContainer에서 관리하고, LottoApplication에서 LottoContainer.execute() 를 실행하면 그 어떠한 추가 구현도 필요 없이 게임이 실행됨.  재밌게 코딩한 과제였">
+<meta name="keywords" content="Java,React,Refactoring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="til-20171109">
+<meta property="og:url" content="https://tech.wheejuni.com/2017/11/10/til-20171109/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="2017.11.09 (목) 오늘의 T.I.L. DI, Container 기반 로또 완성.  잘 한 건지 못 한 건지….. 게임 구현에 필요한 모든 객체를 LottoContainer에서 관리하고, LottoApplication에서 LottoContainer.execute() 를 실행하면 그 어떠한 추가 구현도 필요 없이 게임이 실행됨.  재밌게 코딩한 과제였">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.941Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="til-20171109">
+<meta name="twitter:description" content="2017.11.09 (목) 오늘의 T.I.L. DI, Container 기반 로또 완성.  잘 한 건지 못 한 건지….. 게임 구현에 필요한 모든 객체를 LottoContainer에서 관리하고, LottoApplication에서 LottoContainer.execute() 를 실행하면 그 어떠한 추가 구현도 필요 없이 게임이 실행됨.  재밌게 코딩한 과제였">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-til-20171109" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      til-20171109
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="2017-11-09-목-오늘의-T-I-L"><a href="#2017-11-09-목-오늘의-T-I-L" class="headerlink" title="2017.11.09 (목) 오늘의 T.I.L."></a>2017.11.09 (목) 오늘의 T.I.L.</h3><ul>
+<li>DI, Container 기반 로또 완성. <ul>
+<li>잘 한 건지 못 한 건지…..</li>
+<li>게임 구현에 필요한 모든 객체를 LottoContainer에서 관리하고, LottoApplication에서 LottoContainer.execute() 를 실행하면 그 어떠한 추가 구현도 필요 없이 게임이 실행됨. </li>
+<li>재밌게 코딩한 과제였다. 지금까지 배운 모든 디자인 패턴과 DI 등의 개념을 집대성해본 재밌는 경험이었다. </li>
+</ul>
+</li>
+</ul>
+<p>로또 코드 중에서… 로또 숫자 입력을 인터페이스로 구현하고 Lotto 객체를 만들 때 해당 인터페이스를 주입시켰다. (맞는 표현인지?)</p>
+<p>즉 아래와 같은 구현이 가능해졌다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PurchaseStrategy</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AutoLottoPurchaseStrategy</span> <span class="keyword">implements</span> <span class="title">LottoPurchaseStrategy</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">selectNumbers</span><span class="params">(Scanner scn)</span> </span>&#123;</span><br><span class="line">		List&lt;Integer&gt; returnList = RandomUtils.getRandomLottoList(<span class="keyword">new</span> Random());</span><br><span class="line">		Collections.sort(returnList);</span><br><span class="line">		System.out.println(<span class="string">"자동선택 번호 : "</span> + returnList);</span><br><span class="line">		<span class="keyword">return</span> returnList;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(InputTypes type)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> InputTypes.AUTO == type;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserLotto</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> List&lt;Integer&gt; numbers;</span><br><span class="line">	<span class="keyword">private</span> LottoPurchaseStrategy lps;</span><br><span class="line">	<span class="keyword">private</span> Scanner scn;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="title">UserLotto</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">UserLotto</span><span class="params">(LottoPurchaseStrategy lps, Scanner scn)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.scn = scn;</span><br><span class="line">		<span class="keyword">this</span>.lps = lps;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getNumbers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> numbers;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNumbers</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.numbers = lps.selectNumbers(scn);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>이와 같이 중복코드를 엄청나게 줄이면서도 사용자의 입력에 따른 분기 처리를 else if나 switch 없이 구현할 수 있었다.</strong><br>무엇보다 코딩량이 꽤 줄어들었고, 자동 / 수동 외에 다른 방식의 로또 생성 로직이 생긴다 해도 <em>UserLotto는 한 줄도 건드리지 않은 채</em> 구현을 바꿀 수 있게 되었다. </p>
+<p>이번 구현을 통해 배운 점은 별도의 포스팅으로 정리할 예정. </p>
+<ul>
+<li><p>REST API, 내일 포비와 즐겁게 이야기 나누기 위해 알고 있던 개념 정리하고 몇 가지 개념 더 잡아봄. </p>
+</li>
+<li><p>니꼴라스의 React Native 강의, Redux 사용법 배움. </p>
+<ul>
+<li>React Native 처음 배우면서 Props를 주고받는 방법을 접했을 때, 아 이거 애플리케이션의 복잡도가 높아지면 분명히 문제가 되겠구나 생각했는데, 역시 해결해주는 라이브러리가 있었다.</li>
+</ul>
+</li>
+</ul>
+<p>내일이면 벌써 4주차 마지막 날, 개인적으로는 다음주 수요일 즈음엔 트렐로 프로젝트에 진입할 수 있었으면 하는 바램이다.<br>언제 어떻게 쓰일지는 모르겠지만 자기소개서와 이력서도 말끔하게 한 번 써보고 심신을 가다듬는 계기로(….) 삼고자 한다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2017/11/10/til-20171109/" data-id="ckk5ihpti003hdg9oru07dzz2" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2017/11/10/til-20171109/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactoring/">Refactoring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/11/12/til-20171112/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          TIL-20171110 ~ 1112
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/11/08/til-20171108/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">TIL-20171107 ~ 08</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2017/11/10/til-20171109/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

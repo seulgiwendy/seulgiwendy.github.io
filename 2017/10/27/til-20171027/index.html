@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>TIL-20171027 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2017.10.27 (금) 오늘의 TIL MVC 프레임워크 1단계 구현을 완료하다.  모든 요청을 DispatcherServlet에서 받고, RequestMapping에 따라 각 Controller로 뿌려주는 실습을 해 보다.  Servlet의 사용법과 메소드들에 대해 학습해보다.  다형성 개념을 이용해 Controller를 구현하다. HTTP 웹 서버 구">
+<meta name="keywords" content="Java,TIL,Servlet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIL-20171027">
+<meta property="og:url" content="https://tech.wheejuni.com/2017/10/27/til-20171027/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="2017.10.27 (금) 오늘의 TIL MVC 프레임워크 1단계 구현을 완료하다.  모든 요청을 DispatcherServlet에서 받고, RequestMapping에 따라 각 Controller로 뿌려주는 실습을 해 보다.  Servlet의 사용법과 메소드들에 대해 학습해보다.  다형성 개념을 이용해 Controller를 구현하다. HTTP 웹 서버 구">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.936Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TIL-20171027">
+<meta name="twitter:description" content="2017.10.27 (금) 오늘의 TIL MVC 프레임워크 1단계 구현을 완료하다.  모든 요청을 DispatcherServlet에서 받고, RequestMapping에 따라 각 Controller로 뿌려주는 실습을 해 보다.  Servlet의 사용법과 메소드들에 대해 학습해보다.  다형성 개념을 이용해 Controller를 구현하다. HTTP 웹 서버 구">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-til-20171027" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TIL-20171027
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="2017-10-27-금-오늘의-TIL"><a href="#2017-10-27-금-오늘의-TIL" class="headerlink" title="2017.10.27 (금) 오늘의 TIL"></a>2017.10.27 (금) 오늘의 TIL</h3><ul>
+<li><p>MVC 프레임워크 1단계 구현을 완료하다.</p>
+<ul>
+<li>모든 요청을 DispatcherServlet에서 받고, RequestMapping에 따라 각 Controller로 뿌려주는 실습을 해 보다. </li>
+<li>Servlet의 사용법과 메소드들에 대해 학습해보다. </li>
+<li>다형성 개념을 이용해 Controller를 구현하다. HTTP 웹 서버 구현 때도 실습해본 내용. </li>
+</ul>
+</li>
+<li><p>Servlet과 JSP에 대해 포비와 이야기 나누다. </p>
+<ul>
+<li>Servlet의 작동 원리에 대해 복습. 사실 내가 미리 숙지하고 있어야 했던 내용이지만 깊이 이해하지 못 하고 있었다. </li>
+<li>여기서 드러나는 나의 단점. 새로운 개념을 학습할 때에 지나치게 키워드나 메소드 사용 중심의 이해를 하려고 하는 경향이 있다. 이제 메소드 예제 보고 따라치던 시절은 졸업했으니, 작동 원리에 대해 심화 학습을 하고 충분한 이해를 가지는 것도 좋겠다. 즉, 지나치게 코드 작성에만 집착하는 태도를 버릴 필요가 있겠다. 특히 Servlet과 같은 개념은 방대한 개념이므로 예제를 보고 따라하는 학습이 의미 없을 수도 있겠다. </li>
+<li>Servlet =&gt; 인스턴스가 하나다.<br><strong>인스턴스 변수를 사용하면 안 된다.</strong> Thread-safe하지 못한 코드가 된다. </li>
+<li>Servlet의 라이프사이클. init() -&gt; service() -&gt; destroy()</li>
+<li>제어의 역전 (Inversion of Control)이 일어나는 상황에 대해 알아보다. 그동안 Spring Framework를 사용하면서 CrudRepository interface같은 것을 구현할 때 IoC가 일어난다고 피상적으로 알고 있었다.<br>즉 개발자가 Spring의 사용 명세서 상에 명시된 대로 메소드를 작성하면 그 메소드에 맞게 Spring Framework가 구현체를 만들어 코드에 삽입해주는 구현을 많이 했었다. (@Autowired)<br>IoC라는 것이 Spring만의 고유한 특성이 아닌 자바 진영 프레임워크들의 특성임을 알게되다. </li>
+</ul>
+</li>
+<li><p>호눅스의 장고 강의를 인프런에서 수강하기 시작했다. MVC나 객체 지향 프로그래밍에 대한 이해가 높아졌기 때문에 이제 다른 언어 기반의 MVC 프레임워크에 접근해도 괜찮겠다는 판단이 들었다. </p>
+</li>
+</ul>
+<p>오늘 점심시간에는 iOS 팀원들과 함께 조촐한 회식 자리를 가졌다. 같은 공간에서 공부하고 하루의 대부분을 같이 생활하면서도 이런 자리를 그동안 갖지 못한 것이 내심 아쉬웠었다.<br>학습하는 언어는 달라도 다들 비슷한 고민을 갖고 있음을 느낀 식사시간이었다. 특히 서로의 닉네임을 숙지할 수 있게 되어 좋았다. </p>
+<p>포비에게 코드스쿼드 전체 회고 세션이 필요함을 말해주었다. 포비를 비롯한 마스터 네 분 다 공감하시리라 생각한다.<br>다른 팀원에게 전파하고 싶은 얘기나 서로 알고싶은 부분을 알아가는 것도 의미 있겠다. 공부하려고 모였지만 사람이 하는 일임을 서로 잊지 않았으면 한다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2017/10/27/til-20171027/" data-id="ckk5ihpst002odg9ociga9d0h" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2017/10/27/til-20171027/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Servlet/">Servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/29/til-20171029/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          TIL-20171028, 29
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/26/til-20171026/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">til-20171026</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2017/10/27/til-20171027/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

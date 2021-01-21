@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>스프링 AOP는 어떻게 의도대로 작동하는가 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="스프링 AOP는 어떻게 의도대로 작동하는가스프링이 거대한 DI(Dependency Injection, 종속성 주입)컨테이너임은 누구나 아는 사실이다. 그리고 우리는 이런 컨테이너의 도움을 받아 비즈니스 로직에 집중하고, POJO만으로 서비스를 개발할 수 있음에 하루 하루 감사함을 느끼며 살고 있다.  그러나 우리가 DI의 메카니즘 자체에 대해 고민해볼 일은">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스프링 AOP는 어떻게 의도대로 작동하는가">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/05/02/spring-aop-how/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="스프링 AOP는 어떻게 의도대로 작동하는가스프링이 거대한 DI(Dependency Injection, 종속성 주입)컨테이너임은 누구나 아는 사실이다. 그리고 우리는 이런 컨테이너의 도움을 받아 비즈니스 로직에 집중하고, POJO만으로 서비스를 개발할 수 있음에 하루 하루 감사함을 느끼며 살고 있다.  그러나 우리가 DI의 메카니즘 자체에 대해 고민해볼 일은">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="스프링 AOP는 어떻게 의도대로 작동하는가">
+<meta name="twitter:description" content="스프링 AOP는 어떻게 의도대로 작동하는가스프링이 거대한 DI(Dependency Injection, 종속성 주입)컨테이너임은 누구나 아는 사실이다. 그리고 우리는 이런 컨테이너의 도움을 받아 비즈니스 로직에 집중하고, POJO만으로 서비스를 개발할 수 있음에 하루 하루 감사함을 느끼며 살고 있다.  그러나 우리가 DI의 메카니즘 자체에 대해 고민해볼 일은">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-spring-aop-how" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spring-Framework/">Spring_Framework</a>►<a class="article-category-link" href="/categories/Spring-Framework/Java/">Java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      스프링 AOP는 어떻게 의도대로 작동하는가
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="스프링-AOP는-어떻게-의도대로-작동하는가"><a href="#스프링-AOP는-어떻게-의도대로-작동하는가" class="headerlink" title="스프링 AOP는 어떻게 의도대로 작동하는가"></a>스프링 AOP는 어떻게 의도대로 작동하는가</h3><p>스프링이 거대한 DI(Dependency Injection, 종속성 주입)컨테이너임은 누구나 아는 사실이다. 그리고 우리는 이런 컨테이너의 도움을 받아 비즈니스 로직에 집중하고, POJO만으로 서비스를 개발할 수 있음에 하루 하루 감사함을 느끼며 살고 있다. </p>
+<p>그러나 우리가 DI의 메카니즘 자체에 대해 고민해볼 일은 많지 않은 것이 사실이다. 단순히 <code>@Autowired</code>를 달면 알아서 종속성이 잘 주입되어 의도대로 작동하는 것을 보며 감탄하거나 무덤덤해 할 뿐 그 이상의 느낌을 갖지는 못하는 것 같다.</p>
+<p>최근 프로젝트에서 AOP를 적용해볼까 고민하던 차에 AOP의 구현이 뭔가 장황하게 느껴지고 앞뒤가 맞지 않는듯한 느낌이 들어 학습에 어려움을 겪은 적이 있었다. 이 어려움은 Spring의 애플리케이션 콘텍스트가 사실은 거대한 DI 콘테이너에 불과하다는 것을 상기하고, DI 개념에 대한 기초 학습부터 다시 진행하니 조금씩 해결됐다. </p>
+<p>이번 글을 통해 스프링의 종속성 주입이 어떻게 이뤄지는지를 다시 한 번 복습해 보고, AOP의 핵심 개념에 대해 알아보는 시간을 갖고자 한다. </p>
+<p><strong>종속성 주입</strong></p>
+<p>우리는 걸그룹의 인사 구호를 외쳐주는 클래스를 작성할 것이다. 걸그룹들은 저마다의 <a href="https://www.youtube.com/watch?v=6mS2iZa1QMA" target="_blank" rel="noopener">독특한 인사 구호</a> 를 갖고 있다. </p>
+<p>단순하게 생각해보면 이런 식의 구현을 가져갈 수 있겠다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GirlGroupHello</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String REDVELVET_HELLO = <span class="string">"해피니스! 안녕하세요 레드벨벳입니다!"</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TWICE_HELLO = <span class="string">"원 인어 밀리언!"</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">(String groupName)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span>(groupName) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"레드벨벳"</span>:</span><br><span class="line">                <span class="keyword">return</span> REDVELVET_HELLO;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"트와이스"</span>:</span><br><span class="line">                <span class="keyword">return</span> TWICE_HELLO;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>단순하고 좋아보이는 구현이지만 몇 가지 문제점이 눈에 들어온다.</p>
+<ul>
+<li>객체지향 설계의 안티패턴(anti pattern)이라고 잘 알려져있는 <code>switch-case</code> 가 핵심 로직으로 구현돼있다. </li>
+<li>차후 확장의 여지가 적다. <em>세상에는 레벨 트와 말고도 걸그룹이 많잖아?</em></li>
+</ul>
+<p>이런 방식이면 어떨까?</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GirlGroupHello</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> HelloWords helloWords;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GirlGroupHello</span><span class="params">(HelloWords helloWords)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.helloWords = helloWords;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> helloWords.sayHi();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HelloWords</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function">String <span class="title">sayHi</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedVelvetHelloWords</span> <span class="keyword">implements</span> <span class="title">HelloWords</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"해피니스! 안녕하세요 레드벨벳입니다!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이제 <code>GirlGroupHello</code> 객체는 인사구호를 만들어주는 로직에 대한 통제권을 완전히 잃어버렸다. 대신, 객체가 생성될 때 주입받은 종속성이 만들어주는 인사구호를 그냥 전달해주는 역할만을 받게 되었다.</p>
+<p>객체가 자신이 수행할 동작을 정의하지 않고 주입받은 종속성을 통해 자신의 행동을 통제받는 <strong>제어권의 역전(IoC)</strong> 이 일어난 것이다.</p>
+<p>개발자는 이제 새로운 걸그룹이 나올 때마다 스파게티같이 늘어진 스위치 케이스 문을 수정할 생각에 밤잠을 설치지 않아도 된다. 그가 할 일은 <code>HelloWords</code>를 구현한 새로운 클래스를 작성해 적절하게 주입시켜주는 것 뿐이다. </p>
+<p><strong>새로운 요구사항의 등장</strong></p>
+<p>SM엔터테인먼트가 주 52시간 근로 규정을 준수하는지 알아보기 위해, 레드벨벳이 인사구호를 외칠 때마다 타임스탬프를 기록하는 요구사항을 구현해야 한다고 가정해보자. </p>
+<p>가장 쉬운 것은 인터페이스를 수정하는 것이다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">HelloWords</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">sayHi</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">LocalDateTime <span class="title">when</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이 방식에는 다음과 같은 문제점이 있다.</p>
+<ul>
+<li>그동안 구현했던 <code>HelloWords</code>의 구현체를 일괄적으로 수정해야 한다. 그렇지 않으면 컴파일 에러가 발생한다.</li>
+<li>정식 근로계약을 맺지 않아 요구사항의 구현이 필요 없는 걸그룹들도 있다. <em>(더 나쁜 것 같지만 넘어가자)</em></li>
+</ul>
+<p><strong>부가기능 구현 클래스</strong></p>
+<p>다음과 같이 부가기능을 구현한 뒤 원래 구현체에 동작을 위임하는 구현을 할 수 있겠다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeAddedHelloWords</span> <span class="keyword">implements</span> <span class="title">HelloWords</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> HelloWords helloWords;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TimeAddedHelloWords</span><span class="params">(HelloWords helloWords)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.helloWords = helloWords;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalDateTime <span class="title">when</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LocalDateTime();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> helloWords.sayHi();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>이처럼 종속성 주입을 적절히 잘(…) 활용하면 <strong>원래 코드에 대한 수정 없이도</strong> 계속 요구사항 구현을 추가해 나갈 수 있고 기능별로 구현체를 고립시킴으로써 <strong>유닛 테스트와 유지보수도 용이해지는</strong> 이점을 가질 수 있다. </p>
+<p><strong>AOP가 별건가?</strong></p>
+<p>AOP라는 건 결국 공통의 관심사(aspect)를 추상화해 잘 보관하고 있다가 필요한 곳에 동적으로 삽입하여 부가기능을 구현해주는 방법론에 불과한 것이다. </p>
+<p>스프링에서 공통의 관심사를 추상화해 잘 보관하고 있는 객체를 <strong>어드바이스(Advice)</strong> 라고 하고, 이 부가기능이 타깃 구현체에서 적용될 시점을 <strong>포인트컷(Pointcut)</strong> 이라 부른다.</p>
+<p>스프링은 AOP를 구현하기 위해 프록시 객체를 만든다. 개발자가 작성한 빈 클래스에 부가기능을 추가하기 위해, 런타임에서 동적으로 부가기능을 주입하는 프록시 객체를 만드는 것이다. </p>
+<p>프록시 객체를 만드는 방법에는 두 가지 방식이 사용된다.</p>
+<ul>
+<li><p>JDK Dynamic Proxy : <code>java.lang.reflect</code>를 사용하는 고전적 방식이다. 인터페이스에 대해서만 프록시 객체를 만들 수 있으므로 concrete class에 대해 바로 포인트컷을 준 경우에는 사용할 수 없다.</p>
+</li>
+<li><p>CGLIB : Code Generator Library의 약자라고 한다. 구현 방식은 개발자가 작성한 빈 클래스를 상속받아 프록시 객체를 만드는 것이다.</p>
+<ul>
+<li>클래스에 대해서도 프록시 객체를 만들어줄 수 있다는 장점이 있다(상속받으니까!).</li>
+<li>때문에 Final class는 사용할 수 없다. </li>
+<li>Kotlin과 병행 사용할때는 각별한 주의를 요한다. <a href="https://kotlinlang.org/docs/reference/classes.html" target="_blank" rel="noopener">Kotlin은 기본적으로 모든 클래스가 final이다</a>.<ul>
+<li>이 문제를 해결해주는 Compiler Plugin이 있다(Spring, Spring-JPA 등). 나중에 살펴본다. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>사실 포인트컷을 정의하는 일은 꽤나 까다롭다. 포인트컷 표현식(expression language)을 써서 메소드를 정확히 정의해야하는데 다양한 인터페이스에서 공통적으로 적용되는 포인트컷이라면 번거롭기 그지 없을 것이다. </p>
+<p>이런 경우 커스텀 애너테이션을 붙여 포인트컷을 정의해주는 방법도 고려해볼만 하다. </p>
+<p><a href="http://www.baeldung.com/spring-aop-annotation" target="_blank" rel="noopener">요렇게 하면 되겠다.</a></p>
+<p>실제 AOP를 프로젝트에 적용해 본 사례는 다음 글을 통해 공유해 보겠다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/05/02/spring-aop-how/" data-id="ckk5ihps6001zdg9ox0zh4wzj" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/05/02/spring-aop-how/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/19/naver-hackday/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          2018 네이버 CAMPUS HACKDAY 참가기
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/19/morningcs-adder/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">아침 CS - (7) 가산기</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/05/02/spring-aop-how/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

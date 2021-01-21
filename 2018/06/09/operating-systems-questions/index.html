@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>운영체제에 관한 질문들 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="운영체제에 관한 질문들 동기와 비동기의 차이점에 대해 말해 보세요.  synchronous와 asynchronous의 차이는 “반환값의 기대” 에서 발생한다고 생각합니다. system call이 발생했을 때 리턴값이 돌아올 때까지 기다리면 동기, 리턴값이 돌아올 때까지 기다리지 않고 리턴 값이 만들어졌을 때에 수행할 로직을 참조로써 전달(콜백) 하면 비동기">
+<meta property="og:type" content="article">
+<meta property="og:title" content="운영체제에 관한 질문들">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/06/09/operating-systems-questions/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="운영체제에 관한 질문들 동기와 비동기의 차이점에 대해 말해 보세요.  synchronous와 asynchronous의 차이는 “반환값의 기대” 에서 발생한다고 생각합니다. system call이 발생했을 때 리턴값이 돌아올 때까지 기다리면 동기, 리턴값이 돌아올 때까지 기다리지 않고 리턴 값이 만들어졌을 때에 수행할 로직을 참조로써 전달(콜백) 하면 비동기">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="운영체제에 관한 질문들">
+<meta name="twitter:description" content="운영체제에 관한 질문들 동기와 비동기의 차이점에 대해 말해 보세요.  synchronous와 asynchronous의 차이는 “반환값의 기대” 에서 발생한다고 생각합니다. system call이 발생했을 때 리턴값이 돌아올 때까지 기다리면 동기, 리턴값이 돌아올 때까지 기다리지 않고 리턴 값이 만들어졌을 때에 수행할 로직을 참조로써 전달(콜백) 하면 비동기">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-operating-systems-questions" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/operating-system/">operating_system</a>►<a class="article-category-link" href="/categories/operating-system/tech-interview/">tech_interview</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      운영체제에 관한 질문들
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="운영체제에-관한-질문들"><a href="#운영체제에-관한-질문들" class="headerlink" title="운영체제에 관한 질문들"></a>운영체제에 관한 질문들</h3><ul>
+<li>동기와 비동기의 차이점에 대해 말해 보세요.</li>
+</ul>
+<p>synchronous와 asynchronous의 차이는 “반환값의 기대” 에서 발생한다고 생각합니다. system call이 발생했을 때 리턴값이 돌아올 때까지 기다리면 동기, 리턴값이 돌아올 때까지 기다리지 않고 리턴 값이 만들어졌을 때에 수행할 로직을 참조로써 전달(콜백) 하면 비동기이다. </p>
+<p>동기와 비동기는 각각 blocking, non-blocking일 수도 있다. synchronous non-blocking일 수도 있다(event-driven). 대표적인 사례로 node.js를 꼽을 수 있겠다.</p>
+<ul>
+<li></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/06/09/operating-systems-questions/" data-id="ckk5ihps3001wdg9odrp6yevy" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/06/09/operating-systems-questions/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/06/09/jpa-questions/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          JPA에 관한 질문들
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/08/algorithm-ds-questions/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">자료구조와 알고리즘에 관한 질문들</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/06/09/operating-systems-questions/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

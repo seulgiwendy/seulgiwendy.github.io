@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>DiskPart로 파티션을 내맘대로 다뤄보자. | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="윈도우의 유일하게 유용한 시스템 유틸리티, Diskpart를 활용해보자.Windows의 CLI 지원은 한심한 수준이고 PowerShell은 있으나마나한 물건이지만 거의 유일하게 쓸만한 유틸리티인 Diskpart는 그 사용법을 확실히 알아두는 것이 좋다. 더구나 Windows 머신이라면 최소 일 년에 두어번 정도는 OS를 갈아엎고 디스크 환경을 바꿔줘야 할">
+<meta name="keywords" content="windows,powershell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DiskPart로 파티션을 내맘대로 다뤄보자.">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/01/30/windows-diskpart/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="윈도우의 유일하게 유용한 시스템 유틸리티, Diskpart를 활용해보자.Windows의 CLI 지원은 한심한 수준이고 PowerShell은 있으나마나한 물건이지만 거의 유일하게 쓸만한 유틸리티인 Diskpart는 그 사용법을 확실히 알아두는 것이 좋다. 더구나 Windows 머신이라면 최소 일 년에 두어번 정도는 OS를 갈아엎고 디스크 환경을 바꿔줘야 할">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.945Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DiskPart로 파티션을 내맘대로 다뤄보자.">
+<meta name="twitter:description" content="윈도우의 유일하게 유용한 시스템 유틸리티, Diskpart를 활용해보자.Windows의 CLI 지원은 한심한 수준이고 PowerShell은 있으나마나한 물건이지만 거의 유일하게 쓸만한 유틸리티인 Diskpart는 그 사용법을 확실히 알아두는 것이 좋다. 더구나 Windows 머신이라면 최소 일 년에 두어번 정도는 OS를 갈아엎고 디스크 환경을 바꿔줘야 할">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-windows-diskpart" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      DiskPart로 파티션을 내맘대로 다뤄보자.
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="윈도우의-유일하게-유용한-시스템-유틸리티-Diskpart를-활용해보자"><a href="#윈도우의-유일하게-유용한-시스템-유틸리티-Diskpart를-활용해보자" class="headerlink" title="윈도우의 유일하게 유용한 시스템 유틸리티, Diskpart를 활용해보자."></a>윈도우의 유일하게 유용한 시스템 유틸리티, Diskpart를 활용해보자.</h3><p>Windows의 CLI 지원은 한심한 수준이고 PowerShell은 있으나마나한 물건이지만 거의 유일하게 쓸만한 유틸리티인 Diskpart는 그 사용법을 확실히 알아두는 것이 좋다.</p>
+<p>더구나 Windows 머신이라면 최소 일 년에 두어번 정도는 OS를 갈아엎고 디스크 환경을 바꿔줘야 할 일이 생기므로 Diskpart의 사용법을 잘 알아둔다면 Windows의 설치에 걸리는 시간과 노력(!)을 획기적으로 줄일 수 있을 것이다. </p>
+<h4 id="list-명령-gt-뭔가-목록을-보여준다"><a href="#list-명령-gt-뭔가-목록을-보여준다" class="headerlink" title="list 명령 -&gt; 뭔가 목록을 보여준다."></a>list 명령 -&gt; 뭔가 목록을 보여준다.</h4><p>말 그대로 list 하는 명령이다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">list -[disk, partition, volume....]</span><br><span class="line"></span><br><span class="line">list disk : 시스템에 설치된 물리적 디스크를 모두 보여준다. </span><br><span class="line">list partition: 선택된 디스크의 파팃녀을 모두 보여준다. </span><br><span class="line">list volume: 시스템에 등록되어 있는 모든 볼륨을 보여준다.</span><br></pre></td></tr></table></figure>
+<h4 id="select-명령-gt-뭔가를-선택한다"><a href="#select-명령-gt-뭔가를-선택한다" class="headerlink" title="select 명령 -&gt; 뭔가를 선택한다."></a>select 명령 -&gt; 뭔가를 선택한다.</h4><p>디스크의 구성 요소를 list 한 뒤엔 select를 수행해 수정할 파티션, 볼륨, 디스크 등을 확정해줘야 한다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select disk &apos;disk_id&apos; : disk_id번 디스크를 선택한다. </span><br><span class="line">select partition, volume, etc....</span><br></pre></td></tr></table></figure>
+<h4 id="shrink-gt-파티션의-크기를-줄인다"><a href="#shrink-gt-파티션의-크기를-줄인다" class="headerlink" title="shrink -&gt; 파티션의 크기를 줄인다."></a>shrink -&gt; 파티션의 크기를 줄인다.</h4><p>여기부터 이제 실질적 파티션 정보의 조작을 전담하는 놈들을 알아볼 것이다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">shrink </span><br><span class="line">    volume=&apos;drive_letter&apos; : 드라이브 레터에 맞는 파티션의 크기를 줄일 것이다.</span><br><span class="line">                            예를 들어 C드라이브의 크기를 줄이겠다면 shrink volume=c다.</span><br><span class="line">                            그러나 이렇게 사용하는 것은 권하지 않는다.</span><br><span class="line">                            가급적 list -&gt; select -&gt; shrink의 순서를 따르자. </span><br><span class="line">                            그래야 실수하지 않는다.</span><br><span class="line">    </span><br><span class="line">    querymax: 줄일 수 있는 최대 크기를 구하는 것이다. </span><br><span class="line">    예를 들어 500GB짜리 파티션이 230GB를 사용하고 있다면 querymax 값은 270GB다.</span><br><span class="line"></span><br><span class="line">    desired=&apos;size_in_MB&apos; : size_in_MB 크기만큼 볼륨을 줄인다.</span><br></pre></td></tr></table></figure>
+<h4 id="create-gt-유에서-무를-창조한다"><a href="#create-gt-유에서-무를-창조한다" class="headerlink" title="create -&gt; 유에서 무를 창조한다."></a>create -&gt; 유에서 무를 창조한다.</h4><p>파티션을 줄였다면 디스크에 노는 공간이 생겼을 터, CREATE을 돌려 파티션을 만들어줘야 파일을 저장할 수 있다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create</span><br><span class="line">    - volume</span><br><span class="line">    - partition</span><br><span class="line">    - vdisk : 이건 아직 써보지 않아서 모르겠다. 위에 두 개는 각자 알아서 무슨 뜻일지 해석하자.</span><br></pre></td></tr></table></figure>
+<h4 id="assign-gt-이름표를-붙여준다"><a href="#assign-gt-이름표를-붙여준다" class="headerlink" title="assign -&gt; 이름표를 붙여준다."></a>assign -&gt; 이름표를 붙여준다.</h4><p>Windows는 모든 파티션에 드라이브 레터(e.g. C: D:)가 할당돼야 파일시스템 상에서 접근할 수 있다. </p>
+<p>assign 명령을 통해 당신의 꼴통같은 Windows 머신의 디스크에 최대한 굴욕적인 이름을 붙여주자. </p>
+<p><strong>assign 명령을 실행시키기 전에 DiskPart의 커서는 드라이브 레터가 할당되지 않은 빈 파티션을 향하고 있어야 한다. list - select 조합으로 잘 선택해주자.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">assign</span><br><span class="line">    - 아무것도 안 쓰면 오름차순으로 자동 문자 배정. (e.g. C: D: 가 존재 -&gt; E: 배정.)</span><br><span class="line"></span><br><span class="line">    letter=&apos;your_desired_drive_letter&apos; : 너의 마음대로 드라이브 레터를 붙여주는 것이다. </span><br><span class="line">    최대한 글자 모양이 우스꽝스러운 Z 나 Y 같은 녀석들을 추천한다. </span><br><span class="line">    Windows는 존중받을 가치가 없는 OS다.</span><br></pre></td></tr></table></figure>
+<h4 id="총정리"><a href="#총정리" class="headerlink" title="총정리"></a>총정리</h4><p>총정리를 위해 아래와 같은 요구사항을 만족하는 사용 시나리오를 작성해 보겠다. </p>
+<p><em>요구사항</em></p>
+<blockquote>
+<p>1번 디스크의 2번 파티션의 크기를 500GB로 줄인다. </p>
+<p>1번 디스크의 새로 생긴 공간에 파티션을 만들고 드라이브 레터를 자동 배정한다.</p>
+<p>NTFS 파일시스템으로 포맷하고 파일을 저장할 수 있게 준비한다.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">list disk</span><br><span class="line"></span><br><span class="line">select disk 1</span><br><span class="line"></span><br><span class="line">list partition</span><br><span class="line"></span><br><span class="line">select partition 2</span><br><span class="line"></span><br><span class="line">shrink querymax</span><br><span class="line"></span><br><span class="line">shrink desired=200000(파티션 2의 크기가 700GB였다고 가정하겠음. 1GB=1000MB)</span><br><span class="line"></span><br><span class="line">create partition</span><br><span class="line"></span><br><span class="line">assign</span><br><span class="line"></span><br><span class="line">format fs=ntfs</span><br></pre></td></tr></table></figure>
+<p><strong>어때요, 참 쉽죠?</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/01/30/windows-diskpart/" data-id="ckk5ihpyd009vdg9oivhosc4f" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/01/30/windows-diskpart/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/powershell/">powershell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windows/">windows</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/19/hackathon-kotlin/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          해커톤 나가서 삽질하기 (1) - 코틀린으로 DTO를 만들어보자.
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/24/django-no-sites/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">Django로 삽질한 이야기 (01) - 사이트가 없어졌다!</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/01/30/windows-diskpart/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

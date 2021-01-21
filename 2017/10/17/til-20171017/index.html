@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>TIL-20171017 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2017.10.17(화) 오늘의 배운 점 쿠키 정보를 HTTP 헤더를 통해 변경하는 법을 배우다.   HTTP 헤더에도 텍스트의 형태로 정보가 삽입되어 있음. 임의의 정보를 쿠키에 삽입할 수 있고, Set-Cookie: 로 하면 된다. 더 알아볼 점: 쿠키의 만료 시간은? 다른 페이지로 이동해도 쿠키 정보는 없어지지 않는데, 이 정책은 어떻게 설정할 수 있">
+<meta name="keywords" content="JAVA_BACKEND,TIL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TIL-20171017">
+<meta property="og:url" content="https://tech.wheejuni.com/2017/10/17/til-20171017/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="2017.10.17(화) 오늘의 배운 점 쿠키 정보를 HTTP 헤더를 통해 변경하는 법을 배우다.   HTTP 헤더에도 텍스트의 형태로 정보가 삽입되어 있음. 임의의 정보를 쿠키에 삽입할 수 있고, Set-Cookie: 로 하면 된다. 더 알아볼 점: 쿠키의 만료 시간은? 다른 페이지로 이동해도 쿠키 정보는 없어지지 않는데, 이 정책은 어떻게 설정할 수 있">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TIL-20171017">
+<meta name="twitter:description" content="2017.10.17(화) 오늘의 배운 점 쿠키 정보를 HTTP 헤더를 통해 변경하는 법을 배우다.   HTTP 헤더에도 텍스트의 형태로 정보가 삽입되어 있음. 임의의 정보를 쿠키에 삽입할 수 있고, Set-Cookie: 로 하면 된다. 더 알아볼 점: 쿠키의 만료 시간은? 다른 페이지로 이동해도 쿠키 정보는 없어지지 않는데, 이 정책은 어떻게 설정할 수 있">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-til-20171017" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      TIL-20171017
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="2017-10-17-화-오늘의-배운-점"><a href="#2017-10-17-화-오늘의-배운-점" class="headerlink" title="2017.10.17(화) 오늘의 배운 점"></a>2017.10.17(화) 오늘의 배운 점</h3><ul>
+<li><p>쿠키 정보를 HTTP 헤더를 통해 변경하는 법을 배우다. </p>
+<ul>
+<li>HTTP 헤더에도 텍스트의 형태로 정보가 삽입되어 있음.</li>
+<li>임의의 정보를 쿠키에 삽입할 수 있고, <code>Set-Cookie:</code> 로 하면 된다.<ul>
+<li>더 알아볼 점: 쿠키의 만료 시간은? 다른 페이지로 이동해도 쿠키 정보는 없어지지 않는데, 이 정책은 어떻게 설정할 수 있겠는가?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>PR 요청 중 Conflict 상황을 경험해 보다.</p>
+<ul>
+<li>PR 요청 중, 수정중이던 파일에 반영되어있지 않던 내용이 Merge하려는 브랜치에 존재한다면 Conflict가 발견한다. </li>
+<li>이 Conflict는 소스에서 직접 고치지 않아도, GitHub가 제공하는 resolving conflicts 기능을 통해 쉽게 해결 가능.</li>
+<li>합쳐질 소스를 고칠지, 합칠 소스를 고칠지 인라인 에디터를 통해 편집한 후 conflict marker를 지워주면 conflict가 해결, 이후 오토 머지 활성화됨</li>
+<li>git에 대해 더 학습할 필요성. 지옥에서 온 Git이라는 말이 왜 나왔는지 알 것 같은 기분.</li>
+</ul>
+</li>
+<li><p>React.js 관련 강의 시청. </p>
+<ul>
+<li>내일 첫 미팅을 가질 프로젝트의 프론트엔드를 React.js로 구현해볼까 잠시 생각. </li>
+<li>자바스크립트 학습의 필요성을 다시 한 번 느낌</li>
+</ul>
+</li>
+</ul>
+<h4 id="오늘-부족했던-점"><a href="#오늘-부족했던-점" class="headerlink" title="오늘 부족했던 점"></a>오늘 부족했던 점</h4><ul>
+<li>PR을 통해 제안받은 코드 수정 내용들. 의외로 내가 코드 컨벤션을 준수하지 않는 개발을 하고 있음을 깨달음. </li>
+<li>일단 한 번 PR을 날려보는 것에 집중하다보니 코드의 완성도에 집중하지 못한 건 아닌가 반성. </li>
+</ul>
+<h4 id="내일-할-일"><a href="#내일-할-일" class="headerlink" title="내일 할 일"></a>내일 할 일</h4><ul>
+<li>PR 수정 사항 모두 코드에 반영, 컨벤션은 다 수정했으니 이제 리팩토링에 집중. 클래스 재구조화에 집중. 범용성 및 재사용성에 더 집중. </li>
+<li>프로젝트에 대해 간단히 미팅 갖고 사용할 기술이나 진행 계획에 대해 논의해봐야 함.</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2017/10/17/til-20171017/" data-id="ckk5ihpsf002adg9ojlxcp15m" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2017/10/17/til-20171017/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA-BACKEND/">JAVA_BACKEND</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/18/til-20171018/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          til-20171018
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/16/til-20171016/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">TIL - 20171016</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2017/10/17/til-20171017/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>아침 CS - (6) 논리 연산 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="논리 연산부울 대수(Boolean Algebra)라고도 불리는 논리 연산의 기본 개념은 19세기 중반 영국의 수학자 조지 부울이 창안했다고 한다.   두 개의 상태(True - 1, False - 0)를 갖고 연산을 수행하기때문에 컴퓨터 과학에서는 빼놓을 수 없는 주제이며 프로그래밍에선 IF문, FOR - EACH, WHILE 등 정말 이거 없이 프로그래밍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="아침 CS - (6) 논리 연산">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/04/14/morningcs-bool/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="논리 연산부울 대수(Boolean Algebra)라고도 불리는 논리 연산의 기본 개념은 19세기 중반 영국의 수학자 조지 부울이 창안했다고 한다.   두 개의 상태(True - 1, False - 0)를 갖고 연산을 수행하기때문에 컴퓨터 과학에서는 빼놓을 수 없는 주제이며 프로그래밍에선 IF문, FOR - EACH, WHILE 등 정말 이거 없이 프로그래밍">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/c/ce/George_Boole_color.jpg">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="아침 CS - (6) 논리 연산">
+<meta name="twitter:description" content="논리 연산부울 대수(Boolean Algebra)라고도 불리는 논리 연산의 기본 개념은 19세기 중반 영국의 수학자 조지 부울이 창안했다고 한다.   두 개의 상태(True - 1, False - 0)를 갖고 연산을 수행하기때문에 컴퓨터 과학에서는 빼놓을 수 없는 주제이며 프로그래밍에선 IF문, FOR - EACH, WHILE 등 정말 이거 없이 프로그래밍">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/c/ce/George_Boole_color.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-morningcs-bool" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/morning-cs/">morning_cs</a>►<a class="article-category-link" href="/categories/morning-cs/boolean-algebra/">boolean_algebra</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      아침 CS - (6) 논리 연산
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="논리-연산"><a href="#논리-연산" class="headerlink" title="논리 연산"></a>논리 연산</h3><p>부울 대수(Boolean Algebra)라고도 불리는 논리 연산의 기본 개념은 19세기 중반 영국의 수학자 조지 부울이 창안했다고 한다. </p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/George_Boole_color.jpg" alt="조지 불"></p>
+<p>두 개의 상태(True - 1, False - 0)를 갖고 연산을 수행하기때문에 컴퓨터 과학에서는 빼놓을 수 없는 주제이며 프로그래밍에선 IF문, FOR - EACH, WHILE 등 정말 이거 없이 프로그래밍을 어떻게 하나 싶을 정도로 폭넓게 사용되고 있다. </p>
+<p><em>논리 게이트?</em></p>
+<p>논리 게이트는 하나 또는 그 이상의 입력신호로부터 하나의 출력값을 발생시키도록 구성된 전자 회로다. 전자 회로는 두 개의 구분되는 전기적 신호에 따라 작동하도록 설계되고, 논리 - 1, 논리 - 0 과 같은 이진 변수로 표현할 수 있는 구분된 응답을 되돌려주게 된다. </p>
+<p>허용된 범위 내의 전기적 신호가 회로에 들어오면, 그 범위를 판단하여 정해진 전기 신호를 출력하는 것이다. <strong>Arduino를 해보면 잘 알게 된다.</strong></p>
+<h4 id="진리표"><a href="#진리표" class="headerlink" title="진리표"></a>진리표</h4><p>논리연산을 공부할 때 꼭 그려봐야 하는 것이 바로 진리표다. </p>
+<p>논리 연산의 가능한 결과값을 표에 모두 나타낸 것을 진리표라고 한다. 논리 연산의 결과가 혼동되거나 뭔가 이해가 안된다 싶으면 그려보는 것이 좋다. </p>
+<p><code>A AND B</code> 논리연산 </p>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="논리-연산의-종류"><a href="#논리-연산의-종류" class="headerlink" title="논리 연산의 종류"></a>논리 연산의 종류</h3><p>크게 7가지의 종류가 있다. </p>
+<h4 id="부정-NOT"><a href="#부정-NOT" class="headerlink" title="부정(NOT)"></a>부정(NOT)</h4><p>부정하는 것이다. <em>여러분 이거 다~ 거짓말인 거 아시죠?</em></p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>C의 영향을 받은 언어에서는 <code>!</code>를 부정 연산자로 쓴다. <code>~</code> 라고도 표현한다. </p>
+<p>“보수 연산자” 혹은 “부울 보수” 라고도 하는 모양이다. 보수 연산자라는 표현은 자주 들어봤지만…</p>
+<h4 id="논리곱-AND"><a href="#논리곱-AND" class="headerlink" title="논리곱(AND)"></a>논리곱(AND)</h4><p>“앤드 조건문” 안 들어본 사람은 없을 것이다. 주로 <code>&amp;</code> 기호를 사용한다. </p>
+<p>두 명제가 모두 참이여야 참이 되는 연산이다.</p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 , 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0 , 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 , 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 , 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="논리합-OR"><a href="#논리합-OR" class="headerlink" title="논리합(OR)"></a>논리합(OR)</h4><p>“OR 조건문” 안 들어본 사람은 없을 것이다. 주로 <code>|</code> 기호를 사용한다. </p>
+<p>두 명제 중 하나만 참이라도 참이 되는 연산이다. </p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 , 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0 , 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 , 0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 , 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="부정-논리곱-NAND"><a href="#부정-논리곱-NAND" class="headerlink" title="부정 논리곱(NAND)"></a>부정 논리곱(NAND)</h4><p>Not AND 라고 한다. 논리곱의 결과를 한 번 부정(NOT)한 것이다. </p>
+<p>여기서부턴 안 들어본 사람도 있을 것이다. </p>
+<p>두 명제가 모두 참이면 거짓, 이외에는 모두 참이다. 논리곱의 경우 두 명제가 모두 참일때만 참을 돌려주므로 이를 부정하니 당연한 결과이다. 낸드 메모리는 진짜 NAND 회로로 만드는 것이라고 한다. </p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 , 0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0 , 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 , 0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 , 1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="부정-논리합-NOR"><a href="#부정-논리합-NOR" class="headerlink" title="부정 논리합(NOR)"></a>부정 논리합(NOR)</h4><p>Not OR 이다. 논리합의 결과를 부정한 것이다. 두 명제가 모두 거짓이어야 참, 이외엔 모두 거짓. </p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 , 0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0 , 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 , 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 , 1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="배타적-논리합-XOR-동치-EQV"><a href="#배타적-논리합-XOR-동치-EQV" class="headerlink" title="배타적 논리합(XOR), 동치(EQV)"></a>배타적 논리합(XOR), 동치(EQV)</h4><p><strong>XOR</strong></p>
+<p>두 명제 중 하나만 참이거나, 두 명제의 참거짓이 다를때 참이다. 암호화 기법으로도 많이 사용된다고 한다. </p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 , 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0 , 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 , 0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1 , 1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>EQV</strong></p>
+<p>두 명제가 같은 값을 가지면 참, 아니면 거짓. 배타적 논리곱이라고도 한다. </p>
+<table>
+<thead>
+<tr>
+<th>입력값</th>
+<th>결과값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 , 0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0 , 1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 , 0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1 , 1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/04/14/morningcs-bool/" data-id="ckk5ihprh0015dg9ocq9vukse" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/04/14/morningcs-bool/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/19/morningcs-adder/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          아침 CS - (7) 가산기
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/13/morningcs-hash/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">아침 CS - (5) 해시 함수</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/04/14/morningcs-bool/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>til-20171018 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2017.10.18 오늘의 TIL 자바 8의 스트림, 람다, .map()에 대해 학습하다.  팀원의 코드 리팩토링 과제를 함께 고민하며 시작한 학습인데, 함수형 프로그래밍에 대해 막연한 두려움을 갖고 있는 나였지만 막상 파고들어보니 그렇게 겁먹을 게 아니고, 오히려 좀 재밌는 연구과제로 느껴졌다. slipp.net에 문제 해결 방법을 올린 후 현업 개발자들">
+<meta name="keywords" content="TIL,React,JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="til-20171018">
+<meta property="og:url" content="https://tech.wheejuni.com/2017/10/18/til-20171018/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="2017.10.18 오늘의 TIL 자바 8의 스트림, 람다, .map()에 대해 학습하다.  팀원의 코드 리팩토링 과제를 함께 고민하며 시작한 학습인데, 함수형 프로그래밍에 대해 막연한 두려움을 갖고 있는 나였지만 막상 파고들어보니 그렇게 겁먹을 게 아니고, 오히려 좀 재밌는 연구과제로 느껴졌다. slipp.net에 문제 해결 방법을 올린 후 현업 개발자들">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.932Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="til-20171018">
+<meta name="twitter:description" content="2017.10.18 오늘의 TIL 자바 8의 스트림, 람다, .map()에 대해 학습하다.  팀원의 코드 리팩토링 과제를 함께 고민하며 시작한 학습인데, 함수형 프로그래밍에 대해 막연한 두려움을 갖고 있는 나였지만 막상 파고들어보니 그렇게 겁먹을 게 아니고, 오히려 좀 재밌는 연구과제로 느껴졌다. slipp.net에 문제 해결 방법을 올린 후 현업 개발자들">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-til-20171018" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      til-20171018
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="2017-10-18-오늘의-TIL"><a href="#2017-10-18-오늘의-TIL" class="headerlink" title="2017.10.18 오늘의 TIL"></a>2017.10.18 오늘의 TIL</h3><ul>
+<li><p>자바 8의 스트림, 람다, .map()에 대해 학습하다.</p>
+<ul>
+<li>팀원의 코드 리팩토링 과제를 함께 고민하며 시작한 학습인데, 함수형 프로그래밍에 대해 막연한 두려움을 갖고 있는 나였지만 막상 파고들어보니 그렇게 겁먹을 게 아니고, 오히려 좀 재밌는 연구과제로 느껴졌다.</li>
+<li><a href="http://slipp.net" target="_blank" rel="noopener">slipp.net</a>에 문제 해결 방법을 올린 후 현업 개발자들이 달아주는 답변을 봤다. 우리끼리의 코드 리뷰도 좋지만 이런 식으로 문제를 함께 해결하고, 무엇보다 나보다 훨씬 잘 짜는 개발자들의 해결방식을 엿볼 수 있어 흥미로운 접근 방법이었다. </li>
+<li>.map() 과 .forEach()에 대해 배우고 각 차이점을 나름의 방법으로 깨닫게 됨. </li>
+</ul>
+</li>
+<li><p>리액트 특강 : Component Lifecycle, Props / States에 대해 학습.</p>
+</li>
+<li><p>온오프믹스 프로젝트 진행방향 잠시 논의함.</p>
+</li>
+</ul>
+<h4 id="내일-할-일"><a href="#내일-할-일" class="headerlink" title="내일 할 일"></a>내일 할 일</h4><ul>
+<li>정작 중요한 웹 서버 리팩토링 과제를 하지 못했는데 내일 집중해서 할 필요가 있겠다. </li>
+<li>알고리즘 과제에 대하여. 부담을 갖지 말자. 시간이 물리적으로 많이 모자란 상황인데 잘 하고 무엇보다 즐겁게 할 자신이 없다면 무리해서 시작하지 않는 것이 좋겠다. </li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2017/10/18/til-20171018/" data-id="ckk5ihpsh002cdg9ox11n9a0u" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2017/10/18/til-20171018/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA/">JAVA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/10/20/til-20171020/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          til-20171020
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/10/17/til-20171017/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">TIL-20171017</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2017/10/18/til-20171018/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

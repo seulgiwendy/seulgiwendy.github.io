@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="봄이네집 개발 블로그">
+<meta property="og:url" content="https://tech.wheejuni.com/page/6/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:locale" content="ko">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="봄이네집 개발 블로그">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-til-20171103" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/03/til-20171103/">TIL-20171103</a>
+    </h1>
+  
+
+        <a href="/2017/11/03/til-20171103/" class="article-date">
+  <time datetime="2017-11-03T13:45:00.000Z" itemprop="datePublished">2017-11-03</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-11-03-금-오늘의-T-I-L"><a href="#2017-11-03-금-오늘의-T-I-L" class="headerlink" title="2017.11.03 (금) 오늘의 T.I.L."></a>2017.11.03 (금) 오늘의 T.I.L.</h3><h4 id="날이-많이-써늘해졌다-추위를-거의-타지-않는-나지만-오늘-퇴근길에는-다소-추위를-느꼈다-체력-관리에-더욱-유의해야-할-시기가-온-것-같다"><a href="#날이-많이-써늘해졌다-추위를-거의-타지-않는-나지만-오늘-퇴근길에는-다소-추위를-느꼈다-체력-관리에-더욱-유의해야-할-시기가-온-것-같다" class="headerlink" title="날이 많이 써늘해졌다. 추위를 거의 타지 않는 나지만 오늘 퇴근길에는 다소 추위를 느꼈다. 체력 관리에 더욱 유의해야 할 시기가 온 것 같다."></a>날이 많이 써늘해졌다. 추위를 거의 타지 않는 나지만 오늘 퇴근길에는 다소 추위를 느꼈다. 체력 관리에 더욱 유의해야 할 시기가 온 것 같다.</h4><ul>
+<li><p>JDBC 리팩토링을 끝장내고 과제 전체적인 회고, 질의응답 시간을 포비와 가짐. </p>
+<ul>
+<li>재밌는 구현과제였고 레벨4 팀원들이 모두 비슷한 타이밍에 구현이 완료되어 더욱 좋았던 것 같다. </li>
+<li>이번 과제를 통해 배운 것은 크게 세 가지 정도로 요약해 볼 수 있겠다. 1) Functional Interface의 실전 활용 2) 가변 인자(Object…)의 사용 3) Runtime Exception</li>
+<li>특히 이번 과제를 통해 인터페이스, 람다, 추상 클래스의 용도에 대해 정확한 이해를 가져갈 수 있었고 특히 람다에 대한 자신감이 붙었다.</li>
+<li>과제 내용에 대한 간단한 리뷰 마치고 다음 3단계 구현과제에 대해 맛보기 및 스프링 프레임워크 구조에 대해 잠시 이야기 더 나눔. 내가 스프링을 처음 학습하며 이건 이것일 것이다 라고 혼자 생각했던 내용들이 요즘 거의 맞아들어가는 느낌.</li>
+<li>스프링의 DI에 대해 휴대폰과 배터리의 관계로 비교하는 글들을 많이 읽었었다. 그리 좋은 설명은 아니라고 보지만 DI에 대해 그 정도의 개념을 바탕으로 출발했더니 더 쉽게 이해할 수 있었던 것은 사실이다. </li>
+<li>싱글톤 패턴에 대해 잠시 이야기, 스프링이 어떻게 내부적으로 Factory 를 이용해 싱글톤을 유지하는지에 대해 재밌는 이야기 나누는 시간이었다. </li>
+</ul>
+</li>
+<li><p>MVC 3단계에 착수하다.</p>
+<ul>
+<li>사실 JSON 및 AJAX가 2단계에서 남긴 했는데 이미 해 본 개념들이기도 하고 빨리 Reflection에 대한 궁금증을 풀고 싶어서 3단계로 들어가버렸다. </li>
+<li><em>(JSON 및 AJAX는 맘만 먹으면 한시간 내로 끝낼 수 있을 거라 본다. ㅋㅋ)</em></li>
+<li>@Controller, @RequestMapping까지 구현했다. Custom Annotation과 Reflections 라이브러리의 사용법을 익혔다. </li>
+<li>한동안 잠시 놓치고 있었던 TDD, Unit Test를 다시 적용해보는 경험을 했다. 이번 3단계는 이렇게 죽 개발할 생각이다. </li>
+</ul>
+</li>
+<li><p>포비와의 면담.</p>
+<ul>
+<li>좋은 말씀을 많이 해 주신 포비에게 감사하다. 내가 걷는 길에 다시 한 번 확신을 가질 수 있었던 시간이었다. </li>
+<li>현실적인 어려움이 많이 있지만 나의 성장과정(분야를 막론하고)들을 되돌아 보면 이런 어려움들을 극복해 나갈 때에 가장 많이 성장한 것 같다. </li>
+<li>개발, 프로그래밍 얘기가 아닌 철학과 태도에 관한 얘기들을 많이 할 수 있어 좋았다. </li>
+<li>인꾸답. 인생 꾸준함이 답이다. </li>
+</ul>
+</li>
+</ul>
+<p>내일부로 학원이 바쁜 시기를 지나고 수능 시험일까지 출근을 안 하게 될 것 같다.<br>지친 몸을 좀 쉬게 해 주고 가벼운 밤코를 통해 일상의 과제들도 능히 해내는 시간을 만들고 싶다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/11/03/til-20171103/" data-id="ckk5ihpt80036dg9o17yc7z51" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/11/03/til-20171103/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Daily/">Daily</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171102" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/02/til-20171102/">TIL-20171102</a>
+    </h1>
+  
+
+        <a href="/2017/11/02/til-20171102/" class="article-date">
+  <time datetime="2017-11-02T11:50:44.000Z" itemprop="datePublished">2017-11-02</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-11-01-수-2017-11-02-목-이틀동안의-T-I-L-Two-days-I-Learnt"><a href="#2017-11-01-수-2017-11-02-목-이틀동안의-T-I-L-Two-days-I-Learnt" class="headerlink" title="2017.11.01 (수) ~ 2017.11.02(목) 이틀동안의 T.I.L. (Two days I Learnt)"></a>2017.11.01 (수) ~ 2017.11.02(목) 이틀동안의 T.I.L. (Two days I Learnt)</h3><ul>
+<li>JDBC 리팩토링 구현과제를 부분 완성하고, PR을 통해 코드 리뷰받다. <ul>
+<li>리팩토링을 충분히 했다고 생각한 부분에 중복이 남아있었다. </li>
+<li>가변 인자(Object… objects)의 구현에 대해 학습하였다. objects가 배열의 형태로 넘어온다는 것을 알게 됐다. </li>
+<li>PreparedStatement에 익숙해졌으며 @FunctionalInterface 를 통한 람다식 구현에도 부담이 없어졌다.</li>
+<li>Codacy에서 한 개도 지적받지 않는 코드를 만들 수 있었다. 굳! </li>
+</ul>
+</li>
+</ul>
+<p>11월 1일 수요일에는 코드스쿼드 식구들과 오레오 같이 나눠 먹으며 친해지는 시간을 가졌다.<br>영상편집을 공부하고 싶었으나 영상 “처리” 를 공부하게 된 컴공 출신 Elly, 여행을 좋아하는 Koo, 애기아빠 R 등 다양한 배경의 다양한 사람들이 모여 있는 공간임을 새삼 느낄 수 있었다. </p>
+<p>나는 어떤 역할을 해야 할까? 음…..</p>
+<ul>
+<li><p>JDBC 라이브러리 구현에 좀 더 집중해 봤다. </p>
+<ul>
+<li>코드리뷰 내용 중 .find()와 .findAll()의 중복을 제거하는 부분이 잘 이해되지 않아 포비와 잠시 이야기를 나눴다. 방법은 의외로 간단한 것으로 .findAll() 이 가변 인자로써 조건을 받게 해 주면 그 조건에 따라 쿼리를 짜고 그렇게 반환받은 리스트에서 0번 원소를 뽑아오면 끝나는 의외로 간단한 문제였다. </li>
+<li>발상의 전환이 필요하다고 느껴진 순간이었다. 코딩을 하다가 벽에 부딪히는 느낌을 들면 초조해 하거나 책을 펴지 말고 오히려 잠시 휴식을 취하는 것도 나쁘지 않을 거라고 생각된다. </li>
+</ul>
+</li>
+<li><p>구현 과제로 제시된 리팩토링 외에도 한 걸음 더 나가 보기로 했다. </p>
+<ul>
+<li>목표는 아무 오브젝트나 받아도 DB의 테이블 상에 매핑해줄 수 있는 범용적인 라이브러리를 만드는 것이다. SQL 쿼리 문이나 PreparedStatement 등을 전혀 받아오지 않고 객체 하나만 받으면 라이브러리가 뜯어 보면서 자동으로 적절한 DB 작업을 수행해주는 것이다. </li>
+<li>이를 구현하며 자바의 Reflection API에 대해 학습할 기회를 가졌다. 내가 구상한 방법은 객체를 받은 후 객체의 getter 메소드만 싹 파싱해 온 다음 그 메소드를 통해 필드에 담긴 정보를 받아오는 것이다. </li>
+<li>정보를 빼오는 것, SQL문을 짜는 것 까지는 쉽게 구현했지만 PreparedStatement에 적절한 순서대로 필드들을 매칭시켜 주는 과정에서 어려움을 겪고 있다. </li>
+</ul>
+</li>
+</ul>
+<p>내일은 JDBC를 끝장낸 다음, 다음 과제로 넘어가고 싶다. 또 Java의 Reflection API에 대해 더 알아가고 싶다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/11/02/til-20171102/" data-id="ckk5ihpt60033dg9okgtosv0j" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/11/02/til-20171102/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/daily/">daily</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171031" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/31/til-20171031/">TIL-20171031</a>
+    </h1>
+  
+
+        <a href="/2017/10/31/til-20171031/" class="article-date">
+  <time datetime="2017-10-31T14:38:13.000Z" itemprop="datePublished">2017-10-31</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-31-화-오늘의-T-I-L"><a href="#2017-10-31-화-오늘의-T-I-L" class="headerlink" title="2017.10.31 (화) 오늘의 T.I.L."></a>2017.10.31 (화) 오늘의 T.I.L.</h3><h4 id="오늘은-근무가-없어-야근했다"><a href="#오늘은-근무가-없어-야근했다" class="headerlink" title="오늘은 근무가 없어 야근했다."></a>오늘은 근무가 없어 야근했다.</h4><ul>
+<li><p>JDBC 라이브러리 구현과제를 거의 완료하다. </p>
+<ul>
+<li>find() 메소드를 오브젝트에 구애받지 않게(Parameter를 Object… objects로 받게) 구현하는 과제를 제외하곤 모두 완료했다.</li>
+<li>처음 인터페이스를 분리하고 각 구현 클래스를 만들었다가, 다시 기능별로 한 클래스로 합치는 경험을 해 봤다. </li>
+<li>익명 클래스, 추상 클래스, 람다식, 함수형 인터페이스 등 자바 코드를 깨끗하게 만들 수 있는 모든 기술을 동원해야 하는 예제였다.</li>
+<li>내일 온라인으로 포비에게 코드 리뷰를 받고 개선점을 찾아볼 생각이다. </li>
+</ul>
+</li>
+<li><p>TDD 특강을 듣다.</p>
+<ul>
+<li>판교에서도 포비에게 몇 번 들은 적 있던 내용들이라 크게 새롭지는 않았다. </li>
+<li>TDD가 주는 장점은 말로 다 표현하지 못할 정도로 많다. 그러나 요즘 일상에서 TDD가 점점 흐려지고 있어 걱정이다. </li>
+<li>결과보다 과정에 집중하는 개발 문화를 만들 때 비로소 진짜 TDD를 실천하고 있다. 나는 지금 그렇게 하고 있나? 하물며 학습 단계에서도 그런 자세를 갖는 것이 어려운데 현업에 나가 일정에 대한 압박을 받는 상황에서, 얼마나 TDD를 할 수 있을까? </li>
+<li>TDD에 대한 기술을 많이 배우지만 이것은 기술이 아닌 철학의 문제임을 다시 한 번 느끼다.</li>
+</ul>
+</li>
+</ul>
+<p>이어 구현과제로 문자열 계산기를 TDD로 만들어 봤다. 그다지 어려운 구현이 아니라서 금방 했다.<br>다만 구현 방식에서 약간 차이가 있었다. 포비는 람다식을 기반으로 구현한 것 같았는데 나는 Operator라는 enum을 구현하고, 각 enum 객체가 추상 메소드를 구현할 수 있도록 만들었다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Calculator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> Operator&#123;</span><br><span class="line">        SUM(<span class="string">"+"</span>)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compute</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> a + b;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;, DIVIDE(<span class="string">"/"</span>)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compute</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> a / b;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;, MULTIPLY(<span class="string">"*"</span>)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compute</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> a * b;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, SUBTRACT(<span class="string">"-"</span>)&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compute</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">                <span class="keyword">return</span> a - b;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> String operator;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">Operator</span><span class="params">(String operator)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.operator = operator;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">            <span class="keyword">return</span> s.equals(<span class="keyword">this</span>.operator);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">compute</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calculate</span><span class="params">(String numbers)</span></span>&#123;</span><br><span class="line">        String[] values = numbers.split(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">return</span> compute(values[<span class="number">0</span>], values[<span class="number">2</span>], findOperator(values[<span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">compute</span><span class="params">(String a, String b, Operator o)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> o.compute(Integer.parseInt(a), Integer.parseInt(b));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Operator <span class="title">findOperator</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        List&lt;Operator&gt; operator = Arrays.asList(Operator.values()).stream().filter(o -&gt; o.equals(s)).collect(Collectors.toList());</span><br><span class="line">        <span class="keyword">if</span>(operator.size() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> MultipleOperatorsException(MultipleOperatorsException.STANDARD_OPERATOR_ERROR_MSG);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> operator.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>enum이 추상 메소드를 갖도록 하는 것은 처음 해 보는 구현이라 여기에 옮겨 본다.</p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/31/til-20171031/" data-id="ckk5ihpt40030dg9oitkoqh7m" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/31/til-20171031/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Refactoring/">Refactoring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TDD/">TDD</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171030" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/30/til-20171030/">TIL-20171030</a>
+    </h1>
+  
+
+        <a href="/2017/10/30/til-20171030/" class="article-date">
+  <time datetime="2017-10-30T14:53:35.000Z" itemprop="datePublished">2017-10-30</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-30-월-오늘의-T-I-L"><a href="#2017-10-30-월-오늘의-T-I-L" class="headerlink" title="2017.10.30(월) 오늘의 T.I.L"></a>2017.10.30(월) 오늘의 T.I.L</h3><ul>
+<li><p>MVC 프레임워크 2단계 구현 마친 후 PR 날림. </p>
+<ul>
+<li>Codacy Check를 fail 없이 클린 시트로 통과해서 기분이 좋았다. </li>
+<li>포비에게 개선점을 전달받음. 의미있는 개선점들이라 공감하며 개선해 나갔다. 거의 다 해결했지만 로직이 없는 컨트롤러를 하나로 합치는 구현을 아직 완성하지 못했다. </li>
+<li>Singleton에서 eager와 lazy는 각각 어떤 의미를 갖는가?</li>
+</ul>
+</li>
+<li><p>JDBC 라이브러리 구현 시작함.</p>
+<ul>
+<li>그동안 배운 자바 문법을 모두 써볼 수 있는 좋은 예제다. </li>
+<li>추상 클래스를 한 번도 사용해본 적이 없었는데 이번 기회를 통해 사용해볼 수 있게 됐다. 인터페이스와의 구분도 분명하지 않았는데 인터페이스와 추상 클래스는 분명히 다른 개념이고 각자의 역할이 있다는 걸 알게 됐다. </li>
+<li>인터페이스에서 구현해놓고 싶은 메소드가 있는 경우에는 추상 클래스를 사용하면 좋을 것 같다.</li>
+<li>추후 람다식을 이용한 리팩토링까지 빨리 해보고 싶다. </li>
+</ul>
+</li>
+</ul>
+<p>오늘 나름의 체력 관리를 위해 처음으로 해 본 철봉 운동이 결과적으론 컨디션 조절에 악영향을 주고 말았다.<br>그러나 처음 하는 날이니 그렇다고 생각하고 앞으로도 틈틈이 철봉 매달리기를 통해 근력 운동을 할 생각이다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/30/til-20171030/" data-id="ckk5ihpt1002xdg9ogsza2yx7" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/30/til-20171030/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171029" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/29/til-20171029/">TIL-20171028, 29</a>
+    </h1>
+  
+
+        <a href="/2017/10/29/til-20171029/" class="article-date">
+  <time datetime="2017-10-29T13:24:40.000Z" itemprop="datePublished">2017-10-29</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-28-토-10-29-일-주말의-TIL"><a href="#2017-10-28-토-10-29-일-주말의-TIL" class="headerlink" title="2017.10.28(토) ~ 10.29(일) 주말의 TIL"></a>2017.10.28(토) ~ 10.29(일) 주말의 TIL</h3><ul>
+<li><p>MVC 프레임워크 2단계 구현을 완료하다. </p>
+<ul>
+<li>Controller의 리턴값을 String에서 ModelAndView로 바꾸다.</li>
+<li>ModelAndView는 말 그대로 Model과 View를 갖는다. View는 확장성 있게 사용할 수 있도록 인터페이스로 구현하고, JSP View와 JSON View로 구현체가 나눠져 있다. </li>
+<li>ModelAndView에 담기는 view는 리디렉션 정보나 JSP 파일 경로를 가져야 한다. </li>
+<li>Spring Framework에서도 자주 등장하는 ModelAndView의 작동 원리를 탐구할 수 있는 기회였다. 특히 이제 인터페이스를 활용한 다형성 구현에 부담감이 많이 없어진 것 같다. </li>
+<li>ModelAndView를 구현함으로 인해 DispatcherServlet 클래스의 복잡도를 크게 줄일 수 있었고, 컨트롤러의 구현에 있어서 명시적으로 정보를 담을 수 있는 점이 좋다.</li>
+<li>월요일 오전 중으로 PR을 보내고 포비에게 코드 리뷰를 받을 것이다. </li>
+</ul>
+</li>
+<li><p>자바스크립트의 “프로토타입” 에 대해 학습하다.</p>
+<ul>
+<li>자바를 통해 Object개념을 숙지하고 있는 상태에서 학습하니 개념이 어렵지 않았다. </li>
+<li><p>JS의 특이한 점인 프로토타입 링크 구조에 대해 알게 됐다. 자바에서와 마찬가지로 자바스크립트 상의 모든 객체는 Object()와 연결되어 있는데 상속과는 다른 개념이고, 프로토링크 (<em>proto</em>) 를 통해 특성을 자기 복제하고 프로토타입을 이어받는다.<br>예: Person() 객체는 toString() 이 구현되어 있지 않아도 toString이 작동하는데 이는 Object.prototype.toString()이 작동하는 것이다. </p>
+<p>JS에서의 OOP에 대해 관심이 생겼다. 사실 그간 JS에 대해서는 피상적으로 이야기하고, 프론트엔드 구현에서 보조적인 역할만을 담당해봤기 때문에 JS를 통해 객체지향 프로그래밍을 할 일이 잘 없었다.<br>재밌는 언어 같은데 학습할 기회가 곧 생기리라 생각한다. </p>
+</li>
+</ul>
+</li>
+<li><p>아라한사님의 스프링 시큐리티 영상을 시청하다. 타자와 말이 너무 빨라 만족스럽진 않지만 그래도 시큐리티에 대한 궁금증을 해결하기에 좋은 영상이라고 생각한다. </p>
+</li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/29/til-20171029/" data-id="ckk5ihpsz002udg9o59ozlprm" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/29/til-20171029/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171027" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/27/til-20171027/">TIL-20171027</a>
+    </h1>
+  
+
+        <a href="/2017/10/27/til-20171027/" class="article-date">
+  <time datetime="2017-10-27T02:11:24.000Z" itemprop="datePublished">2017-10-27</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-27-금-오늘의-TIL"><a href="#2017-10-27-금-오늘의-TIL" class="headerlink" title="2017.10.27 (금) 오늘의 TIL"></a>2017.10.27 (금) 오늘의 TIL</h3><ul>
+<li><p>MVC 프레임워크 1단계 구현을 완료하다.</p>
+<ul>
+<li>모든 요청을 DispatcherServlet에서 받고, RequestMapping에 따라 각 Controller로 뿌려주는 실습을 해 보다. </li>
+<li>Servlet의 사용법과 메소드들에 대해 학습해보다. </li>
+<li>다형성 개념을 이용해 Controller를 구현하다. HTTP 웹 서버 구현 때도 실습해본 내용. </li>
+</ul>
+</li>
+<li><p>Servlet과 JSP에 대해 포비와 이야기 나누다. </p>
+<ul>
+<li>Servlet의 작동 원리에 대해 복습. 사실 내가 미리 숙지하고 있어야 했던 내용이지만 깊이 이해하지 못 하고 있었다. </li>
+<li>여기서 드러나는 나의 단점. 새로운 개념을 학습할 때에 지나치게 키워드나 메소드 사용 중심의 이해를 하려고 하는 경향이 있다. 이제 메소드 예제 보고 따라치던 시절은 졸업했으니, 작동 원리에 대해 심화 학습을 하고 충분한 이해를 가지는 것도 좋겠다. 즉, 지나치게 코드 작성에만 집착하는 태도를 버릴 필요가 있겠다. 특히 Servlet과 같은 개념은 방대한 개념이므로 예제를 보고 따라하는 학습이 의미 없을 수도 있겠다. </li>
+<li>Servlet =&gt; 인스턴스가 하나다.<br><strong>인스턴스 변수를 사용하면 안 된다.</strong> Thread-safe하지 못한 코드가 된다. </li>
+<li>Servlet의 라이프사이클. init() -&gt; service() -&gt; destroy()</li>
+<li>제어의 역전 (Inversion of Control)이 일어나는 상황에 대해 알아보다. 그동안 Spring Framework를 사용하면서 CrudRepository interface같은 것을 구현할 때 IoC가 일어난다고 피상적으로 알고 있었다.<br>즉 개발자가 Spring의 사용 명세서 상에 명시된 대로 메소드를 작성하면 그 메소드에 맞게 Spring Framework가 구현체를 만들어 코드에 삽입해주는 구현을 많이 했었다. (@Autowired)<br>IoC라는 것이 Spring만의 고유한 특성이 아닌 자바 진영 프레임워크들의 특성임을 알게되다. </li>
+</ul>
+</li>
+<li><p>호눅스의 장고 강의를 인프런에서 수강하기 시작했다. MVC나 객체 지향 프로그래밍에 대한 이해가 높아졌기 때문에 이제 다른 언어 기반의 MVC 프레임워크에 접근해도 괜찮겠다는 판단이 들었다. </p>
+</li>
+</ul>
+<p>오늘 점심시간에는 iOS 팀원들과 함께 조촐한 회식 자리를 가졌다. 같은 공간에서 공부하고 하루의 대부분을 같이 생활하면서도 이런 자리를 그동안 갖지 못한 것이 내심 아쉬웠었다.<br>학습하는 언어는 달라도 다들 비슷한 고민을 갖고 있음을 느낀 식사시간이었다. 특히 서로의 닉네임을 숙지할 수 있게 되어 좋았다. </p>
+<p>포비에게 코드스쿼드 전체 회고 세션이 필요함을 말해주었다. 포비를 비롯한 마스터 네 분 다 공감하시리라 생각한다.<br>다른 팀원에게 전파하고 싶은 얘기나 서로 알고싶은 부분을 알아가는 것도 의미 있겠다. 공부하려고 모였지만 사람이 하는 일임을 서로 잊지 않았으면 한다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/27/til-20171027/" data-id="ckk5ihpst002odg9ociga9d0h" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/27/til-20171027/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Servlet/">Servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171026" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/26/til-20171026/">til-20171026</a>
+    </h1>
+  
+
+        <a href="/2017/10/26/til-20171026/" class="article-date">
+  <time datetime="2017-10-26T13:42:12.000Z" itemprop="datePublished">2017-10-26</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-26-목-오늘의-TIL"><a href="#2017-10-26-목-오늘의-TIL" class="headerlink" title="2017.10.26(목) 오늘의 TIL"></a>2017.10.26(목) 오늘의 TIL</h3><ul>
+<li><p>HTTP에 대해 심화 학습을 하다. </p>
+<ul>
+<li>HTTP 헤더에 대해 알게되다. 다양한 헤더가 있다는 것을 알게되다. </li>
+<li>사실 책 한번 읽는 것으로는 완벽한 지식의 습득을 하기 어렵다. 실제로 구현을 시작해봐야 할 것이다. </li>
+</ul>
+</li>
+<li><p>MVC 프레임워크 구현 과제를 시작하다. </p>
+<ul>
+<li>원래 순서대로라면 JSP를 봐야겠지만 JSP는 “이런 게 있구나” 정도로 넘기고 싶다.</li>
+<li>HTTP 웹 서버 구현 과제와 MVC 프레임워크 구현 과제는 맞닿아 있다.</li>
+<li>View를 어떻게 HttpServlet으로 넘길지가 고민된다. </li>
+<li>이 과제를 마치고 나면 Spring에 대한 더 깊은 이해도 생길 것이다. 특히 습관적으료 사용하는 “redirect:/“ 와 같은 키워드가 어떻게 작동하는지 알게 될 것이다. </li>
+</ul>
+</li>
+<li><p>팀원들과 AWS Lambda에 대해 이야기 나누다.</p>
+<ul>
+<li>신입 팀원인 클로이가 관심있어하고, 옆에서도 슬랙에 붙일 만한 챗봇을 만든다길래 일천한 경험과 지식이지만 팀원들과 나눠봤다.</li>
+<li>마스터들이 한 공간에 있는데 팀원들에게 뭔가 가르치려 한 것 같아 심히 민망하다. </li>
+<li>나도 잘 모르지만 모르는 사람끼리 지식을 탐구하는 것도 의미있다고 본다. </li>
+<li>예제를 통해 간단한 텍스트 리턴해주는 람다 함수를 만들고 API Gateway를 통해 invoke시켜보는 경험을 했다. 클로이가 재밌어해서 보람있었다. </li>
+</ul>
+</li>
+<li><p>Servlet에 대해 Next Step 자료 숙독하다. </p>
+<ul>
+<li>솔직히 읽어도 아직 잘 모르겠다. </li>
+</ul>
+</li>
+</ul>
+<h4 id="MVC-프레임워크-구현-간만에-가슴뛰는-코딩-구현과제를-다시-만난-것-같다-잘해봐야지…"><a href="#MVC-프레임워크-구현-간만에-가슴뛰는-코딩-구현과제를-다시-만난-것-같다-잘해봐야지…" class="headerlink" title="MVC 프레임워크 구현, 간만에 가슴뛰는(?) 코딩 구현과제를 다시 만난 것 같다. 잘해봐야지…."></a>MVC 프레임워크 구현, 간만에 가슴뛰는(?) 코딩 구현과제를 다시 만난 것 같다. 잘해봐야지….</h4>-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/26/til-20171026/" data-id="ckk5ihpsw002rdg9ok9l2haur" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/26/til-20171026/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171025" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/25/til-20171025/">TIL-20171024 ~ 25</a>
+    </h1>
+  
+
+        <a href="/2017/10/25/til-20171025/" class="article-date">
+  <time datetime="2017-10-25T12:30:44.000Z" itemprop="datePublished">2017-10-25</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-25-26-화-수-이틀간의-TIL"><a href="#2017-10-25-26-화-수-이틀간의-TIL" class="headerlink" title="2017.10.25~26 (화, 수) 이틀간의 TIL"></a>2017.10.25~26 (화, 수) 이틀간의 TIL</h3><ul>
+<li><p>React Native로 앱을 완성하다. </p>
+<ul>
+<li>간단한 날씨앱을 만들었다. </li>
+<li>플레이스토어에 올려보는 경험을 하…려고 했는데 준비할 게 이것저것 많았다. 다음에 시도하기로. </li>
+<li>Expo를 통해 개발부터 .apk 빌드까지 하는 경험을 해 봤다. </li>
+<li>React Native의 핵심 개념과 생명주기에 대해 충분히 학습하는 기회를 가졌다.</li>
+</ul>
+</li>
+<li><p>HTTP에 대해 포비와 이야기 나누다. </p>
+<ul>
+<li>자세한 내용은 <a href="https://seulgiwendy.github.io/2017/10/24/http-web-basics/" target="_blank" rel="noopener">별도의 포스팅</a>에 적어 두다. </li>
+<li>HTTP 주제에 대해 공부할 것들을 알게된 귀한 시간이었다. </li>
+</ul>
+</li>
+<li><p>스트림에 대해 좀 더 학습하고, 연습하다. </p>
+<ul>
+<li><strong>함수적 인터페이스</strong>를 구현하는 연습을 해 보다. </li>
+</ul>
+</li>
+<li><p>자바의 제너릭<generic>을 학습하다. </generic></p>
+<ul>
+<li>자바의 제너릭에 대해 평소 궁금했던 점을 해소했다. </li>
+<li><p>제너릭을 이용해 간단한 list 기능을 하는 클래스를 구현해 봤다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HwijunList</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> List&lt;T&gt; box;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(T object)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(box == <span class="keyword">null</span>)&#123;</span><br><span class="line">        box = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    box.add(object);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getElement</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> box.get(index);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> Stream&lt;T&gt; <span class="title">stream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> box.stream();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>해결하지 못한 궁금증: Hwijunlist에서 .stream()을 바로 구현하려면 어떻게 해야 할까?</em> </p>
+</li>
+</ul>
+</li>
+<li><p>Spring boot 프로젝트에 React.js 프론트엔드를 적용하는 경험을 해 보다. </p>
+<ul>
+<li>그렇게 어려운 개념이 아니었다. </li>
+<li>Spring boot 디렉토리 이동 -&gt; create-react-app <em>your_react_project_name</em> 한 후 스프링부트의 스태틱 자원 디렉토리와 react_app/build 폴더를 심볼릭 링크로 연결함. 이렇게 되면 yarn build를 수행할 때마다 스프링 부트가 서브하는 스태틱 자원이 같이 업데이트될 것이다. </li>
+<li><p>해결하지 못한 궁금증: <em>handlebars.js와 React.js를 같이 사용할 순 없을까?</em> 서버사이드 렌더링이 필요한 부분이 있을 텐데 이런 부분은 handlebars.js와 같은 서버사이드 렌더링을 통해 구현해주는 것이 클라이언트 사이드의 부하를 줄이는 방법이 될 것 같다.<br>(handlebars.js는 SSR이 맞나?)</p>
+<p>slipp.net의 앵귤러 튜토리얼을 참고하며 학습하고 싶다. </p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="어제-오늘-학습량이-그렇게-만족스럽지-않은-모습이다-번뇌를-줄어야-하겠다"><a href="#어제-오늘-학습량이-그렇게-만족스럽지-않은-모습이다-번뇌를-줄어야-하겠다" class="headerlink" title="어제 오늘 학습량이 그렇게 만족스럽지 않은 모습이다. 번뇌를 줄어야 하겠다."></a>어제 오늘 학습량이 그렇게 만족스럽지 않은 모습이다. 번뇌를 줄어야 하겠다.</h4>-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/25/til-20171025/" data-id="ckk5ihpsr002mdg9oqyco4xd5" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/25/til-20171025/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-http-web-basics" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/24/http-web-basics/">HTTP에 대해 이거저거 알아보다.</a>
+    </h1>
+  
+
+        <a href="/2017/10/24/http-web-basics/" class="article-date">
+  <time datetime="2017-10-24T02:56:18.000Z" itemprop="datePublished">2017-10-24</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-24-화-HTTP에-대해-포비와-이거저거-이야기-나누다"><a href="#2017-10-24-화-HTTP에-대해-포비와-이거저거-이야기-나누다" class="headerlink" title="2017.10.24 (화) HTTP에 대해 포비와 이거저거 이야기 나누다."></a>2017.10.24 (화) HTTP에 대해 포비와 이거저거 이야기 나누다.</h3><p>포비와 허심탄회하게 HTTP에 대해 이야기를 나눴습니다. 대화 내용을 정리하면서 배운 내용도 같이 정리해봅니다.<br>볼드 : 학생들, 그냥 : 포비</p>
+<p>포비: 여러분이 이제 HTTP 웹 서버를 구현하면서 생긴 다양한 궁금증을 공유해봤으면 좋겠다. </p>
+<h4 id="궁금증-1-302-Redirection과-301-Redirection은-어떤-차이가-있는가"><a href="#궁금증-1-302-Redirection과-301-Redirection은-어떤-차이가-있는가" class="headerlink" title="궁금증 1 : 302 Redirection과 301 Redirection은 어떤 차이가 있는가?"></a>궁금증 1 : 302 Redirection과 301 Redirection은 어떤 차이가 있는가?</h4><p><strong>워드프레스를 운영하면서 습관적으로 301 리디렉션을 해 왔다. <em>이 방법이 Google등에서 SEO에 더 잘 걸리기 때문에 그렇게 해 왔다.</em> 그러나 우리의 이번 프로젝트에서는 한 번도 301 리디렉션을 한 적이 없다. 차이가 궁금하다.</strong></p>
+<p>포비: 302와 301 코드의 별명을 살펴보는 것이 좋겠다. 302는 <strong>일시적 변경</strong>이다. 반면 301은 <strong>영구 변경</strong>이다. 큰 차이가 있다.<br>기본적으로 301 코드를 받으면 클라이언트는 <em>새로운 주소를 기억한다.</em> 이렇게 되면 추후에 서비스가 다른 곳으로 옮겨갔을 때 서버가 캐시를 지워줄 수 없다. 이는 좋지 못한 사용자 경험일 것이다. </p>
+<p>301의 사용보다는 302를 사용하는 것이 대부분의 경우 안전한 선택이다. </p>
+<h4 id="궁금증-2-Session과-Cookie에-대한-이야기"><a href="#궁금증-2-Session과-Cookie에-대한-이야기" class="headerlink" title="궁금증 2: Session과 Cookie에 대한 이야기"></a>궁금증 2: Session과 Cookie에 대한 이야기</h4><p><strong>세션과 쿠키의 개념이 혼동되는 것이 많다. 또 세션도 쿠키를 사용한다고 하는데 어떤 차이를 가지는지 궁금하다. 또 세션의 키는 누가 관리하는 것인지 알고싶다.</strong></p>
+<p>포비: 세션이 쿠키를 사용한다는 것은 맞는 말이다. 정확히 말하면 <strong>서버가 발급한 Session ID가 클라이언트의 쿠키에 박히는 것이다.</strong> 서버도 Session ID를 저장하고 있다. <em>클라이언트가 Request Header에서 전송하는 쿠키에 저장된 Session ID를 통해 사용자 정보를 식별하는 것이 HTTP Session의 기본 개념이다.</em> </p>
+<p>Map구조로 된 저장소를 생각해보면 좋겠다. 여러분이 Session 정보를 쓰고자 할 때 Map에 .get()을 Session ID를 넣고 실행시키는 것이다. 즉, Session ID를 Key로 갖고 여러분이 저장시키고자 하는 정보를 POJO로 Value에 넣는 것이다. 이 때 Session은 무조건 하나의 key만 가지므로 Value에는 또 다른 형태의 Map이 들어갈 것이다. </p>
+<p>또 하나 오해하면 안 되는 점이 <em>HttpSession은 Servlet의 스펙이지 Spring의 기술이 아니다.</em> Spring이 아니어도 Session 관리 할 수 있다. </p>
+<h5 id="세션에-관한-심화-과정"><a href="#세션에-관한-심화-과정" class="headerlink" title="세션에 관한 심화 과정"></a>세션에 관한 심화 과정</h5><p>포비: 그런데 우리가 세션을 사용할 때에 이슈가 몇 가지 있다. 우선 로드밸런싱의 문제다. 우리가 로드밸런싱을 위해 WAS 상단에 Nginx, Apache와 같은 웹 서버를 두고 그 밑에 Tomcat 등 WAS를 둔다고 가정해 보자. </p>
+<p>0번 서버가 갖고 있는 Session ID를 1번 서버와 2번 서버는 갖고 있지 않을 것이다. 만약 로드밸런싱을 통해 특정 사용자의 요청이 0번 서버에서 처리되다가 1번 서버로 중계될 경우, <em>사용자는 로그인이 저절로 풀려버리는 기분나쁜 경험을 하게 된다.</em> 이는 기술적으로 해결해 줘야 할 이슈이다. </p>
+<p>이 이슈를 해결하기 위해 크게 세 가지 방법이 있다. <strong>Sticky Session, Global Session 그리고 Session Clustering이 그것이다.</strong> </p>
+<ul>
+<li>Sticky Session<ul>
+<li>한 사용자가 서버에서 세션 정보를 한 번 획득하면 계속 그 서버로 연결되게 조정해주는 것이다. HAProxy와 같은 오픈소스 소프트웨어로 구현할 수도 있고, 네트워크 장비로 구현하려면 OSI 7번째 계층에 접근할 수 있는 L7 장비를 사야 한다. <em>비싸다.</em></li>
+</ul>
+</li>
+<li>Global Session<ul>
+<li>n대의 서버 외부에 Session DB를 둔 후 같은 세션 풀을 공유하는 것이다. </li>
+</ul>
+</li>
+<li>Session Clustering<ul>
+<li>n대의 서버가 모두 같은 세션 정보를 공유하는 것이다. 즉 동일한 세션의 복사본이 n부 만들어지는 것이다. </li>
+</ul>
+</li>
+</ul>
+<p>상황에 따라 적합한 해결책은 다를 수 있고 가용한 자원을 잘 따져봐야 할 것이다. </p>
+<h4 id="궁금증-3-웹-서비스의-속도는-무엇이-결정하는가"><a href="#궁금증-3-웹-서비스의-속도는-무엇이-결정하는가" class="headerlink" title="궁금증 3: 웹 서비스의 속도는 무엇이 결정하는가?"></a>궁금증 3: 웹 서비스의 속도는 무엇이 결정하는가?</h4><p>포비: 우리가 웹 페이지 하나를 열 때 <strong>한 번의 요청만 들어가는 것이 아니라는 점을 알아야 한다.</strong> 사용자가 보는 건 하나의 페이지지만 페이지는 수많은 GET 요청을 날리고 있다. </p>
+<p>우리가 보는 수많은 .js와 .css가 계속 로드된다. <em>이들이 접속할 때마다 항상 새로 로드되어야 할까?</em> 이 자원들이 자주 바뀌는 자원인지는 고민해 볼 필요 있다. 바뀌지 않으면 서버에서 새로 이 자원들을 땡겨올 필요가 있을까? </p>
+<p>HTTP 헤더를 통해 이런 자원들의 생명주기를 결정할 수 있다. 클라이언트가 얼마나 이 자원들을 들고있을지 정해주는 것이 좋겠다. 자주 변경되지 않는 자원이라면 생명주기를 엄청나게 길게 줘도 상관이 없을 것이다. 또 base64 인코딩을 쓰거나 .js, .css 자원을 Minify, Uglyfy하는 옵션도 고려해 볼 만 하겠다. </p>
+<h4 id="궁금증-4-스레드는-무한히-만들어지는가"><a href="#궁금증-4-스레드는-무한히-만들어지는가" class="headerlink" title="궁금증 4: 스레드는 무한히 만들어지는가?"></a>궁금증 4: 스레드는 무한히 만들어지는가?</h4><p>포비: 여러분이 지금 만든 웹 서버는 사용자 요청이 1개 만들어질 때마다 스레드를 한 개씩 생성한다. 이게 좋은 방식일까? </p>
+<p><strong>우리들: 좋은 방식이 아닌 것 같다. 스레드는 많이 돌면 전환 비용(Context Switching)이 발생한다.</strong></p>
+<p><em>(전환 비용에 대해서는 호눅스가 지난 코스 CS 시간에 다룬 적이 있다. 스레드가 자신의 작업 내용을 레지스터에 넣고 CPU를 점유하는 데까지 걸리는 시간이 발생하는데 이것이 콘텍스트 스위칭이다.)</em> </p>
+<p>포비: 맞다. 그래서 Tomcat은 무한히 스레드를 만들지 않는다. 요청이 들어왔을 때 스레드를 만드는 것도 아니다.<br><strong>미리 스레드를 만들어뒀다가 하나씩 꺼내 쓰는 것이다.</strong> 이것을 <em>스레드 풀(Thread Pool)</em> 이라고 한다.</p>
+<p>자, 그러면 몇 개를 만들어서 가지고 있는 걸까? </p>
+<p><strong>우리들: 100개? 1024개? 500개?</strong></p>
+<p>포비: 너무 많은 것은 좋지 않다고 했다. 기본적으로 Tomcat은 <strong>200개의 스레드</strong>를 만들어 가지고 있는다.<br>이 스레드보다 많은 접속이 들어오면 어떻게 해야 할까. 요청을 Queue에 담아 잠시 기다리게 해야 한다. </p>
+<p>이 Queue의 용량도 초과되면 그 때 비로소 Tomcat은 <strong>괴상한 메시지를 노출하며 뻗게 된다.</strong> </p>
+<p>접속 부하가 많이 걸리는 웹 서비스는 Queue만을 관리하는 별도의 서버를 둘 필요가 있겠다. <em>그래서 명절에 기차표 살 때 새로고침을 누르면 안 되는 것이다. 새로고침을 누르면 줄에서 빠져 가장 뒤로 간다.</em> 이는 Queue가 Socket을 갖고 있기 때문이다. 새로고침을 누르면 Socket이 새로 만들어지고 Queue에 박혀 있던 소켓은 주인을 잃게 된다. </p>
+<h4 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h4><ul>
+<li>공부할 것이 많다. </li>
+<li>OAuth에 대한 궁금증을 완전히 해소하지 못한 기분이다. OAuth 클라이언트 구현에 있어 클라이언트 사이드에서도 토큰을 갖고 있던데, 이 이유가 뭔지 궁금하다. </li>
+<li>HTTP에 대한 막연함을 많이 해소한 좋은 시간이었다. 특히 Session과 Cookie가 작동하는 방식에 대한 이해를 갖게 되었다. </li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/24/http-web-basics/" data-id="ckk5ihpqy000kdg9opn8a4e4s" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/24/http-web-basics/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA-BACKEND/">JAVA_BACKEND</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-til-20171023" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/23/til-20171023/">TIL-20171023</a>
+    </h1>
+  
+
+        <a href="/2017/10/23/til-20171023/" class="article-date">
+  <time datetime="2017-10-23T14:23:16.000Z" itemprop="datePublished">2017-10-23</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-10-23-월-오늘의-TIL"><a href="#2017-10-23-월-오늘의-TIL" class="headerlink" title="2017.10.23(월) 오늘의 TIL"></a>2017.10.23(월) 오늘의 TIL</h3><ul>
+<li><p>프레임워크 없이 자바 웹 서버를 완성하다. </p>
+<ul>
+<li>POST 요청 및 쿠키 설정 로그인까지 완료.</li>
+<li>리팩토링의 필요성: 지금은 범용성을 갖는 코드가 아니다. interface와 custom annotation, lambda 등을 사용해 범용성 있는 코드로 완성시켜보자(장기 프로젝트로).</li>
+<li><strong>컨벤션을 지키자.</strong></li>
+</ul>
+</li>
+<li><p>리액트 네이티브 강의: 40%를 듣다. </p>
+<ul>
+<li>원래 짧은 강의라서 진행률이 의미가 크게 없긴 하다.</li>
+<li>React.js의 개념과 비슷한 부분이 많다. 다만 네이티브 API에 접근하는 방식을 제공하고 있다는 정도. </li>
+<li>Expo XDE의 사용법과 원리를 완전히 깨우친 느낌이다. <em>USB 선이 꼽혀 있어도 인터넷 연결이 없이 모바일 개발을 할 수 없다.</em> XDE가 HTTP 터널링으로 개발환경을 만들어 주기 때문이다. </li>
+</ul>
+</li>
+<li><p>자바의 스트림 API와 함수형 프로그래밍의 개념, 람다에 대해 알게 되다. </p>
+<ul>
+<li>Functional interface의 존재를 알게 되다. Functional interface는 메소드를 한 개만 가져야 한다. </li>
+<li>포비와의 잠깐 실험: Object 클래스가 들고 있는 메소드가 인터페이스에 포함되어 있어도 함수형 인터페이스로 사용할 수 있다<em>(e.g. .equals(), .hashCode())</em></li>
+<li>잘만 사용하면 코드를 줄이고 함수형 프로그래밍에 대한 더 깊은 이해를 할 수 있지 않을까 생각된다. </li>
+</ul>
+</li>
+</ul>
+<h4 id="내일-할-일"><a href="#내일-할-일" class="headerlink" title="내일 할 일"></a>내일 할 일</h4><ul>
+<li>리액트 네이티브 강의를 더 듣자. </li>
+<li>서블릿/HTTP에 대해 공부한다. </li>
+<li><strong>집중하자.</strong> <em>번뇌를 줄이자.</em> </li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/23/til-20171023/" data-id="ckk5ihpsn002idg9o4t2mg7vc" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/10/23/til-20171023/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/functional-programming/">functional_programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-backend/">java_backend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react-native/">react_native</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">&laquo; 이전</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">다음 &raquo;</a>
+  </nav>
+
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>JCF의 자료구조와 시간복잡도를 알아보자. - (1) List 편 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Java Collections Framework 구현체들의 자료구조 List List 가기전에 벡터(Vector) 이야기 잠깐  Vector 란?  JDK 1.0 부터 존재하던 표준 ArrayList 출시되기 이전에 즐겨 사용 항상 Thread-safe함. (무조건 동기화)  ArrayList와의 성능 차이를 만드는 요인이자 요즘 Vector를 안 쓰는 이">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JCF의 자료구조와 시간복잡도를 알아보자. - (1) List 편">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/04/07/java-collections/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="Java Collections Framework 구현체들의 자료구조 List List 가기전에 벡터(Vector) 이야기 잠깐  Vector 란?  JDK 1.0 부터 존재하던 표준 ArrayList 출시되기 이전에 즐겨 사용 항상 Thread-safe함. (무조건 동기화)  ArrayList와의 성능 차이를 만드는 요인이자 요즘 Vector를 안 쓰는 이">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.917Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JCF의 자료구조와 시간복잡도를 알아보자. - (1) List 편">
+<meta name="twitter:description" content="Java Collections Framework 구현체들의 자료구조 List List 가기전에 벡터(Vector) 이야기 잠깐  Vector 란?  JDK 1.0 부터 존재하던 표준 ArrayList 출시되기 이전에 즐겨 사용 항상 Thread-safe함. (무조건 동기화)  ArrayList와의 성능 차이를 만드는 요인이자 요즘 Vector를 안 쓰는 이">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-java-collections" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/data-structure/">data_structure</a>►<a class="article-category-link" href="/categories/java/data-structure/algorithm/">algorithm</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JCF의 자료구조와 시간복잡도를 알아보자. - (1) List 편
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Java-Collections-Framework-구현체들의-자료구조"><a href="#Java-Collections-Framework-구현체들의-자료구조" class="headerlink" title="Java Collections Framework 구현체들의 자료구조"></a>Java Collections Framework 구현체들의 자료구조</h3><hr>
+<h4 id="List"><a href="#List" class="headerlink" title="List"></a>List</h4><ul>
+<li>List 가기전에 벡터(Vector) 이야기 잠깐</li>
+</ul>
+<p><strong>Vector 란?</strong></p>
+<ul>
+<li>JDK 1.0 부터 존재하던 표준</li>
+<li>ArrayList 출시되기 이전에 즐겨 사용</li>
+<li><p>항상 Thread-safe함. (무조건 동기화)</p>
+<ul>
+<li>ArrayList와의 성능 차이를 만드는 요인이자 요즘 Vector를 안 쓰는 이유.</li>
+<li>정말 Thread-safe한 리스트가 필요하다면 Synchronized List 등을 사용하는게 낫다. </li>
+</ul>
+</li>
+</ul>
+<h4 id="List-인터페이스의-구현체들"><a href="#List-인터페이스의-구현체들" class="headerlink" title="List 인터페이스의 구현체들"></a>List 인터페이스의 구현체들</h4><ul>
+<li>AbstractList</li>
+<li>AbstractSequentialList</li>
+<li>ArrayList(!)</li>
+<li>AttributeList</li>
+<li>CopyOnWriteArrayList</li>
+<li>LinkedList(!)</li>
+<li>RoleList</li>
+<li>RoleUnresolvedList</li>
+<li>Stack</li>
+<li>Vector </li>
+</ul>
+<p><strong>시간 복잡도</strong></p>
+<p><code>size(), isEmpty()</code> : <code>O(1)</code></p>
+<p><code>remove(), contains(), iterate()</code> : <code>O(n)</code></p>
+<hr>
+<h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><p>즐겨 사용하는 어레이리스트를 뜯어보자. </p>
+<p><em>초기 생성</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> Object[] elementData;</span><br><span class="line"></span><br><span class="line">    (...)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>();</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        (예외 처리 로직)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.elementData = <span class="keyword">new</span> Object[initialCapacity];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="number">10</span>); <span class="comment">//크기를 명시하지 않으면 length 10의 배열 생성.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>내부적으로 transient 키워드를 사용하는 Object 배열 사용.</li>
+<li>크기를 생성자로 명시할 수 있음. 명시하지 않는다면 크기는 10</li>
+<li>자료의 빈번한 삭제와 삽입에는 불리함.</li>
+<li>배열의 인덱스 값을 이용해 한 번에 원하는 값을 찾아올 수 있음. </li>
+</ul>
+<hr>
+<h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><p>링크드리스트는 링크드리스트다. <strong>더 이상의 설명이 필요한가?</strong></p>
+<p><em>뷁</em></p>
+<p><strong>초기 생성</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractSequentialList</span>&lt;<span class="title">E</span>&gt; (...)</span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> Entry&lt;E&gt; header = <span class="keyword">new</span> Entry&lt;E&gt;(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        header.next = header.previous = header;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedList</span><span class="params">(Colleciton&lt;? exttends E&gt; c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>();</span><br><span class="line">        addAll(c); <span class="comment">//생성자로 컬렉션을 전달하면 모든 원소를 링크드리스트에 담아 준다.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="알아둘-점"><a href="#알아둘-점" class="headerlink" title="알아둘 점"></a>알아둘 점</h4><ul>
+<li>링크드리스트 자체에 대한 이해를 하자. </li>
+<li>링크드리스트는 값과 다음 값의 위치를 갖고 있는 자료구조. </li>
+</ul>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/04/07/java-collections/" data-id="ckk5ihpr3000qdg9o1b5cnz1t" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/04/07/java-collections/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/07/algorithm-caesar/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          알고리즘 타임 - (1) 시저 암호
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/30/spring-kotlin/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">Spring 기반 프로젝트에 코틀린 많이 쓰(려고 노력하)는 이야기</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/04/07/java-collections/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>스프링 앱을 센트리로 감시하자. (+스프링에서의 커스텀 예외처리 약간) | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="쎈트리(Sentry)로 서버를 감시해보자.미천한 코딩 실력과 다양한 예외 상황으로 인해 우리의 스프링 부트 서버는 항상 다양한 Exception들을 뱉어낸다. 아 사실 Exception의 발생과 코딩 실력과는 별 관련이 없을 듯하다. 오히려 적절한 시점에서 Exception을 던져 예외 상황을 맞이한 서버가 뻗지 않도록 구현하는 것은 고급 개발스킬에 해당하">
+<meta name="keywords" content="Java,Spring,Sentry,Monitoring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스프링 앱을 센트리로 감시하자. (+스프링에서의 커스텀 예외처리 약간)">
+<meta property="og:url" content="https://tech.wheejuni.com/2017/12/08/sentry-on-spring/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="쎈트리(Sentry)로 서버를 감시해보자.미천한 코딩 실력과 다양한 예외 상황으로 인해 우리의 스프링 부트 서버는 항상 다양한 Exception들을 뱉어낸다. 아 사실 Exception의 발생과 코딩 실력과는 별 관련이 없을 듯하다. 오히려 적절한 시점에서 Exception을 던져 예외 상황을 맞이한 서버가 뻗지 않도록 구현하는 것은 고급 개발스킬에 해당하">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/seulgiwendy.github.io-static/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2017-12-08+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+3.04.11.png">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="스프링 앱을 센트리로 감시하자. (+스프링에서의 커스텀 예외처리 약간)">
+<meta name="twitter:description" content="쎈트리(Sentry)로 서버를 감시해보자.미천한 코딩 실력과 다양한 예외 상황으로 인해 우리의 스프링 부트 서버는 항상 다양한 Exception들을 뱉어낸다. 아 사실 Exception의 발생과 코딩 실력과는 별 관련이 없을 듯하다. 오히려 적절한 시점에서 Exception을 던져 예외 상황을 맞이한 서버가 뻗지 않도록 구현하는 것은 고급 개발스킬에 해당하">
+<meta name="twitter:image" content="https://s3.ap-northeast-2.amazonaws.com/seulgiwendy.github.io-static/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2017-12-08+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+3.04.11.png">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-sentry-on-spring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      스프링 앱을 센트리로 감시하자. (+스프링에서의 커스텀 예외처리 약간)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="쎈트리-Sentry-로-서버를-감시해보자"><a href="#쎈트리-Sentry-로-서버를-감시해보자" class="headerlink" title="쎈트리(Sentry)로 서버를 감시해보자."></a>쎈트리(Sentry)로 서버를 감시해보자.</h3><p>미천한 코딩 실력과 다양한 예외 상황으로 인해 우리의 스프링 부트 서버는 항상 다양한 Exception들을 뱉어낸다. 아 사실 Exception의 발생과 코딩 실력과는 별 관련이 없을 듯하다. 오히려 적절한 시점에서 Exception을 던져 예외 상황을 맞이한 서버가 뻗지 않도록 구현하는 것은 고급 개발스킬에 해당하고, 이런 예외상황을 모두 상상해볼 수 있는 것도 개발자의 역량이라고 본다. </p>
+<p>나는 그동안 다양한 종류의 Exception들을 System.out 으로 처리했었고 slf4j와 같은 로깅 프레임워크를 학습한 후엔 log.debug()나 log.error()를 불러내 콘솔에 현시하는 방법을 채택했었다. 그러나 이런 방법은 Exception 상황이 발생할 때에 콘솔을 주시하고 있어야 한다는 문제점이 있고 나중에 Exception에 대한 통계 정보를 만들어내는 것도 어려움이 따른다. </p>
+<p>뭔가 직관적인 대시보드를 제공하면서 실시간 에러 수집이 가능한 프레임웍이나 서비스를 찾던 도중 <a href="https://sentry.io" target="_blank" rel="noopener">Sentry</a>가 눈에 들어왔고 아래 삽질기를 통해 서버사이드에서의 도입 과정을 간략히 설명해 보고자 한다. </p>
+<p><em>센트리 회원가입, DSN 정보 취득 등 Trivial한 부분은 이 글에서 다루지 않는다.</em></p>
+<h4 id="스프링의-Custom-Exception-Handling에-대해-알아보자"><a href="#스프링의-Custom-Exception-Handling에-대해-알아보자" class="headerlink" title="스프링의 Custom Exception Handling에 대해 알아보자."></a>스프링의 Custom Exception Handling에 대해 알아보자.</h4><p>다들 알다시피 스프링을 쓰다보면 예외 상황이 참 많이 난다. 기본적인 경우에 이런 Exception들은 “Whitelabel Error Page”라는 멋대가리 없는 페이지로 표시된다. </p>
+<p>스프링은 이런 예외 상황 하에서 개발자의 책임으로 적절한 에러 표시를 띄워주기 위해 Controller, Service 등 DispatcherServlet 아래에서 일어나는 모든 예외 상황을 처리해주는 HandlerExceptionResolver 인터페이스를 두고 있다. </p>
+<p>만약 어떠한 방식으로든 이 Exception Resolver가 패키지 안에서 구현된다면 당신의 서버가 내뿜는 예외 상황들의 처리가 이 Resolver 구현체에서 전담될 것이며, 동시에 Ordered 인터페이스를 구현해 각 Exception Resolver간의 순위를 정해줄 수 있다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public Class ShitExceptionResolver implements HandlerExceptionResolver, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getOrder() &#123;</span><br><span class="line">        //이 메소드는 Ordered 인터페이스의 구현체이다. 예외 처리기의 실행 순위를 명시해주는 것이다. </span><br><span class="line"></span><br><span class="line">        return Integer.MIN_VALUE; //숫자가 작을 수록 우선권을 갖는다. </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse res, Object handler, Exception e) &#123;</span><br><span class="line">        //이 메소드는 HandlerExceptionResolver를 구현한 것이다.</span><br><span class="line"></span><br><span class="line">        (...에러를 모델에 추가하는 로직은 알아서 잘 구현하자.)</span><br><span class="line"></span><br><span class="line">        return &quot;error&quot;; //template 폴더에서 error.html을 찾아서 돌려주면 된다.</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>상기한 코드에서 getOrder()의 구현을 통해 최상위 에러 처리 로직으로 스프링 빈에 등록되었으므로, 이제 서버가 뱉어내는 모든 예외는 최우선적으로 위의 Resolver가 처리하게 된다. </p>
+<p><strong>뭔가 감이 오지 않는가?</strong> 우리는 이제 저 구현체가 모든 에러 정보를 흡수한 다음, 우리의 센트리 계정으로 중계해 주게끔 구현할 것이다. </p>
+<h4 id="Dependency-추가-및-터닦기-작업"><a href="#Dependency-추가-및-터닦기-작업" class="headerlink" title="Dependency 추가 및 터닦기 작업"></a>Dependency 추가 및 터닦기 작업</h4><p>센트리 포탑을 설치하기 위한 기초 터닦기 공사를 해보자. </p>
+<p>Maven(당연한 얘기지만 Gradle도 상관 없다) dependency를 아래와 같이 추가해 준다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;io.sentry&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;sentry&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.6.3&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>이렇게 추가된 클래스 Sentry를 통해 static 메소드 몇 가지를 쓰게 된다. </p>
+<p>그리고 Component Scan이 이뤄질 수 있는 위치에 아래와 같이 Bean을 선언해주자. (이게 필요한 과정인지는 모르겠으나 일단 적어둔다. 경험자 분들의 태클 환영)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public HandlerExceptionResolver sentryExceptionResolver() &#123;</span><br><span class="line">    return new SentryExceptionResolver();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Exception-Resolver-구현-에러-전송"><a href="#Exception-Resolver-구현-에러-전송" class="headerlink" title="Exception Resolver 구현, 에러 전송"></a>Exception Resolver 구현, 에러 전송</h4><p>아래와 같이 Exception Resolver를 구현해 지긋지긋한 Exception들을 Sentry로 보내버리자. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class SentryExceptionResolver implements HandlerExceptionResolver, Ordered &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getOrder() &#123;</span><br><span class="line">        return Integer.MIN_VALUE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public ModelAndView resolveException(HttpServletRequest req, HttpServletResponse res, Object o, Exception e) &#123;</span><br><span class="line">        </span><br><span class="line">        Sentry.init(YOUR_DSN); //여기서 센트리를 초기화시킨다. </span><br><span class="line">        Sentry.capture(e); //여기서 Exception을 센트리로 보내버린다.</span><br><span class="line"></span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>null을 리턴하는 이유</strong>는 이 Resolver는 단순히 예외를 잡아다가 센트리로 보내버리는 중계자 역할만을 할 뿐, 의미있는 예외 처리를 수행하고 있지 않기 때문이다. resolveException() 메소드의 리턴 타입이 ModelAndView임을 주목하자. 이 메소드는 Exception을 적절히 다뤄 <em>사용자가 의미있는 정보를 UI적으로 취득할 수 있게 해주는 것</em>에 의미를 두는 메소드이다. </p>
+<p>SentryExceptionResolver는 그와 같은 기능을 못 해주고 있으므로 null을 리턴해 차순위 Exception Resolver가 본연의 기능을 수행할 수 있도록 양보해 주는 것이 맞다. </p>
+<p>아, 물론 원한다면 SentryExceptionResolver가 view 기능도 수행하게끔 구현해도 되지만 <strong>비추한다.</strong> 단일 책임의 원칙에 부합하지 않는 모습이라고 본다. </p>
+<h4 id="끝났다"><a href="#끝났다" class="headerlink" title="끝났다."></a>끝났다.</h4><p>당신의 서버는 이제 당신의 Sentry 계정으로 예쁘게 Exception 정보를 보내줄 것이다. </p>
+<p><img src="https://s3.ap-northeast-2.amazonaws.com/seulgiwendy.github.io-static/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA+2017-12-08+%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE+3.04.11.png" alt="참 쉽죠?" title="대시보드 화면"></p>
+<p><strong>어때요, 참 쉽죠?</strong></p>
+<p>이제 Exception을 세련되게 관리해 봅시다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2017/12/08/sentry-on-spring/" data-id="ckk5ihps5001ydg9oewaetq6b" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2017/12/08/sentry-on-spring/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Monitoring/">Monitoring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sentry/">Sentry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/13/bruteforce-protection/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          브루트 포스 공격을 막아봅시다.(Spring Security에서의 예외 처리)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/03/why-no-optional-for-getters/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">Getter에 대한 사소한 궁금증 - Getter는 Optional을 사용하면 안 될까?</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2017/12/08/sentry-on-spring/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

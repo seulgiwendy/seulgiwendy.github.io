@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Django로 삽질한 이야기 (01) - 사이트가 없어졌다! | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Django로 삽질한 이야기 (01) - 사이트가 없어졌다!글쓴이 주: Java-Spring이 백엔드 개발의 전부인 줄 알았던 봄이네집이 Django 기반 웹서비스 개발 학습을 시작한다. Django의 늪에서 삽질하는 얘기를 앞으로도 종종 블로그에 담을 생각이다.  삽질의 배경Hoyoung Jung님의 Django로 웹서비스 만들기 강의 를 열심히 따라하다">
+<meta name="keywords" content="python,django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django로 삽질한 이야기 (01) - 사이트가 없어졌다!">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/01/24/django-no-sites/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="Django로 삽질한 이야기 (01) - 사이트가 없어졌다!글쓴이 주: Java-Spring이 백엔드 개발의 전부인 줄 알았던 봄이네집이 Django 기반 웹서비스 개발 학습을 시작한다. Django의 늪에서 삽질하는 얘기를 앞으로도 종종 블로그에 담을 생각이다.  삽질의 배경Hoyoung Jung님의 Django로 웹서비스 만들기 강의 를 열심히 따라하다">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.914Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Django로 삽질한 이야기 (01) - 사이트가 없어졌다!">
+<meta name="twitter:description" content="Django로 삽질한 이야기 (01) - 사이트가 없어졌다!글쓴이 주: Java-Spring이 백엔드 개발의 전부인 줄 알았던 봄이네집이 Django 기반 웹서비스 개발 학습을 시작한다. Django의 늪에서 삽질하는 얘기를 앞으로도 종종 블로그에 담을 생각이다.  삽질의 배경Hoyoung Jung님의 Django로 웹서비스 만들기 강의 를 열심히 따라하다">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-django-no-sites" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Django로 삽질한 이야기 (01) - 사이트가 없어졌다!
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Django로-삽질한-이야기-01-사이트가-없어졌다"><a href="#Django로-삽질한-이야기-01-사이트가-없어졌다" class="headerlink" title="Django로 삽질한 이야기 (01) - 사이트가 없어졌다!"></a>Django로 삽질한 이야기 (01) - 사이트가 없어졌다!</h3><p><em>글쓴이 주: Java-Spring이 백엔드 개발의 전부인 줄 알았던 봄이네집이 Django 기반 웹서비스 개발 학습을 시작한다.</em></p>
+<p><em>Django의 늪에서 삽질하는 얘기를 앞으로도 종종 블로그에 담을 생각이다.</em></p>
+<hr>
+<h4 id="삽질의-배경"><a href="#삽질의-배경" class="headerlink" title="삽질의 배경"></a>삽질의 배경</h4><p><a href="https://www.inflearn.com/course/django-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9E%A5%EA%B3%A0-%EA%B0%95%EC%A2%8C/" target="_blank" rel="noopener">Hoyoung Jung님의 Django로 웹서비스 만들기 강의</a> 를 열심히 따라하다보면 Django 기반 웹 프로젝트에 Social Login을 붙일 수 있게 된다. </p>
+<p><a href="https://github.com/pennersr/django-allauth" target="_blank" rel="noopener">Django-Allauth</a>를 사용하는 것인데 이 패키지는 사용법이 매우 쉽고, 설정이 간결하며 무엇보다도 시중의 많은 소셜 로그인 공급자들의 설정에 맞게 다양한 구현체가 존재한다는 점이 굉장한 이점이다. </p>
+<p><strong>그러나 이제 이 패키지는 쓸 수 없다.</strong> Django가 2.0으로 판올림되면서 <a href="https://code.djangoproject.com/ticket/24716" target="_blank" rel="noopener">get_val_from_obj() 메소드가 삭제</a>되었는데 아직 Django-allauth 패키지는 이에 대응하지 못하고 있기 때문이다. 삭제된 이 메소드를 여전히 사용하고 있는 Django-allauth는 admin page에서 유저 정보에 접근시 엄청난 에러를 뿜어낸다. 정확히 말하면 User 객체가 갖고 있는 정보를 JSON으로 serialize해주지 못하는 상황에 직면하게 된다. </p>
+<p>그래서 대안으로 소셜 로그인 패키지의 교체를 결정하고, 삽질이 시작되는데….. </p>
+<hr>
+<h4 id="삽질의-시작"><a href="#삽질의-시작" class="headerlink" title="삽질의 시작"></a>삽질의 시작</h4><p>소셜 로그인 패키지를 <a href="https://github.com/python-social-auth/social-app-django" target="_blank" rel="noopener">Python-social-auth</a>로 교체하였다. </p>
+<p>교체한 후 애플리케이션의 모델 중 기존 allauth가 생성한 user_id를 Foreign key로 갖고 있는 부분을 다 수정하였다. </p>
+<p>그러나 기존 DB 스키마가 갖고 있는 column constraints에 자꾸 걸려서 migrate 명령이 <strong>실행되지 않았고</strong> 결국 아래와 같은 무식한 방법으로 그냥 DB를 <strong>통째로 날려버렸다.</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm db.sqlite3</span><br></pre></td></tr></table></figure>
+<p><strong>진짜 단순무식한 방법이지만 효과는 굉장했다!</strong> 이제 migrate 명령이 잘 작동한다. <em>당연하지. DB를 통째로 날렸는데….</em></p>
+<p>그리고 admin page가 접속되지 않기 시작하는데……</p>
+<hr>
+<h4 id="삽질의-원인"><a href="#삽질의-원인" class="headerlink" title="삽질의 원인"></a>삽질의 원인</h4><p>admin 페이지는 아래와 같은 메시지를 뿜어내며 접속되지 않고 있었다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DoesNotExist at /admin/ Site matching query does not exist.</span><br></pre></td></tr></table></figure>
+<p>문제가 발생한 원인은 간단한 것으로 Django가 DB에 갖고 있던 <strong>사이트 정보</strong> 가 사라진 것이 원인이다. 원래 Django는 DB에 Site라는 객체를 매핑한 후 사이트 정보를 담아둔다. 이 매핑 작업은 django-admin startproject 시에 수행되지만, 나처럼 project 개발 도중에 DB를 날려버리는 <strong>화끈한 개발자</strong>를 위한 대비는 해 두지 않았으므로 나같은 사람들은 간단한 shell 작업을 통해 Site 객체를 다시 DB에 입력시켜줘야 할 것이다. </p>
+<hr>
+<h4 id="삽질의-끝"><a href="#삽질의-끝" class="headerlink" title="삽질의 끝"></a>삽질의 끝</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(from your project root directory)</span><br><span class="line"></span><br><span class="line">python manage.py shell</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt;from django.contrib.sites.models import Site</span><br><span class="line"><span class="meta">&gt;</span>&gt;&gt;Site.objects.create(name='your_site_name', domain='your_site_domain')</span><br></pre></td></tr></table></figure>
+<p>작업을 수행해준 후 project root directory의 settings.py에 방문한다. 아래와 같은 라인이 존재하는지 체크하고 없으면 작성해준다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SITE_ID = <span class="number">1</span></span><br><span class="line"><span class="comment">#많은 경우에 SITE_ID는 1번이다. 그러나 여러분의 상황에 따라 다를 수도 있다. 이런 설정은 알아서 잘 하자.</span></span><br></pre></td></tr></table></figure>
+<p>이제 admin 페이지는 잘 보일 것이다. </p>
+<hr>
+<h4 id="참고-문헌"><a href="#참고-문헌" class="headerlink" title="참고 문헌"></a>참고 문헌</h4><p><a href="https://stackoverflow.com/questions/11476210/getting-site-matching-query-does-not-exist-error-after-creating-django-admin" target="_blank" rel="noopener">Stack Overflow-Getting Site Matching Query Does Not Exist Error after creating django admin</a></p>
+<hr>
+<p><em>과연 삽질이 이것뿐이었을까요? Django로 삽질한 이야기의 글감은 넘쳐나고 있습니다.</em></p>
+<p><em>앞으로도 계속 연재될 Django 삽질기, 많이 기대해주세요! 고맙습니다.</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/01/24/django-no-sites/" data-id="ckk5ihpqq000ddg9o965bgjeh" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/01/24/django-no-sites/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/01/30/windows-diskpart/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          DiskPart로 파티션을 내맘대로 다뤄보자.
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/22/using-enums-api-development/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">Enum을 사용해 실수를 줄인다.</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/01/24/django-no-sites/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

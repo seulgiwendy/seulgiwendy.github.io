@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>아침 CS - (2) 트리 순회 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="트리 순회트리 순회는 트리 자료구조를 탐색해 데이터를 찾는 순회 방법을 말하는 것이다. 후위 순회, 중위 순회, 전위 순회, 레벨 순회 의 큰 네가지로 이뤄진다.   예제 트리아래의 그림으로 네 가지의 순회법을 설명한다.    후위 순회내가 제일 좋아하는 순회라서 가장 앞에 소개한다.   왼쪽 오른쪽 부모   간단하다.  먼저 왼쪽 노드의 왼쪽 자식(무조건">
+<meta property="og:type" content="article">
+<meta property="og:title" content="아침 CS - (2) 트리 순회">
+<meta property="og:url" content="https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="트리 순회트리 순회는 트리 자료구조를 탐색해 데이터를 찾는 순회 방법을 말하는 것이다. 후위 순회, 중위 순회, 전위 순회, 레벨 순회 의 큰 네가지로 이뤄진다.   예제 트리아래의 그림으로 네 가지의 순회법을 설명한다.    후위 순회내가 제일 좋아하는 순회라서 가장 앞에 소개한다.   왼쪽 오른쪽 부모   간단하다.  먼저 왼쪽 노드의 왼쪽 자식(무조건">
+<meta property="og:locale" content="ko">
+<meta property="og:image" content="https://www.geeksforgeeks.org/wp-content/uploads/2009/06/tree12.gif">
+<meta property="og:updated_time" content="2021-01-20T14:13:54.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="아침 CS - (2) 트리 순회">
+<meta name="twitter:description" content="트리 순회트리 순회는 트리 자료구조를 탐색해 데이터를 찾는 순회 방법을 말하는 것이다. 후위 순회, 중위 순회, 전위 순회, 레벨 순회 의 큰 네가지로 이뤄진다.   예제 트리아래의 그림으로 네 가지의 순회법을 설명한다.    후위 순회내가 제일 좋아하는 순회라서 가장 앞에 소개한다.   왼쪽 오른쪽 부모   간단하다.  먼저 왼쪽 노드의 왼쪽 자식(무조건">
+<meta name="twitter:image" content="https://www.geeksforgeeks.org/wp-content/uploads/2009/06/tree12.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-morningcs-treetraversal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/data-structure/">data_structure</a>►<a class="article-category-link" href="/categories/data-structure/algorithm/">algorithm</a>►<a class="article-category-link" href="/categories/data-structure/algorithm/morning-cs/">morning_cs</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      아침 CS - (2) 트리 순회
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="트리-순회"><a href="#트리-순회" class="headerlink" title="트리 순회"></a>트리 순회</h3><p>트리 순회는 트리 자료구조를 탐색해 데이터를 찾는 순회 방법을 말하는 것이다.</p>
+<p><strong>후위 순회, 중위 순회, 전위 순회, 레벨 순회</strong> 의 큰 네가지로 이뤄진다. </p>
+<hr>
+<h4 id="예제-트리"><a href="#예제-트리" class="headerlink" title="예제 트리"></a>예제 트리</h4><p>아래의 그림으로 네 가지의 순회법을 설명한다. </p>
+<p><img src="https://www.geeksforgeeks.org/wp-content/uploads/2009/06/tree12.gif" alt="이진 트리"></p>
+<hr>
+<h4 id="후위-순회"><a href="#후위-순회" class="headerlink" title="후위 순회"></a>후위 순회</h4><p><strong>내가 제일 좋아하는 순회라서 가장 앞에 소개한다.</strong> </p>
+<blockquote>
+<p>왼쪽 오른쪽 부모 </p>
+</blockquote>
+<p>간단하다. </p>
+<p>먼저 왼쪽 노드의 왼쪽 자식(무조건 왼쪽, 좌파다)을 방문하고, 오른쪽 노드, 그리고 부모 순으로 방문하면 된다. </p>
+<p><em>부모는 무조건 맨 나중이다.</em> 4 - 5 - 2 - 3 - 1 순서로 방문. </p>
+<hr>
+<h4 id="중위-순회"><a href="#중위-순회" class="headerlink" title="중위 순회"></a>중위 순회</h4><blockquote>
+<p>왼쪽 부모 오른쪽 </p>
+</blockquote>
+<p>어떻게보면 가장 상식적으로 추론할 수 있는 순회법이다. </p>
+<p>가장 왼쪽의 노드를 먼저 방문한 다음 슬래시를 치듯이 방문하면 된다. </p>
+<p>4 - 2 - 5 - 1 - 3.</p>
+<hr>
+<h4 id="전위-순회"><a href="#전위-순회" class="headerlink" title="전위 순회"></a>전위 순회</h4><blockquote>
+<p>부모 왼쪽 오른쪽 </p>
+</blockquote>
+<p>부모님을 공경하는 순회법이다. </p>
+<p>그러나 자식 노드를 방문할 땐 왼쪽부터 방문해야 하는 건 같다. </p>
+<p><strong>오해하면 안되는게 재귀적으로 왼쪽을 쭉 탐색한 다음 오른쪽 노드로 넘어가는 것이다.</strong> 즉 왼쪽 노드가 자식을 갖고 있으면 그 자식들 중 왼쪽 노드를 또 탐색해야 한다. </p>
+<p>1 - 2 - 4 - 5 - 3.</p>
+<hr>
+<h4 id="레벨-순회"><a href="#레벨-순회" class="headerlink" title="레벨 순회"></a>레벨 순회</h4><p><em>부야!</em></p>
+<blockquote>
+<p>같은 층부터 방문 </p>
+</blockquote>
+<p>나와 같은 레벨의 노드들부터 방문, 하나씩 레벨을 내려가며 왼쪽 노드부터 읽는다.</p>
+<p>1 - 2 - 3 - 4 - 5.</p>
+<hr>
+<h4 id="추가로-학습할-점"><a href="#추가로-학습할-점" class="headerlink" title="추가로 학습할 점"></a>추가로 학습할 점</h4><ul>
+<li>각 순회를 코드로 구현해보면 좋겠다. </li>
+</ul>
+<hr>
+<h4 id="트리-순회를-실생활에-적용하는-법"><a href="#트리-순회를-실생활에-적용하는-법" class="headerlink" title="트리 순회를 실생활에 적용하는 법"></a>트리 순회를 실생활에 적용하는 법</h4><p>명절날 친정부터 갈지 시댁부터 갈지 정할때 활용해보면 좋다. </p>
+<p><strong>여보, 이번 추석은 후위 순회 할까?</strong></p>
+<hr>
+<h4 id="연습문제-풀어보기"><a href="#연습문제-풀어보기" class="headerlink" title="연습문제 풀어보기"></a>연습문제 풀어보기</h4><p><a href="https://jiwondh.github.io/2017/10/15/tree_traversal/#-%EC%A4%91%EC%9C%84-%EC%88%9C%ED%9A%8C-inorder-traversal" target="_blank" rel="noopener">링크</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/" data-id="ckk5ihprs001kdg9okrbzp8q0" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/11/morningcs-binarytree/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-caption">최신</span>
+      <div class="article-nav-title">
+        
+          아침 CS - (3) 이진 트리
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/04/09/morningcs-duplex/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">아침 CS - (1) 이중통신 (Duplex)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
