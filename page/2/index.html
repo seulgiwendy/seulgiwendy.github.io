@@ -52,6 +52,79 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jstat-monitoring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/jstat/">jstat</a>►<a class="article-category-link" href="/categories/jstat/jvm/">jvm</a>►<a class="article-category-link" href="/categories/jstat/jvm/java/">java</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/19/jstat-monitoring/">jstat으로 JVM 메모리 사용을 구경해보자.</a>
+    </h1>
+  
+
+        <a href="/2018/06/19/jstat-monitoring/" class="article-date">
+  <time datetime="2018-06-19T05:25:37.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="jstat으로-JVM-메모리-사용을-구경해보자"><a href="#jstat으로-JVM-메모리-사용을-구경해보자" class="headerlink" title="jstat으로 JVM 메모리 사용을 구경해보자."></a>jstat으로 JVM 메모리 사용을 구경해보자.</h3><p>JVM에 대해 학습하다보면 gc가 정말 이론대로(?) 움직이는지 궁금해질 때가 있다. </p>
+<p>IDE에서의 디버깅으로는 이런 메모리 정보를 직관적으로 알기 어렵다. 그래서 jstat이라는 도구가 있다. 참 좋은 도구다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -옵션 -JVM pid</span><br></pre></td></tr></table></figure>
+<p>옵션에는 다양한 프로파일링 타겟이 존재한다. </p>
+<table>
+<thead>
+<tr>
+<th>옵션명</th>
+<th>특징 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>class</td>
+<td>클래스 로더 동작</td>
+</tr>
+<tr>
+<td>gc</td>
+<td>heap 영역 전체에 대한 데이터</td>
+</tr>
+<tr>
+<td>gcnew</td>
+<td>New 세대에 대한 데이터</td>
+</tr>
+</tbody>
+</table>
+<p>등등이 있다. 이중 내가 시도해본 것은 gcnew이다. </p>
+<p><img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/35495645_542053236189591_3224093560965955584_n.jpg?_nc_cat=0&amp;_nc_eui2=AeGfel3hb7tB27dSXNWkPYTKygGbG9RonYNwQChcwFYkCwwkVu0Rd2tKhi4ekYe3IaDTDBwRehHDv2O-QbOd_RBWfjdrPvQQWTbn9PmCpCmkkg&amp;oh=db8ee0c93ee7d69d1f9948b027929526&amp;oe=5BEB815C" alt="작동중인 jstat"></p>
+<p>위 사진에서 맨 오른쪽 열이 gc counter, 즉 new 영역에 대한 minor GC가 발생한 숫자를 기록하고 있는 부분인데 12에서 13으로 한 개 증가하며 한 칸 왼쪽의 열이 보여주고 있는 Eden의 메모리 사용량이 확 줄어든 것을 볼 수 있었다. </p>
+<p>스크린샷에는 잡히지 않았지만 이 때 가득차있던 S0 영역이 완전히 비워지고 S1에 메모리 사용이 잡히기 시작했다. <em>S0, S1 어느 하나는 완전히 비어있어야 한다</em> 는 JVM 이론 시간의 공부가 눈 앞에서 확인되는 순간이었다. </p>
+<p>여러분도 집에서 심심할 때 한 번 돌려보시면 좋겠다. 물론 <strong>공부하는 입장에서야 심심할 때 해볼 수 있는 일이겠지만 상용 서비스를 개발하는 개발자에게는 중요한 정보일 것이다.</strong> </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/19/jstat-monitoring/" data-id="ckk8zmeph0015eo9oc6zebit1" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/06/19/jstat-monitoring/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jpa-cartesian" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -135,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/16/jpa-cartesian/" data-id="ckk5ihpr8000wdg9oy7t8b5v7" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/16/jpa-cartesian/" data-id="ckk8zmepa000weo9otk3txg6s" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/16/jpa-cartesian/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -260,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/14/database-transaction/" data-id="ckk5ihpqm000bdg9o43v3s72p" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/14/database-transaction/" data-id="ckk8zmeom000beo9odjsymtil" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/14/database-transaction/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -364,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/09/jpa-questions/" data-id="ckk5ihpxc008rdg9o1hentnnl" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/09/jpa-questions/" data-id="ckk8zmerw003weo9o9valc641" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/09/jpa-questions/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -414,7 +487,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/09/operating-systems-questions/" data-id="ckk5ihps3001wdg9odrp6yevy" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/09/operating-systems-questions/" data-id="ckk8zmes9004aeo9ouxnjudea" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/09/operating-systems-questions/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -533,7 +606,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/08/algorithm-ds-questions/" data-id="ckk5ihpx2008idg9o46pg6vo5" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/08/algorithm-ds-questions/" data-id="ckk8zmerm003oeo9o2rtwmqar" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/08/algorithm-ds-questions/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -658,7 +731,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/07/http-questions/" data-id="ckk5ihpxa008pdg9oizd4ylbk" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/07/http-questions/" data-id="ckk8zmert003teo9oj4m62ipl" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/07/http-questions/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -838,7 +911,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/06/java-questions/" data-id="ckk5ihpyf009xdg9os898fow4" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/06/java-questions/" data-id="ckk8zmewn00adeo9o42o9y3yi" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/06/java-questions/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -1030,7 +1103,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/04/spring-questions/" data-id="ckk5ihpyh009zdg9ohxxovgxj" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/04/spring-questions/" data-id="ckk8zmex800aueo9o6whugyun" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/04/spring-questions/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -1099,145 +1172,9 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/04/java-threadlocal/" data-id="ckk5ihpr5000tdg9o0q1cwhy6" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/04/java-threadlocal/" data-id="ckk8zmep8000teo9oird1blbt" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/06/04/java-threadlocal/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-java-string" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>►<a class="article-category-link" href="/categories/Java/String/">String</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/21/java-string/">java.lang.String을 파 보았다</a>
-    </h1>
-  
-
-        <a href="/2018/05/21/java-string/" class="article-date">
-  <time datetime="2018-05-21T00:15:39.000Z" itemprop="datePublished">2018-05-21</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h3 id="자바의-문자열에-대해-제대로-공부해보자"><a href="#자바의-문자열에-대해-제대로-공부해보자" class="headerlink" title="자바의 문자열에 대해 제대로 공부해보자."></a>자바의 문자열에 대해 제대로 공부해보자.</h3><p>아마 어떤 언어를 배우든 그 시작은 “문자열 다루기” 일 것이다. “다룬다” 는 표현이 거창한가? 그렇지만 프로그래밍의 시작을 하려거든 어떤 식으로든 문자열과 만나는 경우가 많다.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">helloWorld</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"hello world!"</span>)</span><br></pre></td></tr></table></figure>
-<p>쌍따옴표 안에 감싸진 것은 분명히 <strong>문자열이다.</strong> </p>
-<p>자바는 뭐가 다를까? </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span> <span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"hello world!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>문자열 없이는 첫 발짝도 <strong>뗼 수 없다.</strong> 우리는 프로그래밍을 학습할 때 문자열을 가장 먼저 배운다. </p>
-<p>어쩌면 문자열은 프로그래밍 언어에서 등장하는 유일한 “인간의 언어” 일지도 모르겠다는 생각이 든다. </p>
-<hr>
-<h4 id="오해"><a href="#오해" class="headerlink" title="오해"></a>오해</h4><p>문자열, 특히 Java에서의 문자열은 처음 배우는 개념인만큼 오개념이 생기기도 쉽고, 오개념이 잡혀도 오개념인 줄도 모르기때문에 나중에 바로잡기도 쉽지 않다. </p>
-<p>뭐 완전 뉴비 시절에는 이런 실수도 종종 하긴 한다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> b = <span class="string">"안녕하세요"</span> == <span class="string">"안녕하세요"</span>;</span><br></pre></td></tr></table></figure>
-<p>문자열을 ==으로 비교한다던지,</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String hi = <span class="keyword">new</span> String(<span class="string">"Hellow"</span>);</span><br></pre></td></tr></table></figure>
-<p>문자열에 생성자를 사용한다던지 하는 실수들 말이다. </p>
-<p>이런 실수야 각자 해결하고 이 자리까지 왔을테니 굳이 언급하진 않겠다. 이번 글에서는 Java의 j 자 정도에 대한 이해가 생긴 프로그래머들조차도 흔히 갖는 오해, 그리고 흔히 하는 실수들에 대해 생각해보고자 한다. </p>
-<hr>
-<p><strong>java.lang.String은 어떻게 생성자 없이도 객체가 생성되나?</strong></p>
-<p>궁금증 하나로 출발해보고 싶다. 우리는 Java에서 문자열은 <em>객체</em> 라고 배웠다. </p>
-<p>그러나 생성자는 쓰지 말라고 한다. 어디서 이런 미스매치가 발생한 걸까? </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"hello"</span></span><br></pre></td></tr></table></figure>
-<p>라는 짤막한 문자열 선언이, 컴파일러를 통해 아래와 같이 바뀐다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="keyword">new</span> String(<span class="keyword">new</span> <span class="keyword">char</span>[]&#123;<span class="string">'h'</span>, <span class="string">'e'</span>, <span class="string">'l'</span>, <span class="string">'l'</span>, <span class="string">'o'</span>&#125;).intern();</span><br></pre></td></tr></table></figure>
-<p>.intern() 이 뭐냐면…. 일단 java.lang.String 에는 이렇게 돼 있다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">intern</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>native 코드를 호출하는 것 같다. </p>
-<p>이 짤막한 메소드의 기능은 문자열 풀링(pooling)을 담당하는 것이다. 즉, 우리가 문자열을 만들면 우리는 우리가 만든 객체를 그대로 사용하는 게 아닌, JVM 내부에 형성된 literal pool의 객체를 가져다 쓰게 된다. </p>
-<p>처음 문자열이 선언됐을 때 .intern()이 호출되고, 이 메소드는 JVM의 문자열 풀에 해당 객체와 같은 내용의 문자열이 기 존재하는지를 질의한다. 이때 .equals()를 사용한다. </p>
-<p>만약 이미 객체가 있다면 문자열 풀은 해당 객체를 리턴하고, <strong>없다면 만들어진 문자열 객체를 문자열 풀에 집어넣은 후, 그 객체로 가는 참조를 리턴해준다.</strong> 즉 어떠한 경우에도 우리가 문자열 객체의 생명주기를 직접 통제할 수는 없다. </p>
-<p>그래서 이런 결과가 발생하는 것이다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"a"</span> == <span class="string">"a"</span>);</span><br><span class="line"><span class="comment">//true가 출력된다.</span></span><br></pre></td></tr></table></figure>
-<p>그러나 모든 문자열 생성이 다 .intern()을 타는 것은 아니다. <strong>동적으로 문자열을 만들어주는 대부분의 메소드에서 만들어진 문자열은 new String() 을 쓴다.</strong> .intern() 안 탄다. </p>
-<p>위와 같이 비교할 수 있다고 해서 .equals()를 안 써도 되는 게 아니란 얘기다. </p>
-<p>말장난 아니냐고 하면 할 말은 없는데 어쨌든 <strong>객체가 풀링되고 있다는 사실이 중요한거다.</strong> 비슷한 원리를 따르는 JVM의 신비가 또 하나 있는데 바로 wrapper class interning이다. </p>
-<p>아래 코드는 true일까, false일까? </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer i1 = <span class="number">1</span>;</span><br><span class="line">Integer i2 = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">i1 == i2;</span><br></pre></td></tr></table></figure>
-<p>이거 true. <strong>객체는 equals로 비교하라며?</strong></p>
-<p>자, 그럼 아래 코드는 true일까 false일까? </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer big1 = <span class="number">1024</span>;</span><br><span class="line">Integer big2 = <span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">big1 == big2</span><br></pre></td></tr></table></figure>
-<p>이거 false다. <em>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</em></p>
-<p><strong>왜 그럴까?</strong></p>
-<p>퍼포먼스 튜닝 목적으로 Integer라는 wrapper class에 대해 -127 ~ 128 사이의 값을 <strong>미리 보관해서 별도의 배열에 보관하고 있기 때문이다.</strong></p>
-<p>java.lang.Integer를 까보면 아래와 같은 구현이 나온다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">IntegerCache</span> </span>&#123;</span><br><span class="line">         <span class="function"><span class="keyword">private</span> <span class="title">IntegerCache</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line">         <span class="keyword">static</span> <span class="keyword">final</span> Integer cache[] = <span class="keyword">new</span> Integer[-(-<span class="number">128</span>) + <span class="number">127</span> + <span class="number">1</span>];</span><br><span class="line"> </span><br><span class="line">         <span class="keyword">static</span> &#123;</span><br><span class="line">             <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cache.length; i++)</span><br><span class="line">                 cache[i] = <span class="keyword">new</span> Integer(i - <span class="number">128</span>);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure>
-<p>Integer 클래스가 최초로 사용됐을 때 무조건 한 번 돌게 돼 있다. </p>
-<p>Integer도 문자열과 같은 원리의 interning을 수행하고 있는 모습이다. </p>
-<hr>
-<p><strong>문자열은 객체인데 어떻게 + 연산자가 먹나?</strong></p>
-<p>String 객체 어딘가에 해당 연산을 수행해주는 메소드가 있고, 그 메소드를 호출하는 것으로 컴파일 타임에 바꿔치기되기 때문은 아닐까?</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"a"</span> + <span class="string">"b"</span></span><br></pre></td></tr></table></figure>
-<p>의 연산은, </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> StringBuilder(<span class="string">"s"</span>).append(<span class="string">"b"</span>).toString();</span><br></pre></td></tr></table></figure>
-<p>으로 실행된다. </p>
-<p><em>어, 그러면 StringBuilder 안 써도 되겠네요?</em></p>
-<p><strong>아뇨.</strong> </p>
-<p>개발자의 판단과 책임으로, 문자열 더하기 연산이 지나치게 많이 반복되는 경우 처음부터 깔끔하게 StringBuilder를 사용하는 것이 좋다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String hello = <span class="string">"hello"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">    hello += <span class="string">"hi"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>당신은 조금 전 10개의 스트링 빌더 객체를 생성해, 고작 “hi” 두 글자 더하고 내다 버렸다. </p>
-<p>동양 컴퓨터공학에서는 이렇게 쉽게 객체를 버리는 경우 컴퓨터의 균형이 깨진다고 본다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">StringBuilder hello = <span class="keyword">new</span> StringBuilder(<span class="string">"hello"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(String hi: hiList) &#123;</span><br><span class="line">    hello.append(hi);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> hello.toString();</span><br></pre></td></tr></table></figure>
-<p>이게 훨씬 좋은 구현이다. </p>
-<p><strong>추가</strong></p>
-<p>정상혁(<a href="https://www.facebook.com/benelog" target="_blank" rel="noopener">Sanghyuck Jung</a>)님이 아래와 같은 내용을 보충해 주셨다. </p>
-<p><em>Java 9에서의 String concat 최적화</em> - StringConcatFactory 로 연결된다. (JDK 9 이상에서만 존재)</p>
-<p><a href="http://openjdk.java.net/jeps/280" target="_blank" rel="noopener">http://openjdk.java.net/jeps/280</a></p>
-<p><strong>.concat()이란 것도 있다면서요?</strong></p>
-<p>있다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">concat</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> otherLen = str.length();</span><br><span class="line">    <span class="keyword">if</span> (otherLen == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">char</span> buf[] = <span class="keyword">new</span> <span class="keyword">char</span>[count + otherLen];</span><br><span class="line">    getChars(<span class="number">0</span>, count, buf, <span class="number">0</span>);</span><br><span class="line">    str.getChars(<span class="number">0</span>, otherLen, buf, count);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> String(<span class="number">0</span>, count + otherLen, buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>이렇게 생겼다. 그러나 <strong>일부러 이걸 쓸 일은 없을 것이다.</strong></p>
-<p>보면 알겠지만 합칠 문자열을 받고, 그 문자열의 길이를 파악한 후, 그 문자열 길이 + 원 문자열 길이 만큼의 배열을 선언하고, 거기다가 원래 문자열의 CharArray를 덮고, 거기다가 합칠 문자열으 내용을 덮고, 그걸 또 새로운 String 객체의 생성자 파라메터로 넘겨서 객체를 만들어서 돌려주는 것이다. </p>
-<p>이렇게 만들어지는 객체는 오버헤드를 엄청나게 유발할 뿐만 아니라 앞서 설명한 interning도 안 되어있는 것이다. </p>
-<p>위의 내용 중에 오타가 있는 건 나도 알지만 그냥 쓰다보니 빡쳐서 바로잡지 않은 것이다. </p>
-<p><strong>쓰지 마세요.</strong></p>
-<hr>
-<p><em>StringBuilder도 있고, StringBuffer도 있잖아요?</em></p>
-<p>맞다. <strong>두 클래스의 차이에 대해 인지한 후 정확한 상황판단 하에 사용해라.</strong></p>
-<p>단순 취향 차이가 아닌 실제 퍼포먼스에서의 차이가 상당 부분 발생한다. </p>
-<p>코드를 보자. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span>  <span class="class"><span class="keyword">class</span> <span class="title">AbstractStringBuilder</span> <span class="keyword">implements</span> <span class="title">Appendable</span>,<span class="title">CharSequence</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span>[] value;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> count;</span><br><span class="line"></span><br><span class="line">AbstractStringBuilder() &#123;&#125;</span><br><span class="line"></span><br><span class="line">AbstractStringBuilder(<span class="keyword">int</span> capacity) &#123;</span><br><span class="line"></span><br><span class="line">          value = <span class="keyword">new</span> <span class="keyword">char</span>[capacity];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>StringBuilder의 super class인 AbstractStringBuilder인데 char[] 로 문자열에 대한 관리를 하고 있음을 알 수 있다. </p>
-<p>그럼 StringBuffer는? AbstractStringBuilder를 extend하는 것은 같지만….</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">char</span>[] toStringCache;</span><br></pre></td></tr></table></figure>
-<p>문제의 코드다. char[] 를 transient로 관리하고 있는 모습이다. </p>
-<p>뿐만 아니다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">char</span> More ...charAt(<span class="keyword">int</span> index) &#123;</span><br><span class="line">    <span class="keyword">if</span> ((index &lt; <span class="number">0</span>) || (index &gt;= count))</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(index);</span><br><span class="line">    <span class="keyword">return</span> value[index];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> StringBuffer More ...append(CharSequence s) &#123;</span><br><span class="line">    toStringCache = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">super</span>.append(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>모든 메소드에 synchronized 예약어가 달려있다. 느려질 수밖에 없는 구조다. </p>
-<p><a href="https://stackoverflow.com/questions/1671089/why-are-synchronize-expensive-in-java" target="_blank" rel="noopener">synchronized가 왜 느릴까요?</a></p>
-<p>JavaDoc에서 충분히 밝히고 있는 것처럼 StringBuffer는 thread-safe함이 요구되는 상황에서만 <strong>제한적으로</strong> 사용하는 것이 맞다. 남발할 경우 실행 속도가 느려질 수밖에 없을 것이다. </p>
-<p>개인적인 실험을 해본 적이 있었는데 StringBuilder와 StringBuffer의 .append()를 1억번 정도 콜한 경우 대략 3초 내외의 퍼포먼스 차이가 났던 것으로 기억한다. </p>
-<p>3초면 3000ms. 꽤 큰 차이다.</p>
-<hr>
-<h4 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h4><p>사실 우리 모두가 프로그래밍 좀 하다보면 문자열에 대한 이해가 출중할 거라 자부하지만 의외로 오개념을 갖고있을 수도 있다. </p>
-<p>나도 이번 포스팅을 준비하며 찾아본 자료들에서 신선한 충격을 받은 경험이 꽤 있었다.</p>
-<p>어쨌든, 기초가 참 중요한 것 같다. 익숙한 것부터 바로, 잘 알자!</p>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/05/21/java-string/" data-id="ckk5ihpxe008tdg9o4n2nhl0o" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2018/05/21/java-string/#disqus_thread" class="article-comment-link">댓글</a>
       
       
     </footer>

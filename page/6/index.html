@@ -52,6 +52,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-til-20171105" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/05/til-20171105/">TIL-20171105</a>
+    </h1>
+  
+
+        <a href="/2017/11/05/til-20171105/" class="article-date">
+  <time datetime="2017-11-05T14:44:41.000Z" itemprop="datePublished">2017-11-05</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="2017-11-04-토-2017-11-05-일-오늘의-T-I-L"><a href="#2017-11-04-토-2017-11-05-일-오늘의-T-I-L" class="headerlink" title="2017.11.04(토) ~ 2017.11.05(일) 오늘의 T.I.L."></a>2017.11.04(토) ~ 2017.11.05(일) 오늘의 T.I.L.</h3><ul>
+<li><p>학원 휴무 시작. </p>
+<ul>
+<li>많이 걸었다. 만 팔천 보, 거의 이만보 가까이 걸었다. 대치동 일대, 선정릉 등등…..</li>
+<li>저녁에 많이 좋아하는 누나들 만나서 조금 과음했다. </li>
+</ul>
+</li>
+<li><p>MVC 프레임워크 3단계 구현.</p>
+<ul>
+<li>거의 다 한 것 같은 느낌. ControllerScanner와 AnnotationHandlerMapping을 구현했고, Legacy Controller 하나를 Annotation-based Controller로 바꿔 봤다.</li>
+<li>ControllerScanner와 AnnotationHandlerMapping에 싱글톤을 적용해야 할 것 같다. </li>
+<li>시스템 전반에 Singleton이 적용되어야 할 것 같은데 Dependency Injection을 어떻게 짤지 고민이 필요하다. </li>
+</ul>
+</li>
+<li><p>Servlet을 Unit test하는 방법에 대해 고민함. </p>
+<ul>
+<li>HttpServletRequest를 인자로 받는 Servlet의 동작을 어떻게 유닛 테스트할지 고민해봤다. </li>
+<li>처음에는 너무나 단순하게도 HttpServletRequest를 implement하는 FakeHttpServletRequest와 같은 구현체를 만들까 생각했지만 좋지 못한 방법이라고 느껴졌다. <em>하단 코드 참조.</em> </li>
+</ul>
+</li>
+</ul>
+<p>FakeHttpServletRequest.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">FakeHttpServletRequest</span> <span class="keyword">implements</span> <span class="title">HttpServletRequest</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getRequestURI</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"/test"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"get"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//TEST 코드 내에서의 사용.....</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    assertEquals(controller, RequestMapper.getController(<span class="keyword">new</span> FakeHttpServletRequest() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getAuthType</span><span class="params">()</span></span>&#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line"></span><br><span class="line">        .......</span><br><span class="line">    &#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>코드가 엉망진창이다. 우리는 getRequestURI()와 getMethod()에 대한 Fake Result만 받아오면 유닛 테스트를 수행할 수 있는데, 이런 보일러플레이트가 테스트 코드 안에 존재하는 건 낭비다. </p>
+<p>그래서….</p>
+<ul>
+<li><p>Mockito와 JMockit에 대해 공부함. </p>
+<ul>
+<li>작동 원리는 비슷, Syntax에서 약간 차이가 있는듯. </li>
+<li>mock() 메소드로 인터페이스에 대한 Mocking 구현체를 만들어 놓고 fake값을 리턴해주도록 설정하면 된다. </li>
+<li>근데 이유는 모르겠지만 Mockito가 내 프로젝트에 적용이 안 되는 바람에 아직 실전 배치를 못 하고 있다. ㅋㅋㅋㅋ </li>
+<li><strong>내일은 고칠 것이다.</strong></li>
+</ul>
+</li>
+<li><p>Scala에 대해 <a href="https://www.youtube.com/watch?v=leCxPozBeRQ&amp;list=PLsyeobzWxl7qag3R9xLopxwealpLgEpYa&amp;index=5" target="_blank" rel="noopener">유튜브</a>로 공부하기 시작.</p>
+<ul>
+<li>오늘은 개발 환경 세팅과 간단한 println 까지만.</li>
+<li>금방 배울 것 같다. 자바와 여러모로 비슷.</li>
+</ul>
+</li>
+</ul>
+<p>오랜만에 주말에 푹 쉬었더니 컨디션이 아주 좋다. 좋은 사람들과 만남의 자리도 가지고….</p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2017/11/05/til-20171105/" data-id="ckk8zmetj005ieo9o23p1po04" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2017/11/05/til-20171105/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scala/">Scala</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TIL/">TIL</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-til-20171103" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -107,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/11/03/til-20171103/" data-id="ckk5ihpt80036dg9o17yc7z51" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/11/03/til-20171103/" data-id="ckk8zmeth005geo9oceza84nj" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/11/03/til-20171103/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -174,7 +256,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/11/02/til-20171102/" data-id="ckk5ihpt60033dg9okgtosv0j" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/11/02/til-20171102/" data-id="ckk8zmetd005aeo9oj11jo5yp" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/11/02/til-20171102/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -235,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/31/til-20171031/" data-id="ckk5ihpt40030dg9oitkoqh7m" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/31/til-20171031/" data-id="ckk8zmetf005ceo9ozihcftm0" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/31/til-20171031/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -293,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/30/til-20171030/" data-id="ckk5ihpt1002xdg9ogsza2yx7" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/30/til-20171030/" data-id="ckk8zmeua006feo9o1jfg6xcz" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/30/til-20171030/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -355,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/29/til-20171029/" data-id="ckk5ihpsz002udg9o59ozlprm" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/29/til-20171029/" data-id="ckk8zmeta0057eo9oktj17c8m" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/29/til-20171029/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -417,7 +499,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/27/til-20171027/" data-id="ckk5ihpst002odg9ociga9d0h" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/27/til-20171027/" data-id="ckk8zmet60054eo9o9lkwglz8" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/27/til-20171027/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -486,7 +568,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/26/til-20171026/" data-id="ckk5ihpsw002rdg9ok9l2haur" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/26/til-20171026/" data-id="ckk8zmeud006jeo9ofjvsv4f9" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/26/til-20171026/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -565,7 +647,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/25/til-20171025/" data-id="ckk5ihpsr002mdg9oqyco4xd5" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/25/til-20171025/" data-id="ckk8zmesz004yeo9oe8g2zzpn" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/25/til-20171025/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -649,80 +731,12 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/24/http-web-basics/" data-id="ckk5ihpqy000kdg9opn8a4e4s" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/10/24/http-web-basics/" data-id="ckk8zmep4000neo9ohtgu65fh" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/10/24/http-web-basics/#disqus_thread" class="article-comment-link">댓글</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JAVA-BACKEND/">JAVA_BACKEND</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-til-20171023" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/23/til-20171023/">TIL-20171023</a>
-    </h1>
-  
-
-        <a href="/2017/10/23/til-20171023/" class="article-date">
-  <time datetime="2017-10-23T14:23:16.000Z" itemprop="datePublished">2017-10-23</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h3 id="2017-10-23-월-오늘의-TIL"><a href="#2017-10-23-월-오늘의-TIL" class="headerlink" title="2017.10.23(월) 오늘의 TIL"></a>2017.10.23(월) 오늘의 TIL</h3><ul>
-<li><p>프레임워크 없이 자바 웹 서버를 완성하다. </p>
-<ul>
-<li>POST 요청 및 쿠키 설정 로그인까지 완료.</li>
-<li>리팩토링의 필요성: 지금은 범용성을 갖는 코드가 아니다. interface와 custom annotation, lambda 등을 사용해 범용성 있는 코드로 완성시켜보자(장기 프로젝트로).</li>
-<li><strong>컨벤션을 지키자.</strong></li>
-</ul>
-</li>
-<li><p>리액트 네이티브 강의: 40%를 듣다. </p>
-<ul>
-<li>원래 짧은 강의라서 진행률이 의미가 크게 없긴 하다.</li>
-<li>React.js의 개념과 비슷한 부분이 많다. 다만 네이티브 API에 접근하는 방식을 제공하고 있다는 정도. </li>
-<li>Expo XDE의 사용법과 원리를 완전히 깨우친 느낌이다. <em>USB 선이 꼽혀 있어도 인터넷 연결이 없이 모바일 개발을 할 수 없다.</em> XDE가 HTTP 터널링으로 개발환경을 만들어 주기 때문이다. </li>
-</ul>
-</li>
-<li><p>자바의 스트림 API와 함수형 프로그래밍의 개념, 람다에 대해 알게 되다. </p>
-<ul>
-<li>Functional interface의 존재를 알게 되다. Functional interface는 메소드를 한 개만 가져야 한다. </li>
-<li>포비와의 잠깐 실험: Object 클래스가 들고 있는 메소드가 인터페이스에 포함되어 있어도 함수형 인터페이스로 사용할 수 있다<em>(e.g. .equals(), .hashCode())</em></li>
-<li>잘만 사용하면 코드를 줄이고 함수형 프로그래밍에 대한 더 깊은 이해를 할 수 있지 않을까 생각된다. </li>
-</ul>
-</li>
-</ul>
-<h4 id="내일-할-일"><a href="#내일-할-일" class="headerlink" title="내일 할 일"></a>내일 할 일</h4><ul>
-<li>리액트 네이티브 강의를 더 듣자. </li>
-<li>서블릿/HTTP에 대해 공부한다. </li>
-<li><strong>집중하자.</strong> <em>번뇌를 줄이자.</em> </li>
-</ul>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/10/23/til-20171023/" data-id="ckk5ihpsn002idg9o4t2mg7vc" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2017/10/23/til-20171023/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/functional-programming/">functional_programming</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-backend/">java_backend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react-native/">react_native</a></li></ul>
 
     </footer>
   </div>

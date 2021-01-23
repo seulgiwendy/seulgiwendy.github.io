@@ -52,6 +52,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-python-fastapi-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>►<a class="article-category-link" href="/categories/python/fastapi/">fastapi</a>►<a class="article-category-link" href="/categories/python/fastapi/backend-development/">backend_development</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/22/python-fastapi-2/">FastAPI로 간단한 API 개발을 시도해 본다 - (2) 요청 처리하기</a>
+    </h1>
+  
+
+        <a href="/2021/01/22/python-fastapi-2/" class="article-date">
+  <time datetime="2021-01-22T14:22:00.000Z" itemprop="datePublished">2021-01-22</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="FastAPI를-이용한-간단한-API-개발-HTTP-Request-처리하기"><a href="#FastAPI를-이용한-간단한-API-개발-HTTP-Request-처리하기" class="headerlink" title="FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기"></a>FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기</h3><p>이전 포스팅을 통해 FastAPI 기반의 API 개발 환경을 만들고, 간단한 <code>Hello World</code> 를 노출하는 GET API를 구현해 보았다. </p>
+<p>이번에는 HTTP API라면 당연히 수행해야 할, 몇가지 형태의 HTTP Request 처리를 해보고자 한다. </p>
+<h4 id="Pydantic"><a href="#Pydantic" class="headerlink" title="Pydantic"></a>Pydantic</h4><p>FastAPI에서는 모델 클래스의 type safety 및 요청 주입을 위해 <a href="https://pydantic-docs.helpmanual.io/" target="_blank" rel="noopener">Pydantic</a> 의존성을 사용한다. </p>
+<p>어떻게 보면 TypeScript를 도입했던 JS 진영처럼 Python도 점점 타입 안전성에 대한 고려와 이를 위한 유틸리티들이 늘어간다고도 볼 수 있을 것 같다. </p>
+<p>Pydantic이 제공하는 <code>BaseModel</code> 을 상속받아 Python 클래스를 작성하고, 이 클래스를 사용하면서 타입에 관한 IDE의 힌트를 얻을 수도 있고, 필드에 의도했던 데이터 타입이 들어갔는지도 검증할 수 있다. Java로 치면 POJO + JSR-303(380) 과 같은 느낌이다. </p>
+<p>본격적인 개발 진행을 위해 아래 명령어를 수행해 Pydantic을 추가해 준다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pydantic</span><br></pre></td></tr></table></figure>
+<h4 id="Endpoint-작성"><a href="#Endpoint-작성" class="headerlink" title="Endpoint 작성"></a>Endpoint 작성</h4><p><code>hello world</code> API 구현에서 봤던 것처럼 FastAPI도 애노테이션 기반 엔드포인트 작성을 지원한다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/&#123;name&#125;)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_name</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/query/)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_querystring</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br></pre></td></tr></table></figure>
+<p>이전에 구현해뒀던 <code>hello world</code> API에 더불어서, 경로 변수를 사용할 수 있는 API를 하나 추가하였다. </p>
+<p>경로 변수의 사용은 Spring MVC가 지원하는 argument resolution 기반의 경로 변수 매핑과 아주 흡사하다. <code>path</code> 에 중괄호를 이용해 경로변수의 위치 및 이름을 선언한 후, 함수의 파라메터로 같은 이름을 갖는 변수를 받아오면 경로 변수로 넘어온 값이 매핑된다. </p>
+<p>아래 <code>hello_with_querystring</code> 은 FastAPI가 쿼리스트링 기반의 요청을 처리하는 방법을 보여주는 것이다. 함수의 파라메터로 선언된 변수의 이름에 해당하는 쿼리 스트링 파라미터를 FastAPI가 자동으로 매핑해준다. 즉, 이 요청 처리 함수가 처리할 수 있는 HTTP GET 요청의 주소는 아래와 같은 모습을 띄게 된다. </p>
+<p><code>{HOSTNAME}/hello/query?name=봄이네집</code></p>
+<h4 id="POST-요청-매핑-Pydantic-Model-작성"><a href="#POST-요청-매핑-Pydantic-Model-작성" class="headerlink" title="POST 요청 매핑 - Pydantic Model 작성"></a>POST 요청 매핑 - Pydantic Model 작성</h4><p>POST 요청 매핑을 위해 우선 아까 추가했던 종속성인 Pydantic 기반의 모델 클래스를 작성해 준다. </p>
+<p>Kotlin의 <code>data class</code> 와 유사한 문법으로, 필드명과 타입을 작성해주면 빠르고 편하게 모델 클래스의 작성이 끝난다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic.main <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldRequest</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    name: str</span><br><span class="line">    age: int</span><br></pre></td></tr></table></figure>
+<h4 id="POST-요청-매핑-요청-처리-함수-작성"><a href="#POST-요청-매핑-요청-처리-함수-작성" class="headerlink" title="POST 요청 매핑 - 요청 처리 함수 작성"></a>POST 요청 매핑 - 요청 처리 함수 작성</h4><p>앞서서 작성한 모델 클래스를 기반으로, 요청 처리 함수를 추가한다. </p>
+<p>그동안 했던 것처럼, 모델 클래스를 함수의 파라메터로 받아주면 요청을 처리할 준비가 끝난다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"><span class="keyword">from</span> pydantic.main <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldRequest</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    name: str</span><br><span class="line">    age: int</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/&#123;name&#125;)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_name</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/query/)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_querystring</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(path="/hello/post)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_post</span><span class="params">(request: HelloWorldRequest)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with post. your name: &#123;&#125;, your age: &#123;&#125;"</span></span><br><span class="line">            .format(request.name, request.age)</span><br></pre></td></tr></table></figure>
+<h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><p>간단하게 FastAPI를 이용해 HTTP 요청을 처리하는 방법을 알아봤다. </p>
+<p>이 단계만 되어도 FastAPI의 고유 기능을 이용해 HTTP Request를 처리할 모든 준비는 끝난 것 같다. 물론 전통적인 3-tier web application의 구조를 보면, 우리는 아직 DB 통신을 할 준비를 하지 못했고, 상용 서버에 애플리케이션을 노출할 구현도 하지 않았다. </p>
+<p>그러나 request/response mapping이라는 웹 API Framework의 본질로 본다면 이후 단계는 개발자의 선택에 따라 얼마든지 다른 모듈을 채택할 수도 있고, 커스터마이즈하는 것도 가능하다. </p>
+<p>예를 들어, <del>잠시 스포하자면</del> 다음 포스팅에선 SQLAlchemy를 이용해 MySQL DBMS에 질의해 요청을 처리하는 과정을 살펴볼 것인데, FastAPI 공식 문서가 추천하는 바 대로 SQLAlchemy를 사용할 뿐이고 실제 개발 상에서는 여타 다른 Python 진영의 데이터베이스 프레임워크를 사용해도 아무 문제가 없다. </p>
+<p>즉, 여기까지만 읽어도 숙달된 Python 개발자라면 이미 FastAPI를 이용해 마이크로서비스 하나 정도는 개발할 수 있는 준비가 되었다고 판단된다. </p>
+<p>감사하게도 여기까지 제 포스팅을 흥미있게 읽어 주셨다면, FastAPI를 이용해 간단한 서비스 하나를 직접 구현해보는 것을 강력히 추천한다. </p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2021/01/22/python-fastapi-2/" data-id="ckk8zmesb004beo9okv9viskb" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2021/01/22/python-fastapi-2/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-python-fastapi-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -109,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/" data-id="ckk65887w00000s9o4h4a7rt4" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/" data-id="ckk8zmes50044eo9ome9mlhxp" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2021/01/20/python-fastapi-1/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -194,9 +261,156 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2019/06/10/swift-java-enumeration/" data-id="ckk5ihpsb0024dg9o4amvyn33" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2019/06/10/swift-java-enumeration/" data-id="ckk8zmesk004keo9o49sgahtv" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2019/06/10/swift-java-enumeration/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-codereview-retrospect" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/codereview/">codereview</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/25/codereview-retrospect/">지금까지 받아본 코드 리뷰를 정리해본다(1).</a>
+    </h1>
+  
+
+        <a href="/2019/03/25/codereview-retrospect/" class="article-date">
+  <time datetime="2019-03-24T23:40:00.000Z" itemprop="datePublished">2019-03-25</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h2 id="지금까지-받아본-코드리뷰를-정리해본다"><a href="#지금까지-받아본-코드리뷰를-정리해본다" class="headerlink" title="지금까지 받아본 코드리뷰를 정리해본다."></a>지금까지 받아본 코드리뷰를 정리해본다.</h2><p>흔히 주니어 개발자가 성장할 수 있는 가장 좋은 방법은 코드리뷰를 충실히 받는 것이라고 이야기한다. </p>
+<p>성장 안하고 가만히 있어도 잘 먹고 잘 살 수 있는 직업을 갖게 되길 소망하지만(혹은 노동하지 않아도 잘 먹고 잘 살 수 있는 사회경제적 자본을 갖고 태어나기를 소망했지만) 당장 상황이 여의치 않으므로 일단 일을 더 잘 할 필요는 있다. </p>
+<p>성장하지 않고 가만히 있어도 되는 직업을 찾을 때까지는 힘 닿는대로 실력을 키울 필요가 있겠다. </p>
+<h3 id="우리-조직의-코드리뷰-방향성"><a href="#우리-조직의-코드리뷰-방향성" class="headerlink" title="우리 조직의 코드리뷰 방향성"></a>우리 조직의 코드리뷰 방향성</h3><p>내가 몸담고 있는 네이버 쇼핑데이터플랫폼은 솔직히 말하면 그간 코드리뷰 문화가 그렇게 활성화되어 있던 조직은 아니다. </p>
+<p>업무에 비해 인력이 부족했고 특히 허리급 개발자가 부족한 것은 지금까지도 해결이 안 되고 있다. </p>
+<p>(우리 조직의 문은 <a href="https://recruit.navercorp.com/naver/job/detail/developer?annoId=20001611&amp;classId=170&amp;jobId=3809&amp;entTypeCd=&amp;searchTxt=%EC%87%BC%ED%95%91&amp;searchSysComCd=" target="_blank" rel="noopener">늘 열려있다.</a>)</p>
+<p>최근 신입사원이 꽤 많이 충원되고 외부에서도 시니어급 개발자 분들이 몇몇 합류하셔서 상황이 조금씩 나아지고 있다. 특히 리더급 개발자들이 코드리뷰에 대한 강한 의지를 갖고있는 것은 꽤 고무적인 일이다(가끔 부담스러울 때도 있다).</p>
+<p>개인적으로 감사함을 느끼는 선배님은 <a href="http://blog.leekyoungil.com" target="_blank" rel="noopener">이경일님</a> 으로 적극적으로 코드리뷰를 해주시는 것은 물론이고, 가끔은 리뷰를 해주시다 답답함을(!) 느끼시는지 직접 내 자리 옆으로 오셔서 즉석에서 페어 프로그래밍을 진행해주시기도 한다. 항상 꼰머로 비치지 않을까 조심하시지만 애초에 나와 년차가 10년 가까이 차이나는 시니어 개발자분이 그렇게 시간을 들여 코드리뷰를 해주시는 것 자체가 감사한 일이고, 또한 꼰머로 비칠까 걱정하며 조심해주시는 것은 감동적인 일이다. </p>
+<p>이경일님의 세심한 코드리뷰를 받고싶은 신입 개발자 준비생 분들은 다음 주제로 2019 네이버 캠퍼스 핵데이에 지원하시면 좋겠다.</p>
+<p>Github issue: <a href="https://github.com/NAVER-CAMPUS-HACKDAY/common/issues/6" target="_blank" rel="noopener">쇼핑 실시간 상품 경매 플랫폼</a></p>
+<p>핵데이 원서접수 페이지 <a href="https://recruit.navercorp.com/naver/job/detail/developer?annoId=20002666&amp;classId=&amp;jobId=&amp;entTypeCd=004&amp;searchTxt=&amp;searchSysComCd=" target="_blank" rel="noopener">바로가기</a></p>
+<h3 id="내가-받은-코드리뷰-유형별-요약"><a href="#내가-받은-코드리뷰-유형별-요약" class="headerlink" title="내가 받은 코드리뷰 유형별 요약"></a>내가 받은 코드리뷰 유형별 요약</h3><p>코드리뷰를 받다보니 주로 <strong>걸리는 쪽에서 계속 걸리는</strong> 모습이 관측되었다. </p>
+<p>사람인 이상 어쩔 수 없는 부분이기도 하고, 앞으로 고쳐나가야 할 부분이기도 하다. </p>
+<p>가장 좋은 것은 안 고쳐도 잘 먹고살 수 있는 직업을 갖는 것이다. 하지만 당장 상황이 여의치 않으므로 일단은 고쳐나가면서 실력을 키울 필요가 있다. </p>
+<p>다음은 코드리뷰를 개략적으로, 유형별로 분류해 본 것이다. </p>
+<hr>
+<h4 id="immutable해야-할-객체를-명확히-구분하자"><a href="#immutable해야-할-객체를-명확히-구분하자" class="headerlink" title="immutable해야 할 객체를 명확히 구분하자"></a>immutable해야 할 객체를 명확히 구분하자</h4><p>Java를 사용할 때 아무 생각없이 객체를 만들고 주고받지만, 내부의 element가 바뀌면 안 될 상황에서 immutability를 고려하지 않는 경우가 많다.</p>
+<p>특히 java.util.Collection의 하위 클래스들을 사용하는 경우 이 점을 충분히 고려하여 불변해야 할 객체를 확정짓는 것이 좋다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">//아래의 shitUrls는 dumbSites 객체로부터 URL을 가져온다.</span></span><br><span class="line"><span class="comment">//언뜻 생각해보면 의도한 URL만 가져왔으므로 올바른 객체라고 생각하겠지만, 중간에 다른 String이 들어와도 아무도 모르게 된다. </span></span><br><span class="line"></span><br><span class="line">List&lt;String&gt; shitUrls = dumbSites.getUrls();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Collections.unmodifiableList(Collections c); 을 사용하여 컬렉션 객체의 불변성을 확보한다. </span></span><br><span class="line"></span><br><span class="line">List&lt;String&gt; shitUrls = Collections.unmodifiableList(dumbSites.getUrls());</span><br></pre></td></tr></table></figure>
+<p>또한 parameter로 받을 객체, 지역 변수들에 대해서도, 최초 할당 이후 재할당이 필요없는 변수라면 final 예약어를 사용하여 최소한 객체 자체가 뒤바뀌는 일은 없도록 확실히 해 주자. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">sayHelloToYou</span><span class="params">(String yourName)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//아래와 같이 지역 변수를 자유롭게 풀어주면 불변성을 확보하기 어렵게 된다. </span></span><br><span class="line">    String concatenatedName = yourName + <span class="string">"hi"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//이와 같이 final을 붙여준다.</span></span><br><span class="line">    <span class="keyword">final</span> String concatenatedName = yourName + <span class="string">"hi"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>당연한 얘기지만 <strong>composed type</strong>인 경우 setter를 통한 값의 변경은 피할 수 없을 것이다. </p>
+<p>그러나 그것은 객체 설계단의 문제이므로 여기서는 패스한다. </p>
+<hr>
+<h4 id="항상-null을-의식하라"><a href="#항상-null을-의식하라" class="headerlink" title="항상 null을 의식하라"></a>항상 null을 의식하라</h4><p>사실 이건 내가 Kotlin을 선호하는 이유이기도 하다. </p>
+<p>Kotlin이 null을 다루는 방식, 그리고 null-safety를 보장해주는 방식은 정말 우아하며 gorgeous 하고 phenomenal하다. </p>
+<p>그러나 당장 Kotlin을 사용하지 못하므로 Java에서 null을 안전하게 다룰 방법을 고민하고 연습하는 수밖에 없다. </p>
+<hr>
+<p><em>Java에서 null의 그지같음(개인적 견해)</em></p>
+<p>null이 그지같은 이유는 NPE를 발생시키기 때문이다. </p>
+<p>사실 NPE만 아니라면, 혹은 NPE의 수퍼클래스가 RuntimeException이 아니라면 Java에서 null을 다루는 것이 그렇게 스트레스받는 일이 아닐 수도 있다. </p>
+<p>어차피 대부분의 상황에서 NPE는 에러로써 애플리케이션이 뻗어버릴 수밖에 없는데 차라리 try - catch로 잡아내는 것이 낫지 않겠는가? 개인적인 생각이다.</p>
+<hr>
+<p>사실 <strong>외부 API를 사용할 때</strong> 랄지 <strong>타인이 짜 놓은 코드에서 객체를 받아올 때</strong> null 발생 가능성에 대한 의심을 별로 안한 채로 코드를 작성하게 되는 경우가 많다. </p>
+<p>그리고 종종 이는 대형 참사로 이어진다. </p>
+<p>코드리뷰에서는 사소한 null의 가능성도 주의깊게 살피라는 지적을 수 차례 받은 바 있다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iBATIS의 row handler 구현체를 작성한 코드다.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRow</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    Shit shit = (Shit)o;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//NPE가 발생할 포텐셜을 갖고 있는 코드다.</span></span><br><span class="line">    shit.getToiletName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>상기한 사례의 경우, iBATIS는 Result Row가 존재하지 않으면 아예 Row Handler 객체를 호출하지 않으므로 null의 가능성은 없다(zero).</p>
+<p>그러나 외부 API를 호출할 때, 결과물에 대한 확신이 없는 경우에는 늘 null에 대한 대비를 하는 것이 좋겠다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SewageConnector connector;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processShit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Shit shit = connector.getFirstShit();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//shit이 null 인 경우 진입하여 객체를 필요로 하는 로직을 건너뛰고 메소드를 끝내버린다.</span></span><br><span class="line">    <span class="keyword">if</span>(shit == <span class="keyword">null</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"no shit available! clean!"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>어찌보면 참 사소한 것인데 실무에선 까먹기 십상이다.</p>
+<hr>
+<h4 id="try-with-resources-를-적극-활용하라"><a href="#try-with-resources-를-적극-활용하라" class="headerlink" title="try-with-resources 를 적극 활용하라"></a>try-with-resources 를 적극 활용하라</h4><p>Closeable한 자원을 사용하는 경우 제때 닫아주지 않으면 성능에 악영향을 미친다. </p>
+<p>그동안 우리는 try - catch - finally 패턴을 많이 사용해왔다. 그러나 Java 1.7 이상만 되어도 훨씬 간결한 syntax의 try - with - resources를 활용할 수 있으므로 이를 적극 활용하자. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="keyword">new</span> File(<span class="string">"~/Documents/resume"</span>)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    String line = in.readLine();</span><br><span class="line">    System.out.println(line);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">    e.printStackTrace()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">//예외 발생 여부에 상관없이 리더를 닫아야 하기 때문에 finally 절이 발생한다.</span></span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>finally를 없애고 가독성 높은 코드를 만들기 위해 아래와 같이 리팩토링한다. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(BufferedReader in = <span class="keyword">new</span> BufferedReader(...)) &#123;</span><br><span class="line">    <span class="comment">//여기에 로직이 담긴다.</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="굳이-Spring-Bean일-필요가-있는지-고려하라"><a href="#굳이-Spring-Bean일-필요가-있는지-고려하라" class="headerlink" title="굳이 Spring Bean일 필요가 있는지 고려하라"></a>굳이 Spring Bean일 필요가 있는지 고려하라</h4><p>Spring Bean은 verbose한 싱글턴 패턴 코드 없이 싱글턴을 보장할 수 있는 좋은 방법이고, </p>
+<p><strong>특히 AOP, IoC, transaction propagation 등</strong> 을 쉽게 구현할 수 있게 해 주는 좋은 도구이다. </p>
+<p>그러나 아래의 고려사항을 충분히 생각해볼 필요가 있다.</p>
+<ul>
+<li>굳이 Singleton 상태일 이유가 있을까?<ul>
+<li>static method 사용하면 안되는가? </li>
+<li>Singleton 상태에서, 부가 기능이 추가될 이유가 있는가? </li>
+</ul>
+</li>
+<li>모든 Spring Bean에서 이 객체를 주입받을 필요가 있는가?<ul>
+<li>scope를 고려하라<ul>
+<li>만약 특정 환경(특히, Spring Batch에서)에서만 사용할 bean이 전체 scope로 구현될 경우, 불필요한 객체를 생산하는 비용만 초래될 뿐이다.</li>
+<li>Bean의 갯수, 혹은 initializing logic이 Spring의 Application Context의 초기 기동 시간에 직접적인 영향을 끼친다는 점을 고려하라.</li>
+</ul>
+</li>
+<li>실행 환경에 따라 사용되는 Bean이 다르진 않는가?<ul>
+<li>XML config의 경우 설정 파일을 분리하여 환경에 따른 bean instantiation이 가능하도록 설계하라. </li>
+<li>Java config, 특히 Spring Boot의 경우, @ActiveProfiles, @Profile을 적극적으로 활용하라. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>DEV 프로필에서만 사용될 컴포넌트의 예시</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@ActiveProfiles</span>(<span class="string">"dev"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetardService</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>코드리뷰 받은 내용을 옮겨본다.</strong></p>
+<p><em>아래의 코드는 실무에서 사용한 코드가 아니다.</em></p>
+<p><strong>코드 리뷰 커멘트</strong> </p>
+<blockquote>
+<p>(…) spring component 보다는 static class 로 만드는게 어떨까 싶네요~ (spring bean 으로 만들 필요가 없는 class 인거 같다는 소리 ㅎㅎㅎ)</p>
+</blockquote>
+<p><em>리뷰 이전 코오드</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Component로 annotate 함으로써 모든 상황에서 객체화(instantiate)해야만 하는 클래스가 되어버렸다.</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoopService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//타 Spring Bean을 주입받거나, AOP적인 요소가 없으므로 굳이 Spring Bean으로 선언할 필요가 없는 클래스였다. </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pumpPoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"poop!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>개선</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoopService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//기본 생성자를 private으로 막아버림으로써, 객체화를 방지한다. </span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">PoopService</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//static method이므로 객체를 만들지 않고 사용이 가능하다.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pumpPoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"poop!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="랜덤-코드-생성에-UUID를-사용하라"><a href="#랜덤-코드-생성에-UUID를-사용하라" class="headerlink" title="랜덤 코드 생성에 UUID를 사용하라"></a>랜덤 코드 생성에 UUID를 사용하라</h4><p>처음 구현한 코드는 아래와 같았다.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomGenerator</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RandomCache cache;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RandomStringGenerator stringGenerator;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateRandomCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String newString = stringGenerator.generate();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//재귀 호출한다. base case는 cache.hasString(newString) == false</span></span><br><span class="line">        <span class="keyword">return</span> !cache.hasString(newString) ? newString : generateRandomCode();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>리뷰어께서 지적하신 문제점은 다음과 같다. </p>
+<ul>
+<li>재귀호출이 몇 번 일어날지 보장할 수 없다. <ul>
+<li>만약 cache에 1억건의 엔트리가 이미 들어있는 상황이라면?</li>
+<li>만약 RandomStringGenerator의 로직에 문제가 있어, 랜덤값이 보장이 안 되고 있는 상황이라면? </li>
+</ul>
+</li>
+<li>문자열을 요청할때마다 내부적으로 일일이 비교연산이 일어날 텐데, 그 비용이 너무 커 보인다. </li>
+<li><strong>UUID</strong>를 활용하여 리팩토링한다.</li>
+</ul>
+<p><em>리팩토링 완료한 코드</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomGenerator</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateRandomCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder accessCode = <span class="keyword">new</span> StringBuilder(UUID.randomUUID().toString());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//후처리 로직을 삽입하고...</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> accessCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="1부-끝"><a href="#1부-끝" class="headerlink" title="1부 끝"></a>1부 끝</h3><p>사실 앞으로도 정리해나갈 내용은 많을 것이다. </p>
+<p>하나의 포스팅으로 정리하기엔 내용이 방대한 것 같으니, 오늘은 여기서 글을 마쳐야겠다. 내가 특별히 지적 능력이 지진하거나 주니어 개발자로서의 소양이 부족한 것이 아니라면, 내가 받은 코드리뷰는 다른 주니어들도 마찬가지로 많이 받고 있거나, 혹은 받아야할 내용을 포함하고 있을 거라 본다. </p>
+<p>가장 좋은 것은 성장하지 않아도 먹고살 수 있는 직업을 갖는 것이겠지만, 일단은 그럴 수 없으므로 매일 매일 조금씩이라도 실력이 늘어야 할 것이다. </p>
+<h4 id="백기선님의-동영상-더-좋은-개발자가-되는-법"><a href="#백기선님의-동영상-더-좋은-개발자가-되는-법" class="headerlink" title="백기선님의 동영상 - 더 좋은 개발자가 되는 법"></a>백기선님의 동영상 - 더 좋은 개발자가 되는 법</h4><p><a href="https://www.youtube.com/watch?v=yEcCQZlFmaM" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/yEcCQZlFmaM/0.jpg" alt="&quot;나는 정말 이걸 좋아 하나?&quot;"></a></p>
+<p>좋아하면 잘하게 된다. 좋아하기는 어려운 일인 것 같긴 하다. </p>
+<p>개발을 좋아해서 이 업을 시작했지만 취미/관심분야로써 즐긴 것과 직업인으로서 이 업을 즐기는 것은 전혀 다른 차원의 문제라는 것을 요즘 새삼 깨닫고 있다. </p>
+<p>나는 어디로 가야하나? 일단 열심히 달리는 수밖에 없을 것이다. </p>
+<h4 id="“지금까지-받아본-코드-리뷰를-정리해본다-”-시리즈는-앞으로-틈나는-대로-계속-정리할-생각이다"><a href="#“지금까지-받아본-코드-리뷰를-정리해본다-”-시리즈는-앞으로-틈나는-대로-계속-정리할-생각이다" class="headerlink" title="“지금까지 받아본 코드 리뷰를 정리해본다.” 시리즈는 앞으로 틈나는 대로 계속 정리할 생각이다."></a>“지금까지 받아본 코드 리뷰를 정리해본다.” 시리즈는 앞으로 틈나는 대로 계속 정리할 생각이다.</h4>-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2019/03/25/codereview-retrospect/" data-id="ckk8zmerr003reo9oee9x6uxx" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2019/03/25/codereview-retrospect/#disqus_thread" class="article-comment-link">댓글</a>
       
       
     </footer>
@@ -342,156 +556,9 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2019/03/25/tdd-refactoring-2019/" data-id="ckk5ihpxf008udg9om8uuyedq" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2019/03/25/tdd-refactoring-2019/" data-id="ckk8zmewo00aeeo9ove1vsscb" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2019/03/25/tdd-refactoring-2019/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-codereview-retrospect" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/codereview/">codereview</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/codereview-retrospect/">지금까지 받아본 코드 리뷰를 정리해본다(1).</a>
-    </h1>
-  
-
-        <a href="/2019/03/25/codereview-retrospect/" class="article-date">
-  <time datetime="2019-03-24T23:40:00.000Z" itemprop="datePublished">2019-03-25</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h2 id="지금까지-받아본-코드리뷰를-정리해본다"><a href="#지금까지-받아본-코드리뷰를-정리해본다" class="headerlink" title="지금까지 받아본 코드리뷰를 정리해본다."></a>지금까지 받아본 코드리뷰를 정리해본다.</h2><p>흔히 주니어 개발자가 성장할 수 있는 가장 좋은 방법은 코드리뷰를 충실히 받는 것이라고 이야기한다. </p>
-<p>성장 안하고 가만히 있어도 잘 먹고 잘 살 수 있는 직업을 갖게 되길 소망하지만(혹은 노동하지 않아도 잘 먹고 잘 살 수 있는 사회경제적 자본을 갖고 태어나기를 소망했지만) 당장 상황이 여의치 않으므로 일단 일을 더 잘 할 필요는 있다. </p>
-<p>성장하지 않고 가만히 있어도 되는 직업을 찾을 때까지는 힘 닿는대로 실력을 키울 필요가 있겠다. </p>
-<h3 id="우리-조직의-코드리뷰-방향성"><a href="#우리-조직의-코드리뷰-방향성" class="headerlink" title="우리 조직의 코드리뷰 방향성"></a>우리 조직의 코드리뷰 방향성</h3><p>내가 몸담고 있는 네이버 쇼핑데이터플랫폼은 솔직히 말하면 그간 코드리뷰 문화가 그렇게 활성화되어 있던 조직은 아니다. </p>
-<p>업무에 비해 인력이 부족했고 특히 허리급 개발자가 부족한 것은 지금까지도 해결이 안 되고 있다. </p>
-<p>(우리 조직의 문은 <a href="https://recruit.navercorp.com/naver/job/detail/developer?annoId=20001611&amp;classId=170&amp;jobId=3809&amp;entTypeCd=&amp;searchTxt=%EC%87%BC%ED%95%91&amp;searchSysComCd=" target="_blank" rel="noopener">늘 열려있다.</a>)</p>
-<p>최근 신입사원이 꽤 많이 충원되고 외부에서도 시니어급 개발자 분들이 몇몇 합류하셔서 상황이 조금씩 나아지고 있다. 특히 리더급 개발자들이 코드리뷰에 대한 강한 의지를 갖고있는 것은 꽤 고무적인 일이다(가끔 부담스러울 때도 있다).</p>
-<p>개인적으로 감사함을 느끼는 선배님은 <a href="http://blog.leekyoungil.com" target="_blank" rel="noopener">이경일님</a> 으로 적극적으로 코드리뷰를 해주시는 것은 물론이고, 가끔은 리뷰를 해주시다 답답함을(!) 느끼시는지 직접 내 자리 옆으로 오셔서 즉석에서 페어 프로그래밍을 진행해주시기도 한다. 항상 꼰머로 비치지 않을까 조심하시지만 애초에 나와 년차가 10년 가까이 차이나는 시니어 개발자분이 그렇게 시간을 들여 코드리뷰를 해주시는 것 자체가 감사한 일이고, 또한 꼰머로 비칠까 걱정하며 조심해주시는 것은 감동적인 일이다. </p>
-<p>이경일님의 세심한 코드리뷰를 받고싶은 신입 개발자 준비생 분들은 다음 주제로 2019 네이버 캠퍼스 핵데이에 지원하시면 좋겠다.</p>
-<p>Github issue: <a href="https://github.com/NAVER-CAMPUS-HACKDAY/common/issues/6" target="_blank" rel="noopener">쇼핑 실시간 상품 경매 플랫폼</a></p>
-<p>핵데이 원서접수 페이지 <a href="https://recruit.navercorp.com/naver/job/detail/developer?annoId=20002666&amp;classId=&amp;jobId=&amp;entTypeCd=004&amp;searchTxt=&amp;searchSysComCd=" target="_blank" rel="noopener">바로가기</a></p>
-<h3 id="내가-받은-코드리뷰-유형별-요약"><a href="#내가-받은-코드리뷰-유형별-요약" class="headerlink" title="내가 받은 코드리뷰 유형별 요약"></a>내가 받은 코드리뷰 유형별 요약</h3><p>코드리뷰를 받다보니 주로 <strong>걸리는 쪽에서 계속 걸리는</strong> 모습이 관측되었다. </p>
-<p>사람인 이상 어쩔 수 없는 부분이기도 하고, 앞으로 고쳐나가야 할 부분이기도 하다. </p>
-<p>가장 좋은 것은 안 고쳐도 잘 먹고살 수 있는 직업을 갖는 것이다. 하지만 당장 상황이 여의치 않으므로 일단은 고쳐나가면서 실력을 키울 필요가 있다. </p>
-<p>다음은 코드리뷰를 개략적으로, 유형별로 분류해 본 것이다. </p>
-<hr>
-<h4 id="immutable해야-할-객체를-명확히-구분하자"><a href="#immutable해야-할-객체를-명확히-구분하자" class="headerlink" title="immutable해야 할 객체를 명확히 구분하자"></a>immutable해야 할 객체를 명확히 구분하자</h4><p>Java를 사용할 때 아무 생각없이 객체를 만들고 주고받지만, 내부의 element가 바뀌면 안 될 상황에서 immutability를 고려하지 않는 경우가 많다.</p>
-<p>특히 java.util.Collection의 하위 클래스들을 사용하는 경우 이 점을 충분히 고려하여 불변해야 할 객체를 확정짓는 것이 좋다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">//아래의 shitUrls는 dumbSites 객체로부터 URL을 가져온다.</span></span><br><span class="line"><span class="comment">//언뜻 생각해보면 의도한 URL만 가져왔으므로 올바른 객체라고 생각하겠지만, 중간에 다른 String이 들어와도 아무도 모르게 된다. </span></span><br><span class="line"></span><br><span class="line">List&lt;String&gt; shitUrls = dumbSites.getUrls();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Collections.unmodifiableList(Collections c); 을 사용하여 컬렉션 객체의 불변성을 확보한다. </span></span><br><span class="line"></span><br><span class="line">List&lt;String&gt; shitUrls = Collections.unmodifiableList(dumbSites.getUrls());</span><br></pre></td></tr></table></figure>
-<p>또한 parameter로 받을 객체, 지역 변수들에 대해서도, 최초 할당 이후 재할당이 필요없는 변수라면 final 예약어를 사용하여 최소한 객체 자체가 뒤바뀌는 일은 없도록 확실히 해 주자. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">sayHelloToYou</span><span class="params">(String yourName)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//아래와 같이 지역 변수를 자유롭게 풀어주면 불변성을 확보하기 어렵게 된다. </span></span><br><span class="line">    String concatenatedName = yourName + <span class="string">"hi"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//이와 같이 final을 붙여준다.</span></span><br><span class="line">    <span class="keyword">final</span> String concatenatedName = yourName + <span class="string">"hi"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>당연한 얘기지만 <strong>composed type</strong>인 경우 setter를 통한 값의 변경은 피할 수 없을 것이다. </p>
-<p>그러나 그것은 객체 설계단의 문제이므로 여기서는 패스한다. </p>
-<hr>
-<h4 id="항상-null을-의식하라"><a href="#항상-null을-의식하라" class="headerlink" title="항상 null을 의식하라"></a>항상 null을 의식하라</h4><p>사실 이건 내가 Kotlin을 선호하는 이유이기도 하다. </p>
-<p>Kotlin이 null을 다루는 방식, 그리고 null-safety를 보장해주는 방식은 정말 우아하며 gorgeous 하고 phenomenal하다. </p>
-<p>그러나 당장 Kotlin을 사용하지 못하므로 Java에서 null을 안전하게 다룰 방법을 고민하고 연습하는 수밖에 없다. </p>
-<hr>
-<p><em>Java에서 null의 그지같음(개인적 견해)</em></p>
-<p>null이 그지같은 이유는 NPE를 발생시키기 때문이다. </p>
-<p>사실 NPE만 아니라면, 혹은 NPE의 수퍼클래스가 RuntimeException이 아니라면 Java에서 null을 다루는 것이 그렇게 스트레스받는 일이 아닐 수도 있다. </p>
-<p>어차피 대부분의 상황에서 NPE는 에러로써 애플리케이션이 뻗어버릴 수밖에 없는데 차라리 try - catch로 잡아내는 것이 낫지 않겠는가? 개인적인 생각이다.</p>
-<hr>
-<p>사실 <strong>외부 API를 사용할 때</strong> 랄지 <strong>타인이 짜 놓은 코드에서 객체를 받아올 때</strong> null 발생 가능성에 대한 의심을 별로 안한 채로 코드를 작성하게 되는 경우가 많다. </p>
-<p>그리고 종종 이는 대형 참사로 이어진다. </p>
-<p>코드리뷰에서는 사소한 null의 가능성도 주의깊게 살피라는 지적을 수 차례 받은 바 있다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iBATIS의 row handler 구현체를 작성한 코드다.</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRow</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">    Shit shit = (Shit)o;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//NPE가 발생할 포텐셜을 갖고 있는 코드다.</span></span><br><span class="line">    shit.getToiletName();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>상기한 사례의 경우, iBATIS는 Result Row가 존재하지 않으면 아예 Row Handler 객체를 호출하지 않으므로 null의 가능성은 없다(zero).</p>
-<p>그러나 외부 API를 호출할 때, 결과물에 대한 확신이 없는 경우에는 늘 null에 대한 대비를 하는 것이 좋겠다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> SewageConnector connector;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">processShit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Shit shit = connector.getFirstShit();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//shit이 null 인 경우 진입하여 객체를 필요로 하는 로직을 건너뛰고 메소드를 끝내버린다.</span></span><br><span class="line">    <span class="keyword">if</span>(shit == <span class="keyword">null</span>) &#123;</span><br><span class="line">        System.out.println(<span class="string">"no shit available! clean!"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>어찌보면 참 사소한 것인데 실무에선 까먹기 십상이다.</p>
-<hr>
-<h4 id="try-with-resources-를-적극-활용하라"><a href="#try-with-resources-를-적극-활용하라" class="headerlink" title="try-with-resources 를 적극 활용하라"></a>try-with-resources 를 적극 활용하라</h4><p>Closeable한 자원을 사용하는 경우 제때 닫아주지 않으면 성능에 악영향을 미친다. </p>
-<p>그동안 우리는 try - catch - finally 패턴을 많이 사용해왔다. 그러나 Java 1.7 이상만 되어도 훨씬 간결한 syntax의 try - with - resources를 활용할 수 있으므로 이를 적극 활용하자. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> FileReader(<span class="keyword">new</span> File(<span class="string">"~/Documents/resume"</span>)));</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    String line = in.readLine();</span><br><span class="line">    System.out.println(line);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">    e.printStackTrace()</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">//예외 발생 여부에 상관없이 리더를 닫아야 하기 때문에 finally 절이 발생한다.</span></span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>finally를 없애고 가독성 높은 코드를 만들기 위해 아래와 같이 리팩토링한다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>(BufferedReader in = <span class="keyword">new</span> BufferedReader(...)) &#123;</span><br><span class="line">    <span class="comment">//여기에 로직이 담긴다.</span></span><br><span class="line">&#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="굳이-Spring-Bean일-필요가-있는지-고려하라"><a href="#굳이-Spring-Bean일-필요가-있는지-고려하라" class="headerlink" title="굳이 Spring Bean일 필요가 있는지 고려하라"></a>굳이 Spring Bean일 필요가 있는지 고려하라</h4><p>Spring Bean은 verbose한 싱글턴 패턴 코드 없이 싱글턴을 보장할 수 있는 좋은 방법이고, </p>
-<p><strong>특히 AOP, IoC, transaction propagation 등</strong> 을 쉽게 구현할 수 있게 해 주는 좋은 도구이다. </p>
-<p>그러나 아래의 고려사항을 충분히 생각해볼 필요가 있다.</p>
-<ul>
-<li>굳이 Singleton 상태일 이유가 있을까?<ul>
-<li>static method 사용하면 안되는가? </li>
-<li>Singleton 상태에서, 부가 기능이 추가될 이유가 있는가? </li>
-</ul>
-</li>
-<li>모든 Spring Bean에서 이 객체를 주입받을 필요가 있는가?<ul>
-<li>scope를 고려하라<ul>
-<li>만약 특정 환경(특히, Spring Batch에서)에서만 사용할 bean이 전체 scope로 구현될 경우, 불필요한 객체를 생산하는 비용만 초래될 뿐이다.</li>
-<li>Bean의 갯수, 혹은 initializing logic이 Spring의 Application Context의 초기 기동 시간에 직접적인 영향을 끼친다는 점을 고려하라.</li>
-</ul>
-</li>
-<li>실행 환경에 따라 사용되는 Bean이 다르진 않는가?<ul>
-<li>XML config의 경우 설정 파일을 분리하여 환경에 따른 bean instantiation이 가능하도록 설계하라. </li>
-<li>Java config, 특히 Spring Boot의 경우, @ActiveProfiles, @Profile을 적극적으로 활용하라. </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>DEV 프로필에서만 사용될 컴포넌트의 예시</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="meta">@ActiveProfiles</span>(<span class="string">"dev"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RetardService</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>코드리뷰 받은 내용을 옮겨본다.</strong></p>
-<p><em>아래의 코드는 실무에서 사용한 코드가 아니다.</em></p>
-<p><strong>코드 리뷰 커멘트</strong> </p>
-<blockquote>
-<p>(…) spring component 보다는 static class 로 만드는게 어떨까 싶네요~ (spring bean 으로 만들 필요가 없는 class 인거 같다는 소리 ㅎㅎㅎ)</p>
-</blockquote>
-<p><em>리뷰 이전 코오드</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Component로 annotate 함으로써 모든 상황에서 객체화(instantiate)해야만 하는 클래스가 되어버렸다.</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoopService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">//타 Spring Bean을 주입받거나, AOP적인 요소가 없으므로 굳이 Spring Bean으로 선언할 필요가 없는 클래스였다. </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pumpPoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"poop!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>개선</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PoopService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//기본 생성자를 private으로 막아버림으로써, 객체화를 방지한다. </span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">PoopService</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//static method이므로 객체를 만들지 않고 사용이 가능하다.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">pumpPoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"poop!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="랜덤-코드-생성에-UUID를-사용하라"><a href="#랜덤-코드-생성에-UUID를-사용하라" class="headerlink" title="랜덤 코드 생성에 UUID를 사용하라"></a>랜덤 코드 생성에 UUID를 사용하라</h4><p>처음 구현한 코드는 아래와 같았다.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomGenerator</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RandomCache cache;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RandomStringGenerator stringGenerator;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateRandomCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String newString = stringGenerator.generate();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//재귀 호출한다. base case는 cache.hasString(newString) == false</span></span><br><span class="line">        <span class="keyword">return</span> !cache.hasString(newString) ? newString : generateRandomCode();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>리뷰어께서 지적하신 문제점은 다음과 같다. </p>
-<ul>
-<li>재귀호출이 몇 번 일어날지 보장할 수 없다. <ul>
-<li>만약 cache에 1억건의 엔트리가 이미 들어있는 상황이라면?</li>
-<li>만약 RandomStringGenerator의 로직에 문제가 있어, 랜덤값이 보장이 안 되고 있는 상황이라면? </li>
-</ul>
-</li>
-<li>문자열을 요청할때마다 내부적으로 일일이 비교연산이 일어날 텐데, 그 비용이 너무 커 보인다. </li>
-<li><strong>UUID</strong>를 활용하여 리팩토링한다.</li>
-</ul>
-<p><em>리팩토링 완료한 코드</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RandomGenerator</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">generateRandomCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        StringBuilder accessCode = <span class="keyword">new</span> StringBuilder(UUID.randomUUID().toString());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//후처리 로직을 삽입하고...</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> accessCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h3 id="1부-끝"><a href="#1부-끝" class="headerlink" title="1부 끝"></a>1부 끝</h3><p>사실 앞으로도 정리해나갈 내용은 많을 것이다. </p>
-<p>하나의 포스팅으로 정리하기엔 내용이 방대한 것 같으니, 오늘은 여기서 글을 마쳐야겠다. 내가 특별히 지적 능력이 지진하거나 주니어 개발자로서의 소양이 부족한 것이 아니라면, 내가 받은 코드리뷰는 다른 주니어들도 마찬가지로 많이 받고 있거나, 혹은 받아야할 내용을 포함하고 있을 거라 본다. </p>
-<p>가장 좋은 것은 성장하지 않아도 먹고살 수 있는 직업을 갖는 것이겠지만, 일단은 그럴 수 없으므로 매일 매일 조금씩이라도 실력이 늘어야 할 것이다. </p>
-<h4 id="백기선님의-동영상-더-좋은-개발자가-되는-법"><a href="#백기선님의-동영상-더-좋은-개발자가-되는-법" class="headerlink" title="백기선님의 동영상 - 더 좋은 개발자가 되는 법"></a>백기선님의 동영상 - 더 좋은 개발자가 되는 법</h4><p><a href="https://www.youtube.com/watch?v=yEcCQZlFmaM" target="_blank" rel="noopener"><img src="https://img.youtube.com/vi/yEcCQZlFmaM/0.jpg" alt="&quot;나는 정말 이걸 좋아 하나?&quot;"></a></p>
-<p>좋아하면 잘하게 된다. 좋아하기는 어려운 일인 것 같긴 하다. </p>
-<p>개발을 좋아해서 이 업을 시작했지만 취미/관심분야로써 즐긴 것과 직업인으로서 이 업을 즐기는 것은 전혀 다른 차원의 문제라는 것을 요즘 새삼 깨닫고 있다. </p>
-<p>나는 어디로 가야하나? 일단 열심히 달리는 수밖에 없을 것이다. </p>
-<h4 id="“지금까지-받아본-코드-리뷰를-정리해본다-”-시리즈는-앞으로-틈나는-대로-계속-정리할-생각이다"><a href="#“지금까지-받아본-코드-리뷰를-정리해본다-”-시리즈는-앞으로-틈나는-대로-계속-정리할-생각이다" class="headerlink" title="“지금까지 받아본 코드 리뷰를 정리해본다.” 시리즈는 앞으로 틈나는 대로 계속 정리할 생각이다."></a>“지금까지 받아본 코드 리뷰를 정리해본다.” 시리즈는 앞으로 틈나는 대로 계속 정리할 생각이다.</h4>-->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2019/03/25/codereview-retrospect/" data-id="ckk5ihpx5008kdg9o8b3tcb7a" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2019/03/25/codereview-retrospect/#disqus_thread" class="article-comment-link">댓글</a>
       
       
     </footer>
@@ -541,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2019/01/25/2019-blog-revival/" data-id="ckk5ihpq00000dg9onl9tmsuf" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2019/01/25/2019-blog-revival/" data-id="ckk8zmeo00000eo9oyp2k7ld1" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2019/01/25/2019-blog-revival/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -607,7 +674,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/07/22/naver-3rd/" data-id="ckk5ihprz001sdg9obs19a8lw" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/22/naver-3rd/" data-id="ckk8zmes00040eo9oeox4ua32" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/07/22/naver-3rd/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -679,7 +746,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/07/15/naver-2nd/" data-id="ckk5ihprv001ndg9oajcpfbrt" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/15/naver-2nd/" data-id="ckk8zmerz003zeo9o1ayt64al" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/07/15/naver-2nd/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -731,7 +798,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/07/12/iso8601-shit/" data-id="ckk5ihpr0000ndg9om3xmzs4h" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/12/iso8601-shit/" data-id="ckk8zmep6000qeo9ohpfyplxk" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/07/12/iso8601-shit/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -801,82 +868,9 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/07/07/naver-1stweek/" data-id="ckk5ihprx001pdg9otpu7rcc9" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/07/07/naver-1stweek/" data-id="ckk8zmes80048eo9onl6i266a" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/07/07/naver-1stweek/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-jstat-monitoring" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/jstat/">jstat</a>►<a class="article-category-link" href="/categories/jstat/jvm/">jvm</a>►<a class="article-category-link" href="/categories/jstat/jvm/java/">java</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/19/jstat-monitoring/">jstat으로 JVM 메모리 사용을 구경해보자.</a>
-    </h1>
-  
-
-        <a href="/2018/06/19/jstat-monitoring/" class="article-date">
-  <time datetime="2018-06-19T05:25:37.000Z" itemprop="datePublished">2018-06-19</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h3 id="jstat으로-JVM-메모리-사용을-구경해보자"><a href="#jstat으로-JVM-메모리-사용을-구경해보자" class="headerlink" title="jstat으로 JVM 메모리 사용을 구경해보자."></a>jstat으로 JVM 메모리 사용을 구경해보자.</h3><p>JVM에 대해 학습하다보면 gc가 정말 이론대로(?) 움직이는지 궁금해질 때가 있다. </p>
-<p>IDE에서의 디버깅으로는 이런 메모리 정보를 직관적으로 알기 어렵다. 그래서 jstat이라는 도구가 있다. 참 좋은 도구다. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstat -옵션 -JVM pid</span><br></pre></td></tr></table></figure>
-<p>옵션에는 다양한 프로파일링 타겟이 존재한다. </p>
-<table>
-<thead>
-<tr>
-<th>옵션명</th>
-<th>특징 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>class</td>
-<td>클래스 로더 동작</td>
-</tr>
-<tr>
-<td>gc</td>
-<td>heap 영역 전체에 대한 데이터</td>
-</tr>
-<tr>
-<td>gcnew</td>
-<td>New 세대에 대한 데이터</td>
-</tr>
-</tbody>
-</table>
-<p>등등이 있다. 이중 내가 시도해본 것은 gcnew이다. </p>
-<p><img src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/35495645_542053236189591_3224093560965955584_n.jpg?_nc_cat=0&amp;_nc_eui2=AeGfel3hb7tB27dSXNWkPYTKygGbG9RonYNwQChcwFYkCwwkVu0Rd2tKhi4ekYe3IaDTDBwRehHDv2O-QbOd_RBWfjdrPvQQWTbn9PmCpCmkkg&amp;oh=db8ee0c93ee7d69d1f9948b027929526&amp;oe=5BEB815C" alt="작동중인 jstat"></p>
-<p>위 사진에서 맨 오른쪽 열이 gc counter, 즉 new 영역에 대한 minor GC가 발생한 숫자를 기록하고 있는 부분인데 12에서 13으로 한 개 증가하며 한 칸 왼쪽의 열이 보여주고 있는 Eden의 메모리 사용량이 확 줄어든 것을 볼 수 있었다. </p>
-<p>스크린샷에는 잡히지 않았지만 이 때 가득차있던 S0 영역이 완전히 비워지고 S1에 메모리 사용이 잡히기 시작했다. <em>S0, S1 어느 하나는 완전히 비어있어야 한다</em> 는 JVM 이론 시간의 공부가 눈 앞에서 확인되는 순간이었다. </p>
-<p>여러분도 집에서 심심할 때 한 번 돌려보시면 좋겠다. 물론 <strong>공부하는 입장에서야 심심할 때 해볼 수 있는 일이겠지만 상용 서비스를 개발하는 개발자에게는 중요한 정보일 것이다.</strong> </p>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/06/19/jstat-monitoring/" data-id="ckk5ihprb0011dg9oem4fdyuw" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2018/06/19/jstat-monitoring/#disqus_thread" class="article-comment-link">댓글</a>
       
       
     </footer>

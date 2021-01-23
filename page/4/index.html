@@ -52,6 +52,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-algorithm-nlcm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/algorithm/">algorithm</a>►<a class="article-category-link" href="/categories/algorithm/programmers-exercise/">programmers_exercise</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/08/algorithm-nlcm/">알고리즘 타임 - (2) N개의 최소공배수</a>
+    </h1>
+  
+
+        <a href="/2018/04/08/algorithm-nlcm/" class="article-date">
+  <time datetime="2018-04-07T23:38:56.000Z" itemprop="datePublished">2018-04-08</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="N개의-최소공배수"><a href="#N개의-최소공배수" class="headerlink" title="N개의 최소공배수"></a>N개의 최소공배수</h3><p>두 수의 최소공배수(Least Common Multiple)란 입력된 두 수의 배수 중 공통이 되는 가장 작은 숫자를 의미합니다. 예를 들어 2와 7의 최소공배수는 14가 됩니다. 정의를 확장해서, n개의 수의 최소공배수는 n 개의 수들의 배수 중 공통이 되는 가장 작은 숫자가 됩니다. nlcm 함수를 통해 n개의 숫자가 입력되었을 때, 최소공배수를 반환해 주세요. 예를들어 [2,6,8,14] 가 입력된다면 168을 반환해 주면 됩니다.</p>
+<hr>
+<h4 id="풀이"><a href="#풀이" class="headerlink" title="풀이"></a>풀이</h4><p>두 수의 최소공배수는 두 수의 최대공약수와 각 수를 최대공약수로 나눈 몫의 곱이다.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LCM = GCD * (Num1 / GCD) * (Num2 / GCD)</span><br></pre></td></tr></table></figure>
+<p>사실 Python에는 두 수의 최대공약수를 구하는 내장 함수가 있지만 <strong>사용하지 않기로 한다</strong></p>
+<p>N개의 원소를 갖는 집합에서 최소공배수는 (N - 1) 까지의 최소공배수와 N 의 최소공배수를 구하면 된다. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NLCM = LCM(N, LCM( ~ N -1))</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="코오드"><a href="#코오드" class="headerlink" title="코오드"></a>코오드</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nlcm</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> lcm_recurse(num)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lcm_recurse</span><span class="params">(array)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(array) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> array[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(array) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> find_lcm(array[<span class="number">0</span>], array[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> find_lcm(array[<span class="number">-1</span>], lcm_recurse(array[:<span class="number">-1</span>]))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_lcm</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    gcd = find_gcd(num1, num2)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> int(gcd * (num1 / gcd) * (num2 / gcd))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_gcd</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    current_divider = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> num1 &gt; num2:</span><br><span class="line">        current_divider = num2</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        current_divider = num1</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">        <span class="keyword">if</span> num1 % current_divider == <span class="number">0</span> <span class="keyword">and</span> num2 % current_divider == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        current_divider -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> int(current_divider)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="더-나은-풀이"><a href="#더-나은-풀이" class="headerlink" title="더 나은 풀이"></a>더 나은 풀이</h4><p>다른 사람들의 풀이를 보니 <code>gcd()</code> 빌트인 함수를 사용하신 분들이 많았다 </p>
+<p>알고리즘 문제에서 이런 식의 풀이는 의미가 없다고 생각하지만, 입사용 코딩 테스트 등에서 이런 라이브러리의 사용이 불이익이 되지 않는다면 앞으로 적극적으로 사용하는 것을 검토해 볼 만 하겠다. </p>
+<p>눈에 띄는 풀이는 없었지만 <em>정말 우아하게 최대공약수를 구하는 분</em> 이 있어 코오드를 여기에 살짝 옮겨 본다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">return</span> gcd(b, a % b)</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="느낀-점"><a href="#느낀-점" class="headerlink" title="느낀 점"></a>느낀 점</h4><ul>
+<li>재귀 호출을 한 번에 내가 생각한대로(…)사용할 수 있었다. 실력이 좀 늘었나?</li>
+<li>메소드(함수) 분리를 너무 많이 하는 것 같다. <ul>
+<li>실무에선 좋은 습관이다. </li>
+<li>알고리즘 풀이에선?</li>
+</ul>
+</li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/" data-id="ckk8zmeob0003eo9oi52pvx18" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-algorithm-caesar" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -112,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/algorithm-caesar/" data-id="ckk5ihpq70001dg9ops18113f" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/algorithm-caesar/" data-id="ckk8zmeo70001eo9oo2u1rmhj" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/07/algorithm-caesar/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -204,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/java-collections/" data-id="ckk5ihpr3000qdg9o1b5cnz1t" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/java-collections/" data-id="ckk8zmep2000keo9os0rovx26" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/07/java-collections/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -246,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/30/spring-kotlin/" data-id="ckk5ihps90022dg9o5p481s0v" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/30/spring-kotlin/" data-id="ckk8zmesg004geo9o1fyp5ejj" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/30/spring-kotlin/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -308,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/" data-id="ckk5ihpqs000fdg9ocjnwog88" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/" data-id="ckk8zmeos000feo9oyn99eate" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -352,7 +417,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/21/new-theme/" data-id="ckk5ihps1001udg9o75u9cd79" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/21/new-theme/" data-id="ckk8zmesd004deo9o24p9j333" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/21/new-theme/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -431,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/19/hackathon-kotlin/" data-id="ckk5ihpqv000hdg9o3xd286s0" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/19/hackathon-kotlin/" data-id="ckk8zmeoz000heo9oq83gpdi8" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/19/hackathon-kotlin/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -492,7 +557,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/01/30/windows-diskpart/" data-id="ckk5ihpyd009vdg9oivhosc4f" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/01/30/windows-diskpart/" data-id="ckk8zmeu8006deo9owpaaqctr" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/01/30/windows-diskpart/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -560,7 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/01/24/django-no-sites/" data-id="ckk5ihpqq000ddg9o965bgjeh" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/01/24/django-no-sites/" data-id="ckk8zmeop000deo9oah6xeily" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/01/24/django-no-sites/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -629,83 +694,12 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/12/22/using-enums-api-development/" data-id="ckk5ihpxq008ydg9ooaocacqx" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2017/12/22/using-enums-api-development/" data-id="ckk8zmeu40069eo9ovlc8b8xr" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2017/12/22/using-enums-api-development/#disqus_thread" class="article-comment-link">댓글</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clean-code/">clean-code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/enum/">enum</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-bruteforce-protection" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/13/bruteforce-protection/">브루트 포스 공격을 막아봅시다.(Spring Security에서의 예외 처리)</a>
-    </h1>
-  
-
-        <a href="/2017/12/13/bruteforce-protection/" class="article-date">
-  <time datetime="2017-12-13T12:27:35.000Z" itemprop="datePublished">2017-12-13</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h3 id="간단한-브루트-포스-Brute-Force-공격을-막아보자"><a href="#간단한-브루트-포스-Brute-Force-공격을-막아보자" class="headerlink" title="간단한 브루트 포스(Brute Force) 공격을 막아보자."></a>간단한 브루트 포스(Brute Force) 공격을 막아보자.</h3><p>말은 거창하지만 간단하다. 브루트 포스(Brute Force)란 비밀번호가 맞을 때까지 노가다로 때려맞히는, 아주 원초적이지만 효과적이고 또 돈도 안 드는 공격 방식이다. </p>
-<p>3G 통신이 상용화도 되기 전 대부분의 핸드폰들은 단순한 4자리의 암호 체게를 갖고 있었고, 기본 비밀번호는 4빵, 즉 0000 이었다. 친구들의 핸드폰을 탈취해 꼭 시도해봤던 일 중 하나는 이 네 자리의 암호를 때려맞혀 보는 일이었다. </p>
-<p>비밀번호는 숫자 네 자리로만 이뤄져있으니 단순한 계산으로 생각해보면 0000~9999의 숫자를 한 번씩만 시도해보면 언젠가는 비밀번호를 알아낼 수 있을 일이었다. 그러나 한 다섯번 쯤 시도하면 늘 뜨는 에러 메시지, <em>입력 횟수 초과! n분 후에 시도하세요.</em> 가 나의 원대한 도전을 늘 가로막았었다. </p>
-<h4 id="이런-식의-공격이-요즘-웹에-의미가-있나"><a href="#이런-식의-공격이-요즘-웹에-의미가-있나" class="headerlink" title="이런 식의 공격이 요즘 웹에 의미가 있나?"></a>이런 식의 공격이 요즘 웹에 의미가 있나?</h4><p>결론부터 말하면 <strong>의미없다고 생각한다.</strong> 브루트 포스 공격이 통하기엔 이미 모던 웹 서비스들은 복잡도가 너무 높은 비밀번호를 요구하고 있다(주인도 까먹어서 문제다). 또 이런 비밀번호에 대한 유효성 검증을 회원가입 시에 프론트 단에서 구현해주기 때문에 브루트 포스 공격으로 비밀번호가 털릴 상황은 그렇게 많이 연출되지 않을 거라고 본다. </p>
-<p>그러나 스프링 시큐리티에서의 브루트 포스 방어는 Spring Boot 기반 프로젝트에서의 캐시 사용, Exception Handler 구현 등 연습해볼 만한 도전과제가 넘쳐나는 구현이다. </p>
-<p>따라서 나는 실 서비스를 위한 보안 목적이라기보단 학습 목적으로 이번 구현을 시작했음을 미리 밝혀둔다. </p>
-<h4 id="무엇을-어디서"><a href="#무엇을-어디서" class="headerlink" title="무엇을? 어디서?"></a>무엇을? 어디서?</h4><p>로그인 과정 상에서 Exception을 발생시켜 로그인 로직 자체를 멈추게 할 것이란 계획은 세웠다, 그렇다면 <strong>무슨 Exception을 어디서 발생시키나?</strong> 를 고민해야 한다.</p>
-<p>우선 누가 암호를 몇 번 틀렸는지 기록하기 위해 com.google.commons에 들어있는 <a href="https://google.github.io/guava/releases/19.0/api/docs/com/google/common/cache/LoadingCache.html" target="_blank" rel="noopener">LoadingCache</a>를 사용할 것이다. Key는 String으로, 횟수를 저장할 Value는 Integer로 저장할 것이다. 또 이 Cache 인스턴스를 들고 있으면서 특정 IP의 차단 여부를 판별하고, 로그인 성공 / 실패 이벤트가 생길 때마다 저장 내용을 조작할 LoginAttemptService를 구현할 것이다.</p>
-<p>Exception은 RuntimeException을 상속받는 LoginAttemptExceedException을 만들어 줄 것이며, CustomUserDetailsService.loadByUsername()으로 유저 정보 질의가 들어왔을 때 해당 IP의 차단 여부를 체크해 Exception을 발생시키게 된다. 이를 위해 CustomUserDetailsService는 LoginAttemptService를 Autowire받게 된다. </p>
-<h4 id="LoginAttemptService"><a href="#LoginAttemptService" class="headerlink" title="LoginAttemptService"></a>LoginAttemptService</h4><p>로그인 실패 시도를 기록하고 차단 여부를 알려줄 서비스는 아래와 같이 구현한다. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class LoginAttemptService &#123;</span><br><span class="line"></span><br><span class="line">    private final int MAX_ATTEMPT = 2; //허용 시도횟수 두번. </span><br><span class="line">    private LoadingCache&lt;String, Integer&gt; attemptsCache;</span><br><span class="line"></span><br><span class="line">    public LoginAttemptService() &#123;</span><br><span class="line">        super();</span><br><span class="line">        attemptsCache = CacheBuilder.newBuilder()</span><br><span class="line">                .expireAfterWrite(1, TimeUnit.DAYS).build(new CacheLoader&lt;String, Integer&gt;() &#123;</span><br><span class="line">                    @Override</span><br><span class="line">                    public Integer load(String key) throws Exception &#123;</span><br><span class="line">                        return 0;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void loginSucceeded(String key) &#123;</span><br><span class="line">        attemptsCache.invalidate(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void loginFailed(String key) &#123;</span><br><span class="line">        int attempts = 0;</span><br><span class="line">        try &#123;</span><br><span class="line">            attempts = attemptsCache.get(key);</span><br><span class="line">        &#125; catch(ExecutionException e) &#123;</span><br><span class="line">            attempts = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        attempts++;</span><br><span class="line">        attemptsCache.put(key, attempts);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void resetAttempt(String key) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            attemptsCache.put(key, 0);</span><br><span class="line">        &#125; catch(Exception e) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public boolean isBlocked(String key) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return attemptsCache.get(key) &gt;= MAX_ATTEMPT;</span><br><span class="line">        &#125; catch (ExecutionException e) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>LoadingCache의 .get()이 Exception을 발생시키는 점이 맘에 들지 않지만…. 그냥 Optional<t> 로 구현하면 더 나았을텐데. 하긴 LoadingCache는 인터페이스에 불과하므로 CacheBuilder를 쓰지 않고 내가 직접 구현해서 쓰는 것도 방법이 될 수 있겠다. </t></p>
-<h4 id="IntegratedFormloginFailureHandler"><a href="#IntegratedFormloginFailureHandler" class="headerlink" title="IntegratedFormloginFailureHandler"></a>IntegratedFormloginFailureHandler</h4><p>클래스명이 쓸데없이 거창한 모습이다. 이 핸들러를 통해 로그인 에러 페이지도 커스터마이즈하고 싶었기에 클래스명을 이렇게 붙여 봤다. </p>
-<p>구현은 아래와 같이…. </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class IntegratedFormloginFailureHandler implements AuthenticationFailureHandler &#123;</span><br><span class="line">    private static final Logger log = LoggerFactory.getLogger(IntegratedFormloginFailureHandler.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse res, AuthenticationException e) throws IOException, ServletException &#123;</span><br><span class="line">        if (isBruteForceEvent(e)) &#123;</span><br><span class="line">            log.error(&quot;brute force event detected from failure handler!&quot;);</span><br><span class="line">            log.error(&quot;cause of exception : &#123;&#125;&quot; , e.getCause().getClass().getName());</span><br><span class="line">            res.sendRedirect(&quot;/captcha&quot;);//횟수 초과 시에 이동할 주소.</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        log.error(&quot;general sign-in fail event detected from failure handler!&quot;);</span><br><span class="line">        res.sendRedirect(&quot;/signin&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private boolean isBruteForceEvent(AuthenticationException e) &#123;</span><br><span class="line">        return e.getCause() instanceof LoginAttemptExceedException;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>isBruteForceEvent()의 e.getCause()가 신경이 쓰일 거라 생각한다. 사실 이렇게 구현해야 한다는 것을 수십번의 삽질, 그리고 Throwable에 대한 학습 후 알아낼 수 있었다. </p>
-<p>우선 로그인 과정에서 Exception이 발생했을 때 콘솔에 어떤 메시지가 뜨는지를 살펴보자 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.security.authentication.InternalAuthenticationServiceException: login attempt exceeds!</span><br><span class="line">	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:126)</span><br><span class="line">	(...)</span><br><span class="line">	at java.lang.Thread.run(Thread.java:748)</span><br><span class="line">Caused by: codesquad.security.Exceptions.LoginAttemptExceedException: login attempt exceeds!</span><br><span class="line">	at codesquad.security.CustomUserDetailsService.loadUserByUsername(CustomUserDetailsService.java:49)</span><br><span class="line">	at org.springframework.security.authentication.dao.DaoAuthenticationProvider.retrieveUser(DaoAuthenticationProvider.java:114)</span><br><span class="line">	... 53 common frames omitted</span><br></pre></td></tr></table></figure>
-<p>Stack Trace상에서 Caused By: 를 주목할 필요가 있겠다. 우선 Spring Security에서 사용자 인증 과정중에 발생한 모든 Exception은 InternalAuthenticationServiceException으로 Wrapping된 후에 던져진다는 점을 알 수 있었다. <strong>이걸 알기 전까지 무수한 삽질을 반복해야 했다.</strong> 이걸 모르고 Handler상에서 LoginAttemptExceedException을 바로 찾았으니 당연히 찾아지지 않았다. </p>
-<p>InternalAuthenticationServiceException을 뜯어보면 이 클래스는 AuthenticationServiceException을 상속받고 있고 이는 다시 AuthenticationException을 상속받은 예외다. </p>
-<p>스프링 시큐리티가 예외 처리용으로 제공하는 AuthenticationFailureHandler 인터페이스의 .onAuthenticationFailure() 메소드는 AuthenticationException을 인자로 받고 있는데, Spring Security 단에서 발생하는 모든 AuthenticationException과 이를 상속받은 예외들이 이 Handler를 통해 처리되게 되는 것이다. </p>
-<p>사용자 인증 과정에서 발생하는 <strong>AuthenticationException을 상속받지 않은 모든 예외는 InternalAuthenticationServiceException으로 감싸진 채로 던져지므로</strong> e.getCause()를 호출해 Cause Exception을 불러와야 우리가 구현한 LoginAttemptExceedException의 내용을 확인할 수 있는 것이다. </p>
-<p>아, 말로 써놓고 보니 어렵다. 이런 방식을 Chained Exception 이라고 하는 것 같은데 <a href="https://docs.oracle.com/javase/tutorial/essential/exceptions/chained.html" target="_blank" rel="noopener">이 글</a>을 참고해 보면 좋겠다. </p>
-<p>어려운 구현은 다 끝났고 남은 건 자질구레한 설정들이다. </p>
-<h4 id="Spring-Security의-SecurityConfig을-일부-변경"><a href="#Spring-Security의-SecurityConfig을-일부-변경" class="headerlink" title="Spring Security의 SecurityConfig을 일부 변경."></a>Spring Security의 SecurityConfig을 일부 변경.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableOAuth2Client</span><br><span class="line">public class SecurityConfig extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    private IntegratedFormloginFailureHandler failureHandler = new IntegratedFormloginFailureHandler();</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">     .formLogin()</span><br><span class="line">                    .loginPage(&quot;/signin&quot;)</span><br><span class="line">                    .loginProcessingUrl(&quot;/signin&quot;)</span><br><span class="line">                    .successHandler(this.signinRedirectionHandler)</span><br><span class="line">                    .failureHandler(this.failureHandler)//아까 공들여 만든 실패 핸들러를 등록시켜준다. </span><br><span class="line">                    .permitAll()</span><br></pre></td></tr></table></figure>
-<h4 id="CustomUserDetailsService가-IP-차단-여부를-체크하도록-변경"><a href="#CustomUserDetailsService가-IP-차단-여부를-체크하도록-변경" class="headerlink" title="CustomUserDetailsService가 IP 차단 여부를 체크하도록 변경."></a>CustomUserDetailsService가 IP 차단 여부를 체크하도록 변경.</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException &#123;</span><br><span class="line">        log.debug(&quot;load username : &#123;&#125;&quot; , username);</span><br><span class="line"></span><br><span class="line">        String ip = getClientIP();</span><br><span class="line">        if (loginAttemptService.isBlocked(ip)) &#123;</span><br><span class="line">            </span><br><span class="line">            throw new LoginAttemptExceedException(&quot;login attempt exceeds!&quot;);</span><br><span class="line">      </span><br><span class="line">        &#125;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //클라이언트의 IP를 알아내는 메소드</span><br><span class="line"></span><br><span class="line">    private String getClientIP() &#123; </span><br><span class="line">        String header = req.getHeader(&quot;X-Forwarded-For&quot;);</span><br><span class="line">        if (header == null) &#123;</span><br><span class="line">            return req.getRemoteAddr();</span><br><span class="line">        &#125;</span><br><span class="line">        return header.split(&quot;,&quot;)[0];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p><strong>어때요, 참 쉽죠?</strong></p>
-<p>리디렉션을 /captcha로 돌려주는 것에서 이미 짐작하셨겠지만 다음 구현과제는 Google의 <a href="https://www.google.com/recaptcha/intro/android.html" target="_blank" rel="noopener">reCAPTCHA</a>를 서비스에 적용해보는 것이다. </p>
-<h4 id="유용했던-참고자료"><a href="#유용했던-참고자료" class="headerlink" title="유용했던 참고자료"></a>유용했던 참고자료</h4><p><a href="http://www.baeldung.com/spring-security-block-brute-force-authentication-attempts" target="_blank" rel="noopener">Prevent Brute Force Authentication Attempts with Spring Security</a></p>
-<p><a href="https://google.github.io/guava/releases/19.0/api/docs/com/google/common/cache/LoadingCache.html" target="_blank" rel="noopener">LoadingCache Javadoc</a></p>
-<p>+포비의 힌트. 감사합니다~!</p>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/12/13/bruteforce-protection/" data-id="ckk5ihpx7008mdg9o92ie6lc6" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2017/12/13/bruteforce-protection/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-Security/">Spring_Security</a></li></ul>
 
     </footer>
   </div>

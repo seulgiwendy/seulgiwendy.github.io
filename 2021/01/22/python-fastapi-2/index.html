@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>FastAPI로 간단한 API 개발을 시도해 본다 - (2) 요청 처리하기 | 봄이네집 개발 블로그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기이전 포스팅을 통해 FastAPI 기반의 API 개발 환경을 만들고, 간단한 Hello World 를 노출하는 GET API를 구현해 보았다.  이번에는 HTTP API라면 당연히 수행해야 할, 몇가지 형태의 HTTP Request 처리를 해보고자 한다.  PydanticFastA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FastAPI로 간단한 API 개발을 시도해 본다 - (2) 요청 처리하기">
+<meta property="og:url" content="https://tech.wheejuni.com/2021/01/22/python-fastapi-2/index.html">
+<meta property="og:site_name" content="봄이네집 개발 블로그">
+<meta property="og:description" content="FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기이전 포스팅을 통해 FastAPI 기반의 API 개발 환경을 만들고, 간단한 Hello World 를 노출하는 GET API를 구현해 보았다.  이번에는 HTTP API라면 당연히 수행해야 할, 몇가지 형태의 HTTP Request 처리를 해보고자 한다.  PydanticFastA">
+<meta property="og:locale" content="ko">
+<meta property="og:updated_time" content="2021-01-23T00:41:13.823Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FastAPI로 간단한 API 개발을 시도해 본다 - (2) 요청 처리하기">
+<meta name="twitter:description" content="FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기이전 포스팅을 통해 FastAPI 기반의 API 개발 환경을 만들고, 간단한 Hello World 를 노출하는 GET API를 구현해 보았다.  이번에는 HTTP API라면 당연히 수행해야 할, 몇가지 형태의 HTTP Request 처리를 해보고자 한다.  PydanticFastA">
+  
+    <link rel="alternate" href="/atom.xml" title="봄이네집 개발 블로그" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,700&amp;subset=korean" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <!--<div id="banner"></div>-->
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <a href="/" id="main-nav-title" class="main-nav-link">봄이네집 개발 블로그</a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives/">Archives</a>
+        
+          <a class="main-nav-link" href="/about/">about</a>
+        
+      </nav>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-python-fastapi-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/python/">python</a>►<a class="article-category-link" href="/categories/python/fastapi/">fastapi</a>►<a class="article-category-link" href="/categories/python/fastapi/backend-development/">backend_development</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      FastAPI로 간단한 API 개발을 시도해 본다 - (2) 요청 처리하기
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="FastAPI를-이용한-간단한-API-개발-HTTP-Request-처리하기"><a href="#FastAPI를-이용한-간단한-API-개발-HTTP-Request-처리하기" class="headerlink" title="FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기"></a>FastAPI를 이용한 간단한 API 개발 - HTTP Request 처리하기</h3><p>이전 포스팅을 통해 FastAPI 기반의 API 개발 환경을 만들고, 간단한 <code>Hello World</code> 를 노출하는 GET API를 구현해 보았다. </p>
+<p>이번에는 HTTP API라면 당연히 수행해야 할, 몇가지 형태의 HTTP Request 처리를 해보고자 한다. </p>
+<h4 id="Pydantic"><a href="#Pydantic" class="headerlink" title="Pydantic"></a>Pydantic</h4><p>FastAPI에서는 모델 클래스의 type safety 및 요청 주입을 위해 <a href="https://pydantic-docs.helpmanual.io/" target="_blank" rel="noopener">Pydantic</a> 의존성을 사용한다. </p>
+<p>어떻게 보면 TypeScript를 도입했던 JS 진영처럼 Python도 점점 타입 안전성에 대한 고려와 이를 위한 유틸리티들이 늘어간다고도 볼 수 있을 것 같다. </p>
+<p>Pydantic이 제공하는 <code>BaseModel</code> 을 상속받아 Python 클래스를 작성하고, 이 클래스를 사용하면서 타입에 관한 IDE의 힌트를 얻을 수도 있고, 필드에 의도했던 데이터 타입이 들어갔는지도 검증할 수 있다. Java로 치면 POJO + JSR-303(380) 과 같은 느낌이다. </p>
+<p>본격적인 개발 진행을 위해 아래 명령어를 수행해 Pydantic을 추가해 준다.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pydantic</span><br></pre></td></tr></table></figure>
+<h4 id="Endpoint-작성"><a href="#Endpoint-작성" class="headerlink" title="Endpoint 작성"></a>Endpoint 작성</h4><p><code>hello world</code> API 구현에서 봤던 것처럼 FastAPI도 애노테이션 기반 엔드포인트 작성을 지원한다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/&#123;name&#125;)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_name</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/query/)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_querystring</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br></pre></td></tr></table></figure>
+<p>이전에 구현해뒀던 <code>hello world</code> API에 더불어서, 경로 변수를 사용할 수 있는 API를 하나 추가하였다. </p>
+<p>경로 변수의 사용은 Spring MVC가 지원하는 argument resolution 기반의 경로 변수 매핑과 아주 흡사하다. <code>path</code> 에 중괄호를 이용해 경로변수의 위치 및 이름을 선언한 후, 함수의 파라메터로 같은 이름을 갖는 변수를 받아오면 경로 변수로 넘어온 값이 매핑된다. </p>
+<p>아래 <code>hello_with_querystring</code> 은 FastAPI가 쿼리스트링 기반의 요청을 처리하는 방법을 보여주는 것이다. 함수의 파라메터로 선언된 변수의 이름에 해당하는 쿼리 스트링 파라미터를 FastAPI가 자동으로 매핑해준다. 즉, 이 요청 처리 함수가 처리할 수 있는 HTTP GET 요청의 주소는 아래와 같은 모습을 띄게 된다. </p>
+<p><code>{HOSTNAME}/hello/query?name=봄이네집</code></p>
+<h4 id="POST-요청-매핑-Pydantic-Model-작성"><a href="#POST-요청-매핑-Pydantic-Model-작성" class="headerlink" title="POST 요청 매핑 - Pydantic Model 작성"></a>POST 요청 매핑 - Pydantic Model 작성</h4><p>POST 요청 매핑을 위해 우선 아까 추가했던 종속성인 Pydantic 기반의 모델 클래스를 작성해 준다. </p>
+<p>Kotlin의 <code>data class</code> 와 유사한 문법으로, 필드명과 타입을 작성해주면 빠르고 편하게 모델 클래스의 작성이 끝난다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pydantic.main <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldRequest</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    name: str</span><br><span class="line">    age: int</span><br></pre></td></tr></table></figure>
+<h4 id="POST-요청-매핑-요청-처리-함수-작성"><a href="#POST-요청-매핑-요청-처리-함수-작성" class="headerlink" title="POST 요청 매핑 - 요청 처리 함수 작성"></a>POST 요청 매핑 - 요청 처리 함수 작성</h4><p>앞서서 작성한 모델 클래스를 기반으로, 요청 처리 함수를 추가한다. </p>
+<p>그동안 했던 것처럼, 모델 클래스를 함수의 파라메터로 받아주면 요청을 처리할 준비가 끝난다. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI</span><br><span class="line"><span class="keyword">from</span> pydantic.main <span class="keyword">import</span> BaseModel</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldRequest</span><span class="params">(BaseModel)</span>:</span></span><br><span class="line">    name: str</span><br><span class="line">    age: int</span><br><span class="line"></span><br><span class="line">app = FastAPI()</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/")</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello world"</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/&#123;name&#125;)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_name</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.get(path="/hello/query/)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_with_querystring</span><span class="params">(name: str)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with name. your name is "</span> + name</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.post(path="/hello/post)</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">hello_post</span><span class="params">(request: HelloWorldRequest)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello with post. your name: &#123;&#125;, your age: &#123;&#125;"</span></span><br><span class="line">            .format(request.name, request.age)</span><br></pre></td></tr></table></figure>
+<h3 id="마무리"><a href="#마무리" class="headerlink" title="마무리"></a>마무리</h3><p>간단하게 FastAPI를 이용해 HTTP 요청을 처리하는 방법을 알아봤다. </p>
+<p>이 단계만 되어도 FastAPI의 고유 기능을 이용해 HTTP Request를 처리할 모든 준비는 끝난 것 같다. 물론 전통적인 3-tier web application의 구조를 보면, 우리는 아직 DB 통신을 할 준비를 하지 못했고, 상용 서버에 애플리케이션을 노출할 구현도 하지 않았다. </p>
+<p>그러나 request/response mapping이라는 웹 API Framework의 본질로 본다면 이후 단계는 개발자의 선택에 따라 얼마든지 다른 모듈을 채택할 수도 있고, 커스터마이즈하는 것도 가능하다. </p>
+<p>예를 들어, <del>잠시 스포하자면</del> 다음 포스팅에선 SQLAlchemy를 이용해 MySQL DBMS에 질의해 요청을 처리하는 과정을 살펴볼 것인데, FastAPI 공식 문서가 추천하는 바 대로 SQLAlchemy를 사용할 뿐이고 실제 개발 상에서는 여타 다른 Python 진영의 데이터베이스 프레임워크를 사용해도 아무 문제가 없다. </p>
+<p>즉, 여기까지만 읽어도 숙달된 Python 개발자라면 이미 FastAPI를 이용해 마이크로서비스 하나 정도는 개발할 수 있는 준비가 되었다고 판단된다. </p>
+<p>감사하게도 여기까지 제 포스팅을 흥미있게 읽어 주셨다면, FastAPI를 이용해 간단한 서비스 하나를 직접 구현해보는 것을 강력히 추천한다. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://tech.wheejuni.com/2021/01/22/python-fastapi-2/" data-id="ckk8zmesb004beo9okv9viskb" class="article-share-link">공유</a>
+      
+        <a href="https://tech.wheejuni.com/2021/01/22/python-fastapi-2/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/01/20/python-fastapi-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-caption">이전</span>
+      <div class="article-nav-title">FastAPI로 간단한 API 개발을 시도해 본다 - (1) 프로젝트 시작하기</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 정휘준<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> with 
+      theme_by <a href="http://hexo.io/" target="_blank">mango</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives/" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about/" class="mobile-nav-link">about</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'bomee';
+  
+  var disqus_url = 'https://tech.wheejuni.com/2021/01/22/python-fastapi-2/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
