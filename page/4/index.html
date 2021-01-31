@@ -52,6 +52,89 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-morningcs-duplex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/network/">network</a>►<a class="article-category-link" href="/categories/network/morning-cs/">morning_cs</a>►<a class="article-category-link" href="/categories/network/morning-cs/duplex/">duplex</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/09/morningcs-duplex/">아침 CS - (1) 이중통신 (Duplex)</a>
+    </h1>
+  
+
+        <a href="/2018/04/09/morningcs-duplex/" class="article-date">
+  <time datetime="2018-04-09T00:13:28.000Z" itemprop="datePublished">2018-04-09</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="Duplex에-대하여"><a href="#Duplex에-대하여" class="headerlink" title="Duplex에 대하여."></a>Duplex에 대하여.</h3><h4 id="사전적-정의"><a href="#사전적-정의" class="headerlink" title="사전적 정의"></a>사전적 정의</h4><p>이중통신(duplex) 또는 쌍방향 통신은 두 지점 사이에서 정보를 주고 받는 전자 통신 시스템을 말한다.</p>
+<p>이중 통신을 할 때 전송 방향마다 두 개의 통신 선호를 사용하면 단순하지만 전송로를 아끼기 위해 여러 종류의 전송 방식이 쓰인다.</p>
+<h4 id="조작적-정의"><a href="#조작적-정의" class="headerlink" title="조작적 정의"></a>조작적 정의</h4><p><em>전화기와 무전기의 비유</em></p>
+<ul>
+<li><p>전화기: 상대가 떠들 때 나도 떠들 수 있음. </p>
+<ul>
+<li>Full-duplex임. </li>
+<li>애초에 인간의 대화는 한쪽이 떠들 때 듣고만 있으면 성립 안함(군대에선 성립함).</li>
+</ul>
+</li>
+<li><p>무전기 : PTT방식 무전기는 한 사람만 떠들수 있음(두사람이 동시에 Push 하면 혼선 발생). 파워텔 제외임 ㅋㅋㅋㅋ 시바 </p>
+<ul>
+<li>Half-duplex임.</li>
+</ul>
+</li>
+</ul>
+<h4 id="심화"><a href="#심화" class="headerlink" title="심화"></a>심화</h4><p>흔히 컴퓨터 네트워크는 당연히 전이중(full-duplex)라고 생각하기 쉽지만 <strong>과연 그럴까?</strong></p>
+<p>모든 컴퓨터 네트워크가 전이중이라면 stateless니, 3-way handshake니 하는 개념도 창안되지 않았을 것이다. 뭔가 답답한 구석이 있어서 이런 우회적 구현을 한 것이다. </p>
+<p><strong>놀랍게도 우리가 즐겨 사용하는 L2 계층인 이더넷(Ethernet)은 반이중(half-duplex)이다.</strong></p>
+<p><em>(정확히 말하면 아주 제한적인 상황에서만 전이중통신을 지원한다.)</em></p>
+<p>질문 : Ethernet이 반이중이라면, TCP가 전이중일 수 있나요? </p>
+<ul>
+<li><p>먼저 두 개념이 다른 OSI 계층 상에 위치함을 알아야 함</p>
+<ul>
+<li>Ethernet : 데이터링크 계층(L2)</li>
+<li>TCP : 전송 계층 (L4)</li>
+</ul>
+</li>
+<li><p>TCP 프로토콜은 API상으로 full-duplex이며 REQ/RES가 전환될때 통신 재설정이 일어나지 않음</p>
+</li>
+<li><p>단 상위 계층 요소(Ethernet: L2, IP : L3)가 half-duplex인 경우 하위 계층에서 full-duplex를 지원하더라도 이를 사용할 수 없음. </p>
+</li>
+<li><p>이러한 궁금증이 생겼을 때 각 요소가 OSI 피라미드에서 어디에 위치하는지를 살펴보고, 그에 따른 상하관계를 파악하는 것이 중요</p>
+</li>
+</ul>
+<hr>
+<h4 id="참고-문헌"><a href="#참고-문헌" class="headerlink" title="참고 문헌"></a>참고 문헌</h4><ul>
+<li>Stack Overflow: <a href="https://stackoverflow.com/questions/28494850/is-tcp-bidirectional-or-full-duplex" target="_blank" rel="noopener">Is TCP bidirectional or full-duplex?</a></li>
+<li>Stack Exchange: <a href="https://networkengineering.stackexchange.com/questions/7451/how-is-tcp-duplex-if-ethernet-is-half-duplex" target="_blank" rel="noopener">How is TCP duplex if Ethernet is half-duplex?</a></li>
+<li><a href="http://www.m-system.co.jp/korean/mame_k/pdf/20.pdf" target="_blank" rel="noopener">전이중통신과 반이중통신</a></li>
+</ul>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/" data-id="ckkklasgy001en49onlx3kx80" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-algorithm-nlcm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -105,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/" data-id="ckk8zmeob0003eo9oi52pvx18" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/" data-id="ckkklasft0003n49ob0uw73uh" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/08/algorithm-nlcm/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -177,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/algorithm-caesar/" data-id="ckk8zmeo70001eo9oo2u1rmhj" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/algorithm-caesar/" data-id="ckkklasfk0001n49ocb3gdrio" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/07/algorithm-caesar/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -269,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/java-collections/" data-id="ckk8zmep2000keo9os0rovx26" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/07/java-collections/" data-id="ckkklasgc000ln49oaewdf84q" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/07/java-collections/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -311,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/30/spring-kotlin/" data-id="ckk8zmesg004geo9o1fyp5ejj" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/30/spring-kotlin/" data-id="ckkklasjx004zn49ou1ji97wv" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/30/spring-kotlin/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -373,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/" data-id="ckk8zmeos000feo9oyn99eate" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/" data-id="ckkklash0001gn49oturtanga" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/23/hackathon-cicd/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -417,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/21/new-theme/" data-id="ckk8zmesd004deo9o24p9j333" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/21/new-theme/" data-id="ckkklasjm004nn49o7jsamm0z" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/21/new-theme/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -496,7 +579,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/03/19/hackathon-kotlin/" data-id="ckk8zmeoz000heo9oq83gpdi8" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/03/19/hackathon-kotlin/" data-id="ckkklash6001on49onubwfxui" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/03/19/hackathon-kotlin/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -557,7 +640,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/01/30/windows-diskpart/" data-id="ckk8zmeu8006deo9owpaaqctr" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/01/30/windows-diskpart/" data-id="ckkklaslm0073n49ol9u81xrp" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/01/30/windows-diskpart/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -625,81 +708,12 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/01/24/django-no-sites/" data-id="ckk8zmeop000deo9oah6xeily" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/01/24/django-no-sites/" data-id="ckkklasg10009n49o5vx6nckp" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/01/24/django-no-sites/#disqus_thread" class="article-comment-link">댓글</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/django/">django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-using-enums-api-development" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/22/using-enums-api-development/">Enum을 사용해 실수를 줄인다.</a>
-    </h1>
-  
-
-        <a href="/2017/12/22/using-enums-api-development/" class="article-date">
-  <time datetime="2017-12-22T03:34:15.000Z" itemprop="datePublished">2017-12-22</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h3 id="Enum을-적극적으로-사용해보자"><a href="#Enum을-적극적으로-사용해보자" class="headerlink" title="Enum을 적극적으로 사용해보자."></a>Enum을 적극적으로 사용해보자.</h3><p>Enum은 enumerated에서 따온 말로, 우리말로 옮기믄 “열거형” 이라고들 많이 하는 모양이다. </p>
-<p>개인적으로 “열거형” 이란 표현은 enum의 본질을 제대로 담고 있지 못하다고 생각해서 그리 바람직한 번역이라고는 생각되지 않는다. 또 Swift에서도 enum이 있는 것 같은데 그쪽 친구들은 이 괴상한 단어를 “이늄” 이라고 읽는다. </p>
-<p><strong>이늄 이라니, 얼마나 세련된 발음인가?</strong> 애석하게도 우리 Java 진영에서는 대다수의 개발자들이 이걸 “이넘” 이라고 주로 읽는 것 같고 “에넘” 이라고 하시는 분도 간혹가다가 본다. enum의 어원인 enumerated라는 영단어의 밞음을 살펴보면 Swift쪽의 발음이 더 간지나는 것 뿐만 아니라 어원에도 충실한 발음인 것 같다. </p>
-<p>enum을 어떻게 선언하는지, 어떻게 값을 관리하는지에 대한 개념 설명은 <strong>이 글에서 다루지 않겠다.</strong> 내가 생각하기에 (내가) enum을 더 많이 사용해야 하는 이유, 개발 상의 용이한 점 및 주의점들에 대해 서술해 보고, 마지막에 지금 진행중인 프로젝트에서 내가 어떻게 enum을 활용하고 있는지에 대해 간단하개 코드 중심으로 공유하고 글을 마치고자 한다. </p>
-<h4 id="왜-우리는-enum을-사용해야-하는가"><a href="#왜-우리는-enum을-사용해야-하는가" class="headerlink" title="왜 우리는 enum을 사용해야 하는가?"></a>왜 우리는 enum을 사용해야 하는가?</h4><p>예제 코드로 시작해보자. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedVelvet</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; members = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    (...)</span><br><span class="line"></span><br><span class="line">    members.add(<span class="string">"슬기"</span>);</span><br><span class="line">    members.add(<span class="string">"웬디"</span>);</span><br><span class="line">    members.add(<span class="string">"조이"</span>);</span><br><span class="line">    members.add(<span class="string">"예리"</span>);</span><br><span class="line">    members.add(<span class="string">"아이린"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//standard getter/seters, hashCode(), toString() follows....</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>국내 최고의 인기 걸그룹 레드벨벳의 멤버 정보를 담고 있는 이 클래스는 다섯 멤버들의 이름을 String으로 하드코딩하여 사용하고 있다. 자. 그러면 다른 객체에서 멤버들의 이름 정보를 가져와서 사용해 볼까…..</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedVelvetConcert</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    (...)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printConcertInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String msg = String.format(<span class="string">"이번 차례는 %s의 솔로 무대입니다!"</span> , RedVelvet.getMembers.get(<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>어떤 느낌이 드는가? 우리가 RedVelvetConcert 클래스를 설계할 때, 멤버 정보를 담고있는 RedVelvet.getMembers()의 반환값이 슬기, 웬디, 조이, 예리, 아이린의 순서대로 정렬되어 있음을 보장할 수 있을까? </p>
-<p>RedVelvetConcert를 설계한 사람이 속세와 인연을 끊고 사는 열헐 개발자인 경우엔 어떻게 할까? 그는 이 코드를 작성하며 레드벨벳의 멤버 정보에 대해 <strong>IDE로부터 전혀 힌트를 얻지 못한다.</strong></p>
-<p>RedVelvet을 enum으로 바꿔주면 어떨까? 아래와 같이 말이다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> RedVelvet &#123;</span><br><span class="line">    SEULGI(<span class="string">"슬기"</span>),</span><br><span class="line">    WENDY(<span class="string">"웬디"</span>),</span><br><span class="line">    JOY(<span class="string">"조이"</span>),</span><br><span class="line">    YERI(<span class="string">"예리"</span>),</span><br><span class="line">    IRENE(<span class="string">"아이린"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    RedVelvet(String name) &#123;</span><br><span class="line">        <span class="comment">/*많은 개발자들이 enum의 생성자에 private 접근 제어자를 붙이는 것을 알고 있다.</span></span><br><span class="line"><span class="comment">        하지만 굳이 그러지 않아도 된다.*/</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>자, 이제 printConcertInfo()도 다시 작성해보자.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printConcertInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String msg = String.format(<span class="string">"이번 차례는 %s의 솔로 무대입니다!"</span> , </span><br><span class="line">    RedVelvet.WENDY.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>생 String을 뽑아와서 붙일 때보다 훨씬 간결하고, 무엇보다 <strong>누구나 이해할 수 있는 코드가 되지 않았나?</strong> Wendy를 “웬디” 라고 발음한다는 정도만 알면 레드벨벳을 잘 모르는 사람이라도 쉽게 이 코드를 유지보수할 수 있을 것이다. </p>
-<hr>
-<h4 id="JPA-Entity에서-Enum을-활용해보자"><a href="#JPA-Entity에서-Enum을-활용해보자" class="headerlink" title="JPA Entity에서 Enum을 활용해보자."></a>JPA Entity에서 Enum을 활용해보자.</h4><p><strong>JPA로 관리하는 Model 객체에서도 Enum을 사용할 수 있다.</strong> 아래와 같이 구현하면 된다. </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedVelvetMember</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.AUTO)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> id;</span><br><span class="line"></span><br><span class="line">    (...)</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Enumerated</span>(EnumType.STRING)</span><br><span class="line">    <span class="keyword">private</span> RedVelvet redVelvet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>@Enumerated 애노테이션이 EnumType이라는 또다른 enum을 field로 갖고 있는 것을 볼 수 있는데 개발자에게 주어진 옵션은 두 가지다. </p>
-<blockquote>
-<p>EnumType.STRING = enum의 .name() 값을 칼럼에 입력한다 </p>
-<p>(e.g. RedVelvet.SEULGI =&gt; SEULGI 라고 칼럼에 입력됨)</p>
-<p>EnumType.ORDINAL = enum의 순서가 INT로 칼럼에 입력된다 </p>
-<p>(e.g. RedVelvet.IRENE =&gt; 다섯번째 요소이므로 5로 입력됨)</p>
-</blockquote>
-<p>enum을 한 번 구현해놓고 <strong>절대로 내용이나 순서를 바꿀 생각이 없다면</strong> ORDINAL로 써도 된다. <em>근데 그런 경우가 있을까?</em> </p>
-<p>실제로 많은 JPA 책에서도 .STRING 을 사용할 것을 강력 추천하고 있다. 왠만하면 STRING 쓰자. </p>
-<hr>
-<h4 id="더-읽어보기"><a href="#더-읽어보기" class="headerlink" title="더 읽어보기"></a>더 읽어보기</h4><p><a href="http://woowabros.github.io/tools/2017/07/10/java-enum-uses.html" target="_blank" rel="noopener">우아한형제들 개발자가 enum 적용시켜 본 이야기 - Java Enum 활용기</a></p>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2017/12/22/using-enums-api-development/" data-id="ckk8zmeu40069eo9ovlc8b8xr" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2017/12/22/using-enums-api-development/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/clean-code/">clean-code</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/enum/">enum</a></li></ul>
 
     </footer>
   </div>

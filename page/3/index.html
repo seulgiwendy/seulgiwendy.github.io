@@ -52,6 +52,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-java-threadlocal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/java/">java</a>►<a class="article-category-link" href="/categories/java/thread/">thread</a>►<a class="article-category-link" href="/categories/java/thread/concurrent/">concurrent</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/04/java-threadlocal/">ThreadLocal에 대한 짧은 정리</a>
+    </h1>
+  
+
+        <a href="/2018/06/04/java-threadlocal/" class="article-date">
+  <time datetime="2018-06-04T03:05:21.000Z" itemprop="datePublished">2018-06-04</time>
+</a>
+      </header>
+    
+    <div class="article-entry-abstract" itemprop="articleBody">
+      
+        <!--<h3 id="Threadlocal에-대한-짧은-정리"><a href="#Threadlocal에-대한-짧은-정리" class="headerlink" title="Threadlocal에 대한 짧은 정리"></a>Threadlocal에 대한 짧은 정리</h3><p><em>(진짜 짧음 주의)</em></p>
+<p><strong>Thread-safe하다?</strong></p>
+<p>동시성 프로그래밍을 하다 보면 thread-safe, thread-unsafe에 대한 얘기를 하게 된다. </p>
+<p>흔히 멤버 변수가 있는 객체를 thread-unsafe, 멤버 변수가 없는 객체를 thread-safe하다고도 하기도 하고, 혹은 synchronized나 volatile과 같은 키워드를 선언해서 thread-safe함을 보장해 주기도 한다. </p>
+<p>같은 메모리 영역에 보관되어 있는 하나의 객체가 두 개 이상의 스레드에서 한번에 요청될 때, 한 쪽에서 읽기/쓰기 작업이 끝나지도 않았는데 다른 스레드가 객체의 정보를 요청하는 경우가 바로 <strong>thread-unsafe</strong> 한 상황이다. </p>
+<p><strong>Java가 thread-safe를 보장하는 방법</strong></p>
+<p>두 가지 방법이 있다. </p>
+<ul>
+<li><p>Synchronized: 가장 단순한 방법이다. 단순 명쾌하다. <strong>한 스레드의 작업이 끝날때까지 다른 스레드의 진입을 막아주는 것이다.</strong> 메소드, 혹은 변수에 선언할 수 있다. </p>
+</li>
+<li><p>Volatile: 생소한 개념일 수 있다. 조금 복잡하다. <strong>변수의 CPU Cache 복사를 금지하는 키워드다.</strong> 모든 작업은 RAM(혹은 어떤 형태이든지 주기억장치)에서 이뤄져야 한다. Java는 Heap 영역에 객체가 보관되기 때문에 이 경우 객체의 원자성이 보장된다. </p>
+</li>
+</ul>
+<p><img src="http://thswave.github.io/assets/media/0308.jpg" alt="volatile"></p>
+<p>이런 volatile의 작동 방식을 <strong>변수의 가시성을 보장한다</strong> 고도 말할 수 있다. </p>
+<p>말 그대로다. CPU에 꽁쳐놓지 않고 모든 작업을 주기억장치에서 처리하니 어떤 스레드에서도 작업 내용을 투명하게 열람할 수 있는 것이다. </p>
+<p><strong>ThreadLocal의 역할</strong></p>
+<p>다만 inter-thread operability를 보장해주는 위의 두 키워드와는 다르게 만들어진 하나의 스레드 전역에서 공유되어야 할 정보가 있다. </p>
+<p>이런 정보들을 thread-safe하게 구현하려면 복잡성이 수반되는데, 단순히 heap 영역에 보관해 공유하자니 thread-safe함이 무너지고, 그렇다고 매 stack마다 선언하고 해당 stack에서 쓰고 버릴 수도 없는 경우가 있기 때문이다. </p>
+<p>ThreadLocal을 통해 이런 문제점을 해겷할 수 있다. </p>
+<p><img src="http://cfs14.tistory.com/image/36/tistory/2009/02/13/15/44/499516b885314" alt="threadlocal"></p>
+<p>말하자면 로컬 변수를 로컬처럼 쓰지 않게 도와주는 방법이라고 볼 수도 있겠다. </p>
+<p><em>쓰임새?</em></p>
+<p>하나의 스레드가 열린 상태에서 다양한 요청을 처리하고, 또 그에 따른 정보들을 공유해야 하는 상황에 대해 생각해보면 좋을 것 같다. </p>
+<p>가장 쉽게 생각하자면 Spring Security의 <strong>SecurityContextHolder</strong>가 떠오른다. 처음 DispatcherServlet이 (혹은 그 앞의 filter가) 요청을 받았을 때 새로운 스레드가 생성되고, 이때 삽입된 인증 정보는 스레드 내에서 계속 공유되며 AOP 기반 인증 처리, 유저 정보 요청 등의 작동을 수행해야 하기 때문이다. </p>
+<p><em>주의점?</em></p>
+<p>Thread Pool을 통해 thread를 재사용할 경우 한번 쓴 ThreadLocal 객체는 .clear() 를 통해 비워줘야 한다. <strong>그러지 않으면 다음번 해당 스레드가 사용될 때 의도한 작동을 보장할 수 없다.</strong></p>
+-->
+      
+    </div>
+    <footer class="article-footer">
+      <!--<a data-url="https://tech.wheejuni.com/2018/06/04/java-threadlocal/" data-id="ckkklasgh000sn49oc78ofgte" class="article-share-link">공유</a>-->
+      
+        <a href="https://tech.wheejuni.com/2018/06/04/java-threadlocal/#disqus_thread" class="article-comment-link">댓글</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-string" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     
@@ -176,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/05/21/java-string/" data-id="ckk8zmerv003veo9o2toa00kx" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/05/21/java-string/" data-id="ckkklasje004en49o1kkczutj" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/05/21/java-string/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -329,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/05/19/naver-hackday/" data-id="ckk8zmex700ateo9o823fzx09" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/05/19/naver-hackday/" data-id="ckkklasnj00agn49onzt4up2i" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/05/19/naver-hackday/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -425,7 +494,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/05/02/spring-aop-how/" data-id="ckk8zmesl004leo9om74cl606" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/05/02/spring-aop-how/" data-id="ckkklasjt004wn49oo9ns11ub" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/05/02/spring-aop-how/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -568,7 +637,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/19/morningcs-adder/" data-id="ckk8zmepe0011eo9o76cqwwn7" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/19/morningcs-adder/" data-id="ckkklasgp0013n49ofoblgani" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/19/morningcs-adder/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -841,7 +910,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/14/morningcs-bool/" data-id="ckk8zmepj0017eo9o0zd9ll3q" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/14/morningcs-bool/" data-id="ckkklasgt0017n49odoct0cs0" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/14/morningcs-bool/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -970,7 +1039,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/13/morningcs-hash/" data-id="ckk8zmepo001feo9oqtfgo32a" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/13/morningcs-hash/" data-id="ckkklasgq0014n49olz68a2pf" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/13/morningcs-hash/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -1064,7 +1133,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/12/morningcs-rbt/" data-id="ckk8zmepm001ceo9oe2ebw051" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/12/morningcs-rbt/" data-id="ckkklasgv0019n49ohcsi9l9h" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/12/morningcs-rbt/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -1166,7 +1235,7 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/11/morningcs-binarytree/" data-id="ckk8zmepf0012eo9oi7ueze0b" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/11/morningcs-binarytree/" data-id="ckkklasgm000yn49owp73ij41" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/11/morningcs-binarytree/#disqus_thread" class="article-comment-link">댓글</a>
       
@@ -1252,92 +1321,9 @@
       
     </div>
     <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/" data-id="ckk8zmes30042eo9olill9vso" class="article-share-link">공유</a>-->
+      <!--<a data-url="https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/" data-id="ckkklash2001jn49oump1onlq" class="article-share-link">공유</a>-->
       
         <a href="https://tech.wheejuni.com/2018/04/09/morningcs-treetraversal/#disqus_thread" class="article-comment-link">댓글</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-morningcs-duplex" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/network/">network</a>►<a class="article-category-link" href="/categories/network/morning-cs/">morning_cs</a>►<a class="article-category-link" href="/categories/network/morning-cs/duplex/">duplex</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/09/morningcs-duplex/">아침 CS - (1) 이중통신 (Duplex)</a>
-    </h1>
-  
-
-        <a href="/2018/04/09/morningcs-duplex/" class="article-date">
-  <time datetime="2018-04-09T00:13:28.000Z" itemprop="datePublished">2018-04-09</time>
-</a>
-      </header>
-    
-    <div class="article-entry-abstract" itemprop="articleBody">
-      
-        <!--<h3 id="Duplex에-대하여"><a href="#Duplex에-대하여" class="headerlink" title="Duplex에 대하여."></a>Duplex에 대하여.</h3><h4 id="사전적-정의"><a href="#사전적-정의" class="headerlink" title="사전적 정의"></a>사전적 정의</h4><p>이중통신(duplex) 또는 쌍방향 통신은 두 지점 사이에서 정보를 주고 받는 전자 통신 시스템을 말한다.</p>
-<p>이중 통신을 할 때 전송 방향마다 두 개의 통신 선호를 사용하면 단순하지만 전송로를 아끼기 위해 여러 종류의 전송 방식이 쓰인다.</p>
-<h4 id="조작적-정의"><a href="#조작적-정의" class="headerlink" title="조작적 정의"></a>조작적 정의</h4><p><em>전화기와 무전기의 비유</em></p>
-<ul>
-<li><p>전화기: 상대가 떠들 때 나도 떠들 수 있음. </p>
-<ul>
-<li>Full-duplex임. </li>
-<li>애초에 인간의 대화는 한쪽이 떠들 때 듣고만 있으면 성립 안함(군대에선 성립함).</li>
-</ul>
-</li>
-<li><p>무전기 : PTT방식 무전기는 한 사람만 떠들수 있음(두사람이 동시에 Push 하면 혼선 발생). 파워텔 제외임 ㅋㅋㅋㅋ 시바 </p>
-<ul>
-<li>Half-duplex임.</li>
-</ul>
-</li>
-</ul>
-<h4 id="심화"><a href="#심화" class="headerlink" title="심화"></a>심화</h4><p>흔히 컴퓨터 네트워크는 당연히 전이중(full-duplex)라고 생각하기 쉽지만 <strong>과연 그럴까?</strong></p>
-<p>모든 컴퓨터 네트워크가 전이중이라면 stateless니, 3-way handshake니 하는 개념도 창안되지 않았을 것이다. 뭔가 답답한 구석이 있어서 이런 우회적 구현을 한 것이다. </p>
-<p><strong>놀랍게도 우리가 즐겨 사용하는 L2 계층인 이더넷(Ethernet)은 반이중(half-duplex)이다.</strong></p>
-<p><em>(정확히 말하면 아주 제한적인 상황에서만 전이중통신을 지원한다.)</em></p>
-<p>질문 : Ethernet이 반이중이라면, TCP가 전이중일 수 있나요? </p>
-<ul>
-<li><p>먼저 두 개념이 다른 OSI 계층 상에 위치함을 알아야 함</p>
-<ul>
-<li>Ethernet : 데이터링크 계층(L2)</li>
-<li>TCP : 전송 계층 (L4)</li>
-</ul>
-</li>
-<li><p>TCP 프로토콜은 API상으로 full-duplex이며 REQ/RES가 전환될때 통신 재설정이 일어나지 않음</p>
-</li>
-<li><p>단 상위 계층 요소(Ethernet: L2, IP : L3)가 half-duplex인 경우 하위 계층에서 full-duplex를 지원하더라도 이를 사용할 수 없음. </p>
-</li>
-<li><p>이러한 궁금증이 생겼을 때 각 요소가 OSI 피라미드에서 어디에 위치하는지를 살펴보고, 그에 따른 상하관계를 파악하는 것이 중요</p>
-</li>
-</ul>
-<hr>
-<h4 id="참고-문헌"><a href="#참고-문헌" class="headerlink" title="참고 문헌"></a>참고 문헌</h4><ul>
-<li>Stack Overflow: <a href="https://stackoverflow.com/questions/28494850/is-tcp-bidirectional-or-full-duplex" target="_blank" rel="noopener">Is TCP bidirectional or full-duplex?</a></li>
-<li>Stack Exchange: <a href="https://networkengineering.stackexchange.com/questions/7451/how-is-tcp-duplex-if-ethernet-is-half-duplex" target="_blank" rel="noopener">How is TCP duplex if Ethernet is half-duplex?</a></li>
-<li><a href="http://www.m-system.co.jp/korean/mame_k/pdf/20.pdf" target="_blank" rel="noopener">전이중통신과 반이중통신</a></li>
-</ul>
--->
-      
-    </div>
-    <footer class="article-footer">
-      <!--<a data-url="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/" data-id="ckk8zmerk003neo9osx75v90w" class="article-share-link">공유</a>-->
-      
-        <a href="https://tech.wheejuni.com/2018/04/09/morningcs-duplex/#disqus_thread" class="article-comment-link">댓글</a>
       
       
     </footer>
